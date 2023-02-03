@@ -7,6 +7,12 @@ export default function App() {
   
       <Text>Open Here</Text>
        <Text>Open There</Text>
+       <Text>Open There</Text>
+       <Text>Open There</Text>
+       <Text>Open There</Text>
+       <Text>Open There</Text>
+       <Text>Open There</Text>
+       <Text>Open There</Text>
       <StatusBar style="auto" />
     </View>
   );
