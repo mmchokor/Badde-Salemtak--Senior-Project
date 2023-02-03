@@ -5,6 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Text>Rami fet 3al 5at</Text>
     </View>
   );
 }
