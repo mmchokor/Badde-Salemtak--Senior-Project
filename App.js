@@ -10,6 +10,36 @@ export default function App() {
 
        <Text>Open There</Text>
 
+      <Text>Open Here</Text>
+       <Text>Open There</Text>
+
+       <Text>Open There</Text>
+
+       <Text>test pull vs fetch</Text>
+       <Text>test pull vs fetch</Text>
+      <Text>Open Here</Text>
+       <Text>Open There</Text>
+
+      <Text>Open Here</Text>
+       <Text>Open There</Text>
+
+       <Text>Open There</Text>
+
+       <Text>test pull vs fetch</Text>
+      <Text>Open Here</Text>
+       <Text>Open There</Text>
+
+       <Text>Open There</Text>
+
+       <Text>test pull vs fetch</Text>
+      <Text>Open Here</Text>
+       <Text>Open There</Text>
+
+       <Text>Open There</Text>
+
+       <Text>test pull vs fetch</Text>
+       <Text>Open There</Text>
+
        <Text>test pull vs fetch</Text>
 
       <StatusBar style="auto" />
