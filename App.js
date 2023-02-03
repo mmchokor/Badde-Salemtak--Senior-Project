@@ -7,6 +7,7 @@ export default function App() {
   
       <Text>Open Here</Text>
        <Text>Open There</Text>
+       <Text>test pull vs fetch</Text>
       <StatusBar style="auto" />
     </View>
   );
