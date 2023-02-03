@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 
-function HomeResidentScreen() {
+function FavoritesScreen() {
 	return (
 		<View>
-			<Text>Home Resident Screen</Text>
+			<Text>Favorites Screen</Text>
 		</View>
 	);
 }
-export default HomeResidentScreen;
+export default FavoritesScreen;
 
 const styles = StyleSheet.create({});

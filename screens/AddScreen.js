@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 
-function HomeResidentScreen() {
+function AddScreen() {
 	return (
 		<View>
-			<Text>Home Resident Screen</Text>
+			<Text>Add Screen</Text>
 		</View>
 	);
 }
-export default HomeResidentScreen;
+export default AddScreen;
 
 const styles = StyleSheet.create({});
