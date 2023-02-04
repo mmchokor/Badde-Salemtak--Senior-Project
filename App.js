@@ -8,6 +8,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Colors } from "./constants/colors";
+import { SafeAreaView } from "react-navigation";
+import { useState } from "react";
 
 import HomeTravelerScreen from "./screens/HomeTravelerScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
@@ -18,117 +20,128 @@ import ProfileScreen from "./screens/ProfileScreen";
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
+{
+	SafeAreaView.setStatusBarHeight(0);
+}
 function BottomBar() {
-	return (
-		<View style={{ flexDirection: "row", flex: 1 }}>
-			<BottomTabs.Navigator
-				screenOptions={({ navigation }) => ({
-					headerStyle: { backgroundColor: Colors.white },
-					headerTintColor: "black",
-					tabBarStyle: {
-						backgroundColor: Colors.white,
-						height: 48,
-						flexDirection: "row",
-						justifyContent: "center",
-					},
-					tabBarActiveTintColor: Colors.darkGreen,
-				})}
-			>
-				<BottomTabs.Screen
-					name='Home'
-					component={HomeTravelerScreen}
-					options={{
-						title: "",
+	const [search, setSearch] = useState('');
 
-						tabBarIcon: ({ color }) => (
-							<MaterialIcons name='home' size={35} color={color} />
-						),
-						headerRight: () => (
-							<View style={{ flexDirection: "row-reverse" }}>
-								<Feather
-									name='message-circle'
-									size={35}
-									color={Colors.darkGreen}
-									style={{ paddingRight: 5 }}
-								/>
-								<View
-									style={{
-										flexDirection: "row",
-										marginRight: 15,
-										borderColor: Colors.darkGreen,
-										borderWidth: 2,
-										borderRadius: 20,
-										paddingLeft: 18,
-										paddingRight:3,
-									}}
-								>
-									<TextInput style={{backgroundColor:Colors.grayBackground,}} inlineImageLeft='search_icon' />
-									<Ionicons name='search-outline' size={32} color={Colors.darkGreen} />
-								</View>
-							</View>
-						),
-						headerLeft: () => (
-							<Ionicons
-								name='ios-filter'
+	function searchHandler(text) {
+		console.log(search);
+		setSearch(text);
+	}
+	return (
+		<BottomTabs.Navigator
+			screenOptions={({ navigation }) => ({
+				tabBarStyle: {
+					backgroundColor: Colors.white,
+				},
+				tabBarActiveTintColor: Colors.darkGreen,
+			})}
+		>
+			<BottomTabs.Screen
+				name='Home'
+				component={HomeTravelerScreen}
+				options={{
+					title: "",
+
+					tabBarIcon: ({ color }) => (
+						<MaterialIcons name='home' size={35} color={color} />
+					),
+					headerRight: () => (
+						<View style={{ flexDirection: "row-reverse" }}>
+							<Feather
+								name='message-circle'
 								size={35}
 								color={Colors.darkGreen}
-								style={{ paddingLeft: 5 }}
+								style={{ paddingRight: 5 }}
 							/>
-						),
-					}}
-				/>
-				<BottomTabs.Screen
-					name='Favorites'
-					component={FavoritesScreen}
-					options={{
-						title: "",
+							<View
+								style={{
+									flexDirection: "row",
+									marginRight: 10,
+									borderColor: Colors.darkGreen,
+									borderWidth: 2,
+									borderRadius: 20,
+									paddingLeft: 3,
+									width: 110,
+								}}
+							>
+								<Ionicons
+									name='search-outline'
+									size={32}
+									color={Colors.darkGreen}
+								/>
+								<TextInput
+									style={{ borderRadius: 20, flex: 1, paddingRight: 6 }}
+									underlineColorAndroid='transparent'
+									onChangeText={searchHandler}
+									value={search}
+								/>
+							</View>
+						</View>
+					),
+					headerLeft: () => (
+						<Ionicons
+							name='ios-filter'
+							size={35}
+							color={Colors.darkGreen}
+							style={{ paddingLeft: 8 }}
+						/>
+					),
+				}}
+			/>
+			<BottomTabs.Screen
+				name='Favorites'
+				component={FavoritesScreen}
+				options={{
+					title: "",
 
-						tabBarIcon: ({ color, size }) => (
-							<Fontisto name='favorite' size={size} color={color} />
-						),
-					}}
-				/>
-				<BottomTabs.Screen
-					name='Add'
-					component={AddScreen}
-					options={{
-						title: "",
+					tabBarIcon: ({ color, size }) => (
+						<Fontisto name='favorite' size={size} color={color} />
+					),
+				}}
+			/>
+			<BottomTabs.Screen
+				name='Add'
+				component={AddScreen}
+				options={{
+					title: "",
 
-						tabBarIcon: ({ color, size }) => (
-							<Ionicons name='ios-add-circle' size={35} color={color} />
-						),
-					}}
-				/>
-				<BottomTabs.Screen
-					name='Notifications'
-					component={NotificationsScreen}
-					options={{
-						title: "",
+					tabBarIcon: ({ color, size }) => (
+						<Ionicons name='ios-add-circle' size={35} color={color} />
+					),
+				}}
+			/>
+			<BottomTabs.Screen
+				name='Notifications'
+				component={NotificationsScreen}
+				options={{
+					title: "",
 
-						tabBarIcon: ({ color, size }) => (
-							<Ionicons name='notifications' size={30} color={color} />
-						),
-					}}
-				/>
-				<BottomTabs.Screen
-					name='Profile'
-					component={ProfileScreen}
-					options={{
-						title: "",
+					tabBarIcon: ({ color, size }) => (
+						<Ionicons name='notifications' size={30} color={color} />
+					),
+				}}
+			/>
+			<BottomTabs.Screen
+				name='Profile'
+				component={ProfileScreen}
+				options={{
+					title: "",
 
-						tabBarIcon: ({ color, size }) => (
-							<Ionicons name='person' size={size} color={color} />
-						),
-					}}
-				/>
-			</BottomTabs.Navigator>
-		</View>
+					tabBarIcon: ({ color, size }) => (
+						<Ionicons name='person' size={size} color={color} />
+					),
+				}}
+			/>
+		</BottomTabs.Navigator>
 	);
 }
 export default function App() {
 	return (
-		<>
-			<StatusBar style='dark' />
+		<View style={{ flex: 1 }}>
+			<StatusBar barStyle='dark-content' hidden={false} translucent={true} />
 			<NavigationContainer>
 				<Stack.Navigator>
 					<Stack.Screen
@@ -138,15 +151,8 @@ export default function App() {
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>
-		</>
+		</View>
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
+const styles = StyleSheet.create({});
