@@ -8,23 +8,21 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Colors } from "./constants/colors";
-import { SafeAreaView } from "react-navigation";
 import { useState } from "react";
+import { useFonts } from "expo-font";
 
-import HomeTravelerScreen from "./screens/HomeTravelerScreen";
+import HomeScreen from "./screens/HomeScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import AddScreen from "./screens/AddScreen";
 import NotificationsScreen from "./screens/NotificationsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import AppLoading from "expo-app-loading";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
-{
-	SafeAreaView.setStatusBarHeight(0);
-}
-function BottomBar() {
-	const [search, setSearch] = useState('');
+function BottomBar({navigation}) {
+	const [search, setSearch] = useState("");
 
 	function searchHandler(text) {
 		console.log(search);
@@ -41,7 +39,7 @@ function BottomBar() {
 		>
 			<BottomTabs.Screen
 				name='Home'
-				component={HomeTravelerScreen}
+				component={HomeScreen}
 				options={{
 					title: "",
 
@@ -87,6 +85,7 @@ function BottomBar() {
 							size={35}
 							color={Colors.darkGreen}
 							style={{ paddingLeft: 8 }}
+						
 						/>
 					),
 				}}
@@ -139,6 +138,13 @@ function BottomBar() {
 	);
 }
 export default function App() {
+	const [fontsLoaded] = useFonts({
+		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
+		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
+	});
+	if (!fontsLoaded) {
+		return <AppLoading />;
+	}
 	return (
 		<View style={{ flex: 1 }}>
 			<StatusBar barStyle='dark-content' hidden={false} translucent={true} />
@@ -149,6 +155,7 @@ export default function App() {
 						component={BottomBar}
 						options={{ headerShown: false }}
 					/>
+					
 				</Stack.Navigator>
 			</NavigationContainer>
 		</View>
