@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useState, useEffect, useCallback } from "react";
+import LoginScreen from './screens/LoginScreen'
 
 import BottomBar from "./components/layouts/BottomBar";
 import * as SplashScreen from "expo-splash-screen";

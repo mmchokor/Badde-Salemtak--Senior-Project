@@ -5,7 +5,7 @@ import {
   Image,
   Platform,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/colors";
@@ -13,7 +13,7 @@ import Input from "../UI/Input";
 import Button from "../UI/Button";
 import LoginHeader from "./LoginHeader";
 
-const height = Dimensions.get('window').height
+const height = Dimensions.get("window").height;
 
 const Login = () => {
   return (
@@ -32,13 +32,13 @@ const Login = () => {
         <Text style={styles.forgotPass}>Forgot Password?</Text>
 
         {/* <View style={styles.loginContainer}> */}
-          <Button>Log in</Button>
-          <Text style={styles.orWord}>Or</Text>
+        <Button>Log in</Button>
+        <Text style={styles.orWord}>Or</Text>
 
-          <Image
-            style={styles.googleImg}
-            source={require("../../assets/LoginImages/googleLogo.png")}
-          />
+        <Image
+          style={styles.googleImg}
+          source={require("../../assets/LoginImages/googleLogo.png")}
+        />
         {/* </View> */}
         <View style={styles.signInWrapper}>
           <Text style={styles.accountText}>Don't have an account? </Text>
@@ -65,9 +65,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 30,
-   //paddingTop: 50,
-   paddingTop: Platform.OS === 'ios' ? 30 : 20,
-
+    //paddingTop: 50,
+    paddingTop: Platform.OS === "ios" ? 30 : 20,
   },
   forgotPass: {
     alignSelf: "flex-end",
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
   },
   orWord: {
     textAlign: "center",
-    fontFamily: "Inter-Regular",
+    fontFamily: "inter-regular",
     //fontSize: 20,
     fontSize: 16,
     //marginVertical: 15,
@@ -96,19 +95,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     //marginTop: 12,
-    marginTop: Platform.OS === 'ios' ? 30 : height < 700 ? 6 : 12
+    marginTop: Platform.OS === "ios" ? 30 : height < 700 ? 6 : 12,
   },
   accountText: {
-    fontSize: Platform.OS === 'ios' ? 20 : 18,
-    fontFamily: "Inter-Bold",
+    fontSize: Platform.OS === "ios" ? 20 : 18,
+    fontFamily: "inter-bold",
     fontWeight: "bold",
   },
   signupText: {
     color: Colors.darkGreen,
   },
   loginContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

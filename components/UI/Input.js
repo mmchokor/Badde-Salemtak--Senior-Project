@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     //marginTop: 40
   },
   label: {
-    fontFamily: "Inter-Regular",
+    fontFamily: "inter-regular",
     color: Colors.gray,
     fontSize: Platform.OS == 'ios' ? 20 : 16,
     //fontSize: 20

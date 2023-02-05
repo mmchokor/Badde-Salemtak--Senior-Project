@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         //fontSize: 20,
         fontSize: Platform.OS === 'ios' ? 20: 16,
-        fontFamily: 'Inter-Regular'
+        fontFamily: 'inter-regular'
     },
     pressed: {
         opacity: 0.75,
