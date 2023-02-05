@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
-import {useTailwind} from 'tailwind-rn';
+
 //TODO:Check below navigation for editing
 function HomeScreen() {
-	const tailwind = useTailwind();
+
 	const navigation = useNavigation();
 	return (
 		<View style={{ alignItems: "center" }}>
@@ -22,7 +22,7 @@ function HomeScreen() {
 				</View>
 		
 			</View>
-					<Text style={tailwind('text-red-600')}>Karam</Text>
+			
 		</View>
 	);
 }

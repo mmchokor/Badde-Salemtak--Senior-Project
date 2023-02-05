@@ -3,10 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { useState, useEffect, useCallback } from "react";
 
-import AppLoading from "expo-app-loading";
 import BottomBar from "./components/layouts/BottomBar";
-
+import * as SplashScreen from "expo-splash-screen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -14,11 +14,23 @@ export default function App() {
 		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
 		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
 	});
-	if (!fontsLoaded) {
-		return <AppLoading />;
+	const [appIsReady, setAppIsReady] = useState(false);
+
+	useEffect(() => {
+		async function prepare() {
+			SplashScreen.preventAutoHideAsync();
+		}
+		prepare();
+		}, []);
+
+	if(!fontsLoaded){
+		return undefined;
+	}else{
+		SplashScreen.hideAsync();
 	}
+
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1 }} >
 			<StatusBar barStyle='dark-content' hidden={false} translucent={true} />
 			<NavigationContainer>
 				<Stack.Navigator>
@@ -27,7 +39,6 @@ export default function App() {
 						component={BottomBar}
 						options={{ headerShown: false }}
 					/>
-					
 				</Stack.Navigator>
 			</NavigationContainer>
 		</View>
