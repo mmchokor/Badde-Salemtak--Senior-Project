@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback } from "react";
 
 import BottomBar from "./components/layouts/BottomBar";
 import * as SplashScreen from "expo-splash-screen";
+import FavoritesScreen from "./screens/FavoritesScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -38,6 +39,11 @@ export default function App() {
 						name='Homee'
 						component={BottomBar}
 						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name='Fav'
+						component={BottomBar}
+						options={{ headerShown: true }}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>

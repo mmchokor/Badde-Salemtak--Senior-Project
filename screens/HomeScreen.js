@@ -1,58 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { Colors } from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
 
-//TODO:Check below navigation for editing
-function HomeScreen() {
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-	const navigation = useNavigation();
+import TravelerScreen from "./TravelerScreen";
+import ResidentScreen from "./ResidentScreen";
+
+const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+	// const navigation = useNavigation();
+
 	return (
-		<View style={{ alignItems: "center" }}>
-			<View style={styles.upperButton}>
-				<View style={styles.traveler}>
-					<Text style={styles.textT}>Traveler</Text>
-				</View>
-				<View
-					style={styles.resident}
-					onPress={() => navigation.navigate("Fav")}
-				>
-					<Text style={{ color: Colors.white, fontFamily: "inter-regular" }}>
-						Resident
-					</Text>
-				</View>
-		
-			</View>
-			
-		</View>
+		<NavigationContainer independent={true}>
+			<Stack.Navigator screenOptions={{ animation: 'none' }}>
+				<Stack.Screen
+					name='Traveler'
+					component={TravelerScreen}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name='Resident'
+					component={ResidentScreen}
+					options={{ headerShown: false }}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-	upperButton: {
-		margin: 5,
-		width: 180,
-		height: 60,
-		backgroundColor: Colors.darkGreen,
-		borderRadius: 30,
-		alignItems: "center",
-		alignContent: "center",
-		flexDirection: "row",
-		justifyContent: "space-between",
-	},
-	traveler: {
-		backgroundColor: Colors.white,
-		padding: 15,
-		borderRadius: 30,
-		marginLeft: 7,
-	},
-	resident: {
-		//backgroundColor: Colors.white,
-		padding: 15,
-		borderRadius: 30,
-		marginRight: 7,
-	},
-	textT: {
-		fontFamily: "inter-regular",
-	},
-});
+const styles = StyleSheet.create({});
