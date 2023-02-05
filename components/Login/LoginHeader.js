@@ -7,7 +7,6 @@ const height = Dimensions.get('window').height
 
 const LoginHeader = () => {
 
-    console.log(Platform.OS, height)
     
     if (Platform.OS === 'ios') {
         console.log("here")

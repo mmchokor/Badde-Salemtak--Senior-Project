@@ -12,10 +12,18 @@ import { Colors } from "../../constants/colors";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import LoginHeader from "./LoginHeader";
+import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height;
 
 const Login = () => {
+
+  const navigation = useNavigation()
+
+ const LoginHandler = () => {
+    navigation.navigate('Homee')
+ }
+
   return (
     <View
       style={styles.container}
@@ -32,7 +40,7 @@ const Login = () => {
         <Text style={styles.forgotPass}>Forgot Password?</Text>
 
         {/* <View style={styles.loginContainer}> */}
-        <Button>Log in</Button>
+        <Button onPress={LoginHandler}>Log in</Button>
         <Text style={styles.orWord}>Or</Text>
 
         <Image
