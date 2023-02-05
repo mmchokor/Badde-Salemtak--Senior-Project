@@ -8,12 +8,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Colors } from "./constants/colors";
+import { useFonts } from 'expo-font';
 
 import HomeTravelerScreen from "./screens/HomeTravelerScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import AddScreen from "./screens/AddScreen";
 import NotificationsScreen from "./screens/NotificationsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -93,24 +95,30 @@ function BottomBar() {
 	);
 }
 export default function App() {
+	const [fontsLoaded] = useFonts({
+		'Inter-Regular': require('./fonts/Inter-Regular.ttf'),
+		'Inter-Bold': require('./fonts/Inter-Bold.ttf'),
+		'Inter-ExtraBold': require('./fonts/Inter-ExtraBold.ttf'),
+	  })
+
+	  if(!fontsLoaded) {
+		return null
+	  }
 	return (
 		<NavigationContainer>
+			<StatusBar style="light"/>
 			<Stack.Navigator>
-				<Stack.Screen
+				{/* <Stack.Screen
 					name='Homee'
 					component={BottomBar}
 					options={{ headerShown: false }}
-				/>
+				/> */}
+				<Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
+	
 });
