@@ -4,6 +4,7 @@ function ResidentScreen({ navigation }) {
 	function PressEventHandler() {
 		navigation.navigate("Traveler");
 	}
+
 	return (
 		<View style={{ alignItems: "center" }}>
 			<View style={{ }}>
