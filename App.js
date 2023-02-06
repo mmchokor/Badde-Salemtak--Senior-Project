@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useState, useEffect, useCallback } from "react";
-import LoginScreen from './screens/LoginScreen'
+import LoginScreen from "./screens/LoginScreen";
 
 import BottomBar from "./components/layouts/BottomBar";
 import * as SplashScreen from "expo-splash-screen";
@@ -15,41 +15,46 @@ export default function App() {
 	const [fontsLoaded] = useFonts({
 		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
 		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
+	"inter-light":require("./assets/fonts/Inter-Light.ttf"),
+	"inter-medium":require("./assets/fonts/Inter-Medium.ttf"),
 	});
-	const [appIsReady, setAppIsReady] = useState(false);
 
 	useEffect(() => {
 		async function prepare() {
 			SplashScreen.preventAutoHideAsync();
 		}
 		prepare();
-		}, []);
+	}, []);
 
-	if(!fontsLoaded){
+	if (!fontsLoaded) {
 		return undefined;
-	}else{
+	} else {
 		SplashScreen.hideAsync();
 	}
 
 	return (
-		<View style={{ flex: 1 }} >
-			<StatusBar barStyle='dark-content' hidden={false} translucent={true} />
+		<View style={{ flex: 1 }}>
+			<StatusBar style="dark" hidden={false} translucent={true} />
 			<NavigationContainer>
-			<StatusBar style="light"/>
+				<StatusBar style='light' />
 				<Stack.Navigator>
-				<Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
+					<Stack.Screen
+						name='Login'
+						component={LoginScreen}
+						options={{ headerShown: false,
+							 }}
+					/>
 					<Stack.Screen
 						name='Homee'
 						component={BottomBar}
 						options={{ headerShown: false }}
-					/> 
-				 
+					/>
+
 					<Stack.Screen
 						name='Fav'
 						component={BottomBar}
 						options={{ headerShown: true }}
 					/>
-					
 				</Stack.Navigator>
 			</NavigationContainer>
 		</View>

@@ -25,6 +25,7 @@ function BottomBar({ navigation }) {
             tabBarStyle: {
                backgroundColor: Colors.white,
             },
+              tabBarLabel:() => {return null},
             tabBarActiveTintColor: Colors.darkGreen,
          })}
       >
@@ -122,9 +123,13 @@ function BottomBar({ navigation }) {
             component={ProfileScreen}
             options={{
                title: '',
-
+               headerTitle:'Profile',
+               
+               headerTitleAlign:'center',
                tabBarIcon: ({ color, size }) => (
                   <Ionicons name='person' size={size} color={color} />
+               ), headerRight: () => (
+                 <Text></Text>
                ),
             }}
          />
