@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View,StatusBar } from 'react-native'
 import React from 'react'
 import Login from '../components/Login/Login'
 import { Colors } from '../constants/colors'
@@ -6,6 +6,7 @@ import { Colors } from '../constants/colors'
 const LoginScreen = () => {
   return (
     <View style={styles.wrapper}>
+   
         <Login />
     </View>
     

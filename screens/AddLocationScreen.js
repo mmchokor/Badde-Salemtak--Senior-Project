@@ -1,36 +1,35 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, TextInput, View,Pressable } from "react-native";
+
 import { Colors } from "../constants/colors";
 
-
-
-function ResidentScreen({ navigation }) {
+function AddLocationScreen({ navigation }) {
 	function PressEventHandler() {
-		navigation.navigate("Traveler");
+		navigation.navigate("Item");
 	}
-
 	return (
 		<View style={{ alignItems: "center" }}>
 			<View style={styles.upperButton}>
 				<Pressable onPress={PressEventHandler}>
 					<View style={styles.traveler}>
-						<Text style={styles.textT}>Traveler</Text>
+						<Text style={styles.textT}>Add Item</Text>
 					</View>
 				</Pressable>
 				<View style={styles.resident}>
-					<Text style={styles.textR}>Resident</Text>
+					<Text style={styles.textR}>Add Location</Text>
 				</View>
 			</View>
-			<Text>ResidentScreen</Text>
+			<Text>Location Screen</Text>
 		</View>
 	);
 }
-export default ResidentScreen;
+
+export default AddLocationScreen;
 
 const styles = StyleSheet.create({
 	upperButton: {
 		margin: 5,
-		width: 190,
-		height: 60,
+		width: 200,
+		height: 45,
 		backgroundColor: Colors.darkGreen,
 		borderRadius: 30,
 		alignItems: "center",
@@ -38,16 +37,15 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 	},
-
 	traveler: {
-		padding: 15,
+		padding: 5,
 		borderRadius: 30,
 		marginLeft: 7,
 		color: Colors.white,
 	},
 	resident: {
 		backgroundColor: Colors.white,
-		padding: 15,
+		padding: 5,
 		borderRadius: 30,
 		marginRight: 7,
 	},

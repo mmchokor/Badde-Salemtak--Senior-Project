@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
+
 import { Colors } from "../constants/colors";
 function TravelerScreen({ navigation }) {
 	function PressEventHandler() {
@@ -16,9 +17,9 @@ function TravelerScreen({ navigation }) {
 					</View>
 				</Pressable>
 			</View>
-            <View>
-                <Text>TravelerScreen</Text>
-            </View>
+			<View>
+				<Text>TravelerScreen</Text>
+			</View>
 		</View>
 	);
 }
