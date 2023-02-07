@@ -5,6 +5,7 @@ import { RadioButton, ThemeProvider } from "react-native-paper";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../UI/ButtonProfile";
+import { ScrollView } from "react-native-gesture-handler";
 
 function ProfileComponent() {
 	const navigation = useNavigation();
@@ -14,7 +15,7 @@ function ProfileComponent() {
 	const [checked, setChecked] = useState("National ID");
 
 	return (
-		<View style={styles.container}>
+		<ScrollView style={styles.container}>
 			<View style={styles.profilePicContainer}>
 				<View style={styles.profilePic}>
 					<Ionicons
@@ -140,7 +141,7 @@ function ProfileComponent() {
 				<Button>Edit Profile</Button>
 				<Button onPress={LogoutNavigationHandler}>Logout</Button>
 			</View>
-		</View>
+		</ScrollView>
 	);
 }
 export default ProfileComponent;
