@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useState, useEffect, useCallback } from "react";
+import { Colors } from "./constants/colors";
 import LoginScreen from "./screens/LoginScreen";
 
 import BottomBar from "./components/layouts/BottomBar";
@@ -34,22 +35,24 @@ export default function App() {
     SplashScreen.hideAsync();
   }
 
-  return (
-    <View style={{ flex: 1 }}>
-      <StatusBar style="dark" hidden={false} translucent={true} />
-      <NavigationContainer>
-        <StatusBar style="light" />
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Homee"
-            component={BottomBar}
-            options={{ headerShown: false }}
-          />
+	return (
+		<View style={{ flex: 1 }}>
+			<StatusBar style="dark" hidden={false} translucent={true} />
+			{/* <StatusBar animated={true} style="auto"  /> */}
+			<NavigationContainer>
+				<StatusBar style='light' />
+				<Stack.Navigator>
+					<Stack.Screen
+						name='Login'
+						component={LoginScreen}
+						options={{ headerShown: false,
+							 }}
+					/>
+					<Stack.Screen
+						name='Homee'
+						component={BottomBar}
+						options={{ headerShown: false }}
+					/>
 
           <Stack.Screen
             name="Fav"
