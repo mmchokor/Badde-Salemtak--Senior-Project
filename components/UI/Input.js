@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { Colors } from "../../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const Input = ({ label }) => {
+const Input = ({ label, customStyle, placeholder, isNumberPad }) => {
   const [passIsVisible, setPassIsVisible] = useState(true);
 
   let passTextInput;
 
-  if (label === "Password") {
+  if (label.includes("Password")) {
     passTextInput = (
       <View>
         <TextInput style={styles.input} secureTextEntry={!passIsVisible ? false: true}></TextInput>
@@ -36,13 +36,13 @@ const Input = ({ label }) => {
       </View>
     );
   } else {
-    passTextInput = <TextInput style={styles.input}></TextInput>;
+    passTextInput = <TextInput keyboardType={isNumberPad && 'number-pad'} placeholder={placeholder} style={styles.input}></TextInput>;
   }
 
   
 
   return (
-    <View style={styles.inputWrapper}>
+    <View style={[styles.inputWrapper, customStyle]}>
       <Text style={styles.label}>{label}</Text>
       {/* {label} */}
       {/* <TextInput style={styles.input} secureTextEntry = {label === 'Password' ? true : false}></TextInput> */}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderColor: Colors.gray,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 20, //was 10
   },
   pressed: {
     opacity: 0.75,

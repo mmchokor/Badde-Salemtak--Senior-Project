@@ -21,7 +21,7 @@ export default Button;
 const styles = StyleSheet.create({
     container: {
         width: '50%',
-        alignSelf:'center'
+        alignSelf:'center',
     },
     wrapper: {
         //marginTop: 30,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.darkGreen,
         //padding: 16,
         padding: Platform.OS === 'ios' ? 16 : 12,
-        borderRadius: 28,
+        borderRadius: 28, // was 28 // or 10
     },
     text: {
         color: Colors.white,

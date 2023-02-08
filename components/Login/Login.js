@@ -13,17 +13,20 @@ import Input from "../UI/Input";
 import Button from "../UI/Button";
 import LoginHeader from "./LoginHeader";
 import { useNavigation } from "@react-navigation/native";
+import CredentialWrapper from "../UI/CredentialWrapper";
 
 const height = Dimensions.get("window").height;
 
 const Login = () => {
+  const navigation = useNavigation();
 
-  const navigation = useNavigation()
+  const LoginHandler = () => {
+    navigation.navigate("Homee");
+  };
 
- const LoginHandler = () => {
-    navigation.navigate('Homee')
- }
-
+  const signUpBtnPressedHandler = () => {
+    navigation.navigate("signup");
+  };
   return (
     <View
       style={styles.container}
@@ -33,7 +36,8 @@ const Login = () => {
       <LoginHeader />
 
       {/* scroll view */}
-      <View style={styles.credentialWrapper}>
+      {/* <View style={styles.credentialWrapper}> */}
+      <CredentialWrapper>
         <Input label="Email" />
         <Input label="Password" />
 
@@ -50,9 +54,15 @@ const Login = () => {
         {/* </View> */}
         <View style={styles.signInWrapper}>
           <Text style={styles.accountText}>Don't have an account? </Text>
-          <Text style={[styles.accountText, styles.signupText]}>Sign up!</Text>
+          <Text
+            onPress={signUpBtnPressedHandler}
+            style={[styles.accountText, styles.signupText]}
+          >
+            Sign up!
+          </Text>
         </View>
-      </View>
+        </CredentialWrapper>
+      {/* </View> */}
     </View>
   );
 };

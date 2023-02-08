@@ -9,56 +9,67 @@ import LoginScreen from "./screens/LoginScreen";
 import BottomBar from "./components/layouts/BottomBar";
 import * as SplashScreen from "expo-splash-screen";
 import FavoritesScreen from "./screens/FavoritesScreen";
+import SignupScreen from "./screens/SignupScreen";
+import SignupDetailsScreen from "./screens/SignUpDetailsScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-	const [fontsLoaded] = useFonts({
-		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
-		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
-	"inter-light":require("./assets/fonts/Inter-Light.ttf"),
-	"inter-medium":require("./assets/fonts/Inter-Medium.ttf"),
-	});
+  const [fontsLoaded] = useFonts({
+    "inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
+    "inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
+    "inter-light": require("./assets/fonts/Inter-Light.ttf"),
+    "inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
+  });
 
-	useEffect(() => {
-		async function prepare() {
-			SplashScreen.preventAutoHideAsync();
-		}
-		prepare();
-	}, []);
+  useEffect(() => {
+    async function prepare() {
+      SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
 
-	if (!fontsLoaded) {
-		return undefined;
-	} else {
-		SplashScreen.hideAsync();
-	}
+  if (!fontsLoaded) {
+    return undefined;
+  } else {
+    SplashScreen.hideAsync();
+  }
 
-	return (
-		<View style={{ flex: 1 }}>
-			<StatusBar style="dark" hidden={false} translucent={true} />
-			<NavigationContainer>
-				<StatusBar style='light' />
-				<Stack.Navigator>
-					<Stack.Screen
-						name='Login'
-						component={LoginScreen}
-						options={{ headerShown: false,
-							 }}
-					/>
-					<Stack.Screen
-						name='Homee'
-						component={BottomBar}
-						options={{ headerShown: false }}
-					/>
+  return (
+    <View style={{ flex: 1 }}>
+      <StatusBar style="dark" hidden={false} translucent={true} />
+      <NavigationContainer>
+        <StatusBar style="light" />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Homee"
+            component={BottomBar}
+            options={{ headerShown: false }}
+          />
 
-					<Stack.Screen
-						name='Fav'
-						component={BottomBar}
-						options={{ headerShown: true }}
-					/>
-				</Stack.Navigator>
-			</NavigationContainer>
-		</View>
-	);
+          <Stack.Screen
+            name="Fav"
+            component={BottomBar}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="signup"
+            component={SignupScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="signupDetails"
+            component={SignupDetailsScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({});

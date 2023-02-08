@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, StatusBar } from "react-native";
 import { Colors } from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,6 +15,7 @@ function HomeScreen() {
 
 	return (
 		<NavigationContainer independent={true}>
+			<StatusBar style='dark'  />
 			<Stack.Navigator screenOptions={{ animation: 'none' }}>
 				<Stack.Screen
 					name='Traveler'
