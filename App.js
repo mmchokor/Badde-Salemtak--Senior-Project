@@ -12,6 +12,7 @@ import * as SplashScreen from "expo-splash-screen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import SignupScreen from "./screens/SignupScreen";
 import SignupDetailsScreen from "./screens/SignUpDetailsScreen";
+import OTPScreen from "./screens/OTPScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -41,7 +42,8 @@ export default function App() {
 			{/* <StatusBar animated={true} style="auto"  /> */}
 			<NavigationContainer>
 				<StatusBar style='light' />
-				<Stack.Navigator>
+        {/* initialRouteName="signup" */}
+				<Stack.Navigator >
 					<Stack.Screen
 						name='Login'
 						component={LoginScreen}
@@ -67,6 +69,11 @@ export default function App() {
           <Stack.Screen
             name="signupDetails"
             component={SignupDetailsScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="otpScreen"
+            component={OTPScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

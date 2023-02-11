@@ -1,7 +1,14 @@
-import { Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
+
+const height = Dimensions.get('window').height
+
+//my phone height is 755
+// iphone 14 height is 844
+//emulator is 683
+
 
 const Input = ({ label, customStyle, placeholder, isNumberPad }) => {
   const [passIsVisible, setPassIsVisible] = useState(true);
@@ -66,7 +73,9 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   input: {
-    padding: Platform.OS === "android" ? 10 : 15,
+    //padding: Platform.OS === "android" ? 10 : 15,
+    //padding: 7,
+    padding: height < 800 ? 7 : 12,
     marginBottom: 15,
     borderColor: Colors.gray,
     borderWidth: 1,
