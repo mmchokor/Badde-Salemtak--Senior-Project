@@ -1,10 +1,25 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useQuery } from "react-query";
 
 import { Colors } from "../constants/colors";
 function TravelerScreen({ navigation }) {
+	// You can remove this function it is only for testing purposes
+	// use react query to fetch data from a dummy api
+	const { status, data, error, isLoading } = useQuery("posts", () =>
+		fetch("https://jsonplaceholder.typicode.com/posts").then((res) =>
+			res.json()
+		)
+	);
+
 	function PressEventHandler() {
 		navigation.navigate("Resident");
 	}
+
+	// you can remove this if statement it is only for testing purposes
+	if (isLoading) {
+		return <Text>Loading...</Text>;
+	}
+
 	return (
 		<View style={{ alignItems: "center" }}>
 			<View style={styles.upperButton}>
@@ -19,6 +34,11 @@ function TravelerScreen({ navigation }) {
 			</View>
 			<View>
 				<Text>TravelerScreen</Text>
+				{/* you can remove this map it is only for testing */}
+				{/* map through the data fro the api */}
+				{data.map((post) => (
+					<Text key={post.id}>{post.title}</Text>
+				))}
 			</View>
 		</View>
 	);
