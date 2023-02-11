@@ -42,14 +42,13 @@ export default function App() {
 			{/* <StatusBar animated={true} style="auto"  /> */}
 			<NavigationContainer>
 				<StatusBar style='light' />
-        {/* initialRouteName="signup" */}
-				<Stack.Navigator >
-					<Stack.Screen
+				<Stack.Navigator>
+					{/* <Stack.Screen
 						name='Login'
 						component={LoginScreen}
 						options={{ headerShown: false,
 							 }}
-					/>
+					/> */}
 					<Stack.Screen
 						name='Homee'
 						component={BottomBar}
