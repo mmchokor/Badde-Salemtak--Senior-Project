@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { RadioButton, ThemeProvider } from "react-native-paper";
+import { RadioButton } from "react-native-paper";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../UI/ButtonProfile";

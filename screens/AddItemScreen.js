@@ -2,7 +2,9 @@ import { StyleSheet, Text, TextInput, View, Pressable } from "react-native";
 import { Colors } from "../constants/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
-import BorderStyle from "../components/UI/BorderStyle";
+import BorderStyle from "../components/AddItemsLocations/BorderStyle";
+import ItemType from "../components/AddItemsLocations/ItemType";
+import InputBorderStyle from "../components/AddItemsLocations/InputBorderStyle";
 function AddItemScreen({ navigation }) {
 	function PressEventHandler() {
 		navigation.navigate("Location");
@@ -16,13 +18,13 @@ function AddItemScreen({ navigation }) {
 					</View>
 					<Pressable onPress={PressEventHandler}>
 						<View style={styles.location}>
-							<Text style={styles.textL}>Add Location</Text>
+							<Text style={styles.textLocation}>Add Location</Text>
 						</View>
 					</Pressable>
 				</View>
 			</View>
 			<ScrollView>
-				<View style={{ flex: 1, paddingHorizontal: 30 }}>
+				<View style={{ flex: 1, paddingHorizontal: 30, marginBottom: 80 }}>
 					<Text style={styles.textHead}>Item Name*</Text>
 					<TextInput placeholder='iphone 13 pro max' style={styles.inputT} />
 					<Text style={styles.textHead}>Price</Text>
@@ -83,51 +85,38 @@ function AddItemScreen({ navigation }) {
 
 					{/* Type */}
 					<View>
-						<Text style={styles.textHead}>Type</Text>
-						<View
-							style={{
-								flexWrap: "wrap",
-								alignItems: "center",
-								justifyContent: "space-between",
-								flexDirection: "row",
-							}}
-						>
-							<View
-								style={{
-									width: 20,
-									height: 20,
-									backgroundColor: Colors.black,
-									margin: 10,
-								}}
-							></View>
-						</View>
+						<Text style={[styles.textHead, { marginBottom: 6 }]}>Type</Text>
+						<ItemType />
 					</View>
 
 					{/* More Details,Location */}
 					<View>
 						<Text style={styles.textHead}>More Details</Text>
-						<TextInput placeholder='more details' style={{ borderWidth: 1 }} />
+						<InputBorderStyle />
 						<Text style={styles.textHead}>Location</Text>
-						<Text>Address*</Text>
-						<TextInput placeholder='address' style={{ borderWidth: 1 }} />
-						<Text>Street Name*</Text>
-						<TextInput placeholder='street name' style={{ borderWidth: 1 }} />
-						<View style={{ flexDirection: "row", alignItems: "center" }}>
+						<Text style={styles.textL}>Address*</Text>
+						<InputBorderStyle />
+						<Text style={styles.textL}>Street Name*</Text>
+						<InputBorderStyle />
+						<View
+							style={{
+								flexDirection: "row",
+								alignItems: "center",
+								justifyContent: "space-between",
+							}}
+						>
 							<View>
-								<Text>Building*</Text>
-								<TextInput placeholder='building' style={{ borderWidth: 1 }} />
+								<Text style={[styles.textL, { width: 250 }]}>Building*</Text>
+								<InputBorderStyle />
 							</View>
-							<View>
-								<Text>Floor</Text>
-								<TextInput placeholder='floor' style={{ borderWidth: 1 }} />
+							<View style={{}}>
+								<Text style={[styles.textL, { width: 60 }]}>Floor</Text>
+								<InputBorderStyle keyboardType="number-pad" maxLength={4}/>
 							</View>
 						</View>
-						<Text>Additional Description</Text>
-						<TextInput
-							placeholder='additional description'
-							style={{ borderWidth: 1 }}
-						/>
-						<Text>Preferred Payment Method</Text>
+						<Text style={styles.textL}>Additional Description</Text>
+						<InputBorderStyle />
+						<Text style={styles.textHead}>Preferred Payment Method</Text>
 						<View></View>
 					</View>
 				</View>
@@ -167,7 +156,7 @@ const styles = StyleSheet.create({
 		fontFamily: "inter-regular",
 		color: Colors.black,
 	},
-	textL: {
+	textLocation: {
 		color: Colors.white,
 		fontFamily: "inter-regular",
 	},
@@ -183,5 +172,9 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		borderBottomWidth: 0.5,
 		borderBottomColor: Colors.gray,
+	},
+	textL: {
+		color: Colors.darkGreen,
+		fontFamily: "inter-light",
 	},
 });
