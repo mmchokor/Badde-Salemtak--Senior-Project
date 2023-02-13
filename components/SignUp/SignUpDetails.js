@@ -1,56 +1,58 @@
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View, Platform } from "react-native";
 import React from "react";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
-import MyText from "../UI/MyText";
 import { StatusBar } from "expo-status-bar";
-import { Colors } from "../../constants/colors";
+import { useNavigation } from "@react-navigation/native";
+import CredentialWrapper from "../UI/CredentialWrapper";
 import { SimpleLineIcons } from "@expo/vector-icons";
 
+// iphone 14 height 844
+// android simulator height 683
+
 const SignUpDetails = () => {
+  const navigation = useNavigation();
+
+  const signUpHandler = () => {
+    navigation.navigate('otpScreen')
+  }
+
   return (
-    <View style={styles.container}>
-      <StatusBar status="dark"></StatusBar>
-      <View style={styles.headerContainer}>
-        <MyText style={styles.header}>Create an account</MyText>
+    <CredentialWrapper style={styles.wrapper}>
+      <View style={styles.container}>
+        <StatusBar status="dark"></StatusBar>
+        <Input label="First Name"></Input>
+        <Input label="Last Name"></Input>
+        <Input label="Country"></Input>
+        <Input label="Phone Number" isNumberPad={true} placeholder="+961 123 456"></Input>
+
+        <Button onPress={signUpHandler}>
+          Sign up!{" "}
+          <SimpleLineIcons
+            name="login"
+            size={Platform.OS === "ios" ? 20 : 16}
+            color="white"
+          />
+        </Button>
       </View>
-      <Input label="First Name"></Input>
-      <Input label="Last Name"></Input>
-      <Input label="Country"></Input>
-      <Input label="Phone Number" isNumberPad={true} placeholder="+961 123 456"></Input>
-      <Button>
-        Sign up!{" "}
-        <SimpleLineIcons
-          name="login"
-          size={Platform.OS === "ios" ? 20 : 16}
-          color="white"
-        />
-      </Button>
-    </View>
+    </CredentialWrapper>
   );
 };
 
 export default SignUpDetails;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    marginTop: 20,
+  },
   container: {
     flex: 1,
-    marginHorizontal: 20,
   },
   nameContainer: {
     flexDirection: "row",
   },
   nameInput: {
     flex: 1,
-  },
-  header: {
-    textAlign: "center",
-    fontSize: 22,
-    fontWeight: "bold",
-  },
-  headerContainer: {
-    marginTop: Platform.OS === "android" ? 80 : 100,
-    marginBottom: 20,
   },
   googleImg: {
     height: 50, //was 75
