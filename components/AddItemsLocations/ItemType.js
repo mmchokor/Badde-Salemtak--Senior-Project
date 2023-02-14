@@ -1,13 +1,10 @@
 import {
 	View,
 	StyleSheet,
-	Alert,
 	TouchableOpacity,
-	Text,
-	Pressable,
+	
 } from "react-native";
 import { useState } from "react";
-import { Colors } from "../../constants/colors";
 import ButtonItemType from "./ButtonItemType";
 function ItemType() {
 	const types = [
@@ -61,13 +58,6 @@ const styles = StyleSheet.create({
 	selectedOptionContainer: {
 		opacity:0.4
 	},
-	selectedRadioButton: {
-		width: 10,
-		height: 10,
 
-		backgroundColor: "black",
-	},
-	optionText: {
-		fontSize: 16,
-	},
+
 });
