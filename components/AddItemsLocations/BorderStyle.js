@@ -13,5 +13,6 @@ const styles = StyleSheet.create({
 		padding: 4,
 		elevation: 3,
 		backgroundColor: Colors.white,
+		
 	},
 });

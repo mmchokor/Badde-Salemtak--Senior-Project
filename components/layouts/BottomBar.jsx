@@ -21,6 +21,7 @@ function BottomBar({ navigation }) {
 	}
 	return (
 		<BottomTabs.Navigator
+		
 			screenOptions={({ navigation }) => ({
 				tabBarStyle: {
 					backgroundColor: Colors.white,
@@ -29,6 +30,7 @@ function BottomBar({ navigation }) {
 					return null;
 				},
 				tabBarActiveTintColor: Colors.darkGreen,
+				tabBarHideOnKeyboard: true
 			})}
 		>
 			<BottomTabs.Screen
