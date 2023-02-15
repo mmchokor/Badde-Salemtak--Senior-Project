@@ -43,51 +43,8 @@ function BottomBar({ navigation }) {
 					tabBarIcon: ({ color }) => (
 						<MaterialIcons name='home' size={35} color={color} />
 					),
-					headerRight: () => (
-						<View style={{ flexDirection: "row-reverse" }}>
-							<Feather
-								name='message-circle'
-								size={35}
-								color={Colors.darkGreen}
-								style={{ paddingRight: 5 }}
-							/>
-							<View
-								style={{
-									flexDirection: "row",
-									marginRight: 10,
-									borderColor: Colors.darkGreen,
-									borderWidth: 2,
-									borderRadius: 20,
-									paddingLeft: 3,
-									width: 110,
-								}}
-							>
-								<Ionicons
-									name='search-outline'
-									size={32}
-									color={Colors.darkGreen}
-								/>
-								<TextInput
-									style={{
-										borderRadius: 20,
-										flex: 1,
-										paddingRight: 6,
-									}}
-									underlineColorAndroid='transparent'
-									onChangeText={searchHandler}
-									value={search}
-								/>
-							</View>
-						</View>
-					),
-					headerLeft: () => (
-						<Ionicons
-							name='ios-filter'
-							size={35}
-							color={Colors.darkGreen}
-							style={{ paddingLeft: 8 }}
-						/>
-					),
+					
+					
 					headerShown:false
 				}}
 			/>

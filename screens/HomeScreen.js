@@ -140,11 +140,7 @@ function HomeScreen() {
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
-		// <View>
-		// 	<TravelerScreen/>
-		// 	<ResidentScreen/>
-		// 	<ItemDetailsScreen/>
-		// </View>
+	
 	);
 }
 export default HomeScreen;
