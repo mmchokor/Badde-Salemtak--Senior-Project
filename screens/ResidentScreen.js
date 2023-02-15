@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { Colors } from "../constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 
-
-function ResidentScreen({ navigation }) {
+function ResidentScreen() {
+	const navigation=useNavigation();
 	function PressEventHandler() {
 		navigation.navigate("Traveler");
 	}

@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "react-query";
 import ListingList from "../components/Item/ListingList.js";
-
+import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../constants/colors";
-function TravelerScreen({ navigation }) {
+function TravelerScreen() {
   // You can remove this function it is only for testing purposes
   // use react query to fetch data from a dummy api
   const { status, data, error, isLoading } = useQuery("posts", () =>
@@ -11,9 +11,13 @@ function TravelerScreen({ navigation }) {
       res.json()
     )
   );
+const navigation=useNavigation();
 
   function PressEventHandler() {
     navigation.navigate("Resident");
+  }
+  function navigateToItemDetails(){
+    navigation.navigate("ItemDetails");
   }
 
   // you can remove this if statement it is only for testing purposes
@@ -35,7 +39,7 @@ function TravelerScreen({ navigation }) {
           </Pressable>
         </View>
       </View>
-      <ListingList />
+      <ListingList onPress={navigateToItemDetails}/>
     </View>
   );
 }

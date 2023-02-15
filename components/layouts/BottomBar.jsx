@@ -36,6 +36,7 @@ function BottomBar({ navigation }) {
 			<BottomTabs.Screen
 				name='Home'
 				component={HomeScreen}
+				
 				options={{
 					title: "",
 
@@ -87,6 +88,7 @@ function BottomBar({ navigation }) {
 							style={{ paddingLeft: 8 }}
 						/>
 					),
+					headerShown:false
 				}}
 			/>
 			<BottomTabs.Screen

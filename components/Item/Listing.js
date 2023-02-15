@@ -24,12 +24,14 @@ const Listing = ({
   username,
   imageSrc,
   timePosted,
+  onPress
 }) => {
   return (
     <Pressable
       style={({ pressed }) =>
         pressed ? [styles.pressed, styles.wrapper] : styles.wrapper
       }
+      onPress={onPress}
     >
       {/* <ListingOptions /> */}
       <View style={styles.contentWrapper}>

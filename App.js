@@ -16,7 +16,9 @@ import LoginScreen from './screens/LoginScreen'
 import OTPScreen from './screens/OTPScreen'
 import SignupDetailsScreen from './screens/SignUpDetailsScreen'
 import SignupScreen from './screens/SignupScreen'
-
+import TravelerScreen from "./screens/TravelerScreen";
+import ResidentScreen from "./screens/ResidentScreen";
+import ItemDetailsScreen from "./screens/ItemDetailsScreen";
 // Creating a query client for React Query
 const queryClient = new QueryClient()
 // Creating a stack navigator
@@ -82,6 +84,7 @@ export default function App() {
                      component={OTPScreen}
                      options={{ headerShown: false }}
                   />
+                 
                </Stack.Navigator>
             </NavigationContainer>
          </View>

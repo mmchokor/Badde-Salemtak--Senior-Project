@@ -3,15 +3,17 @@ import React from "react";
 import Listing from "./Listing";
 import { DUMMY_DATA } from "../../constants/DUMMY_DATA";
 
-const ListingList = () => {
+const ListingList = ({onPress}) => {
   return (
     <View style={styles.wrapper}>
       <FlatList
+    
         showsVerticalScrollIndicator={false}
         data={DUMMY_DATA}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Listing
+          onPress={onPress}
             id={item.id}
             title={item.title}
             location={item.location}
