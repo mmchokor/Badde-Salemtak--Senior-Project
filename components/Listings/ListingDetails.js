@@ -44,7 +44,7 @@ const ListingDetails = ({ location, rating, type, price }) => {
           )}
           {type}
         </MyText>
-        <MyText style={[styles.detail, styles.price]}>${price}</MyText>
+        <MyText style={[styles.detail, styles.price]}>$ {price}</MyText>
       </View>
     </View>
   );
