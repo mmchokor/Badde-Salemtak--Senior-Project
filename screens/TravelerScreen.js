@@ -16,9 +16,9 @@ const navigation=useNavigation();
   function PressEventHandler() {
     navigation.navigate("Resident");
   }
-  function navigateToItemDetails(){
-    navigation.navigate("ItemDetails");
-  }
+  // function navigateToItemDetails(){
+  //   navigation.navigate("ItemDetails",{id:""});
+  // }
 
   // you can remove this if statement it is only for testing purposes
   if (isLoading) {
@@ -39,7 +39,7 @@ const navigation=useNavigation();
           </Pressable>
         </View>
       </View>
-      <ListingList onPress={navigateToItemDetails}/>
+      <ListingList/>
     </View>
   );
 }

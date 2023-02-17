@@ -1,4 +1,4 @@
-import BorderStyle from "./BorderStyle";
+
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../constants/colors";
 import { useState } from "react";

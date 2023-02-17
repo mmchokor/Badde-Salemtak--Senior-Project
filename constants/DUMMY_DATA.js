@@ -1,14 +1,18 @@
 export const DUMMY_DATA = [
 	{
 		id: "u1",
-		title: "Panadol Extra and the blue one",
+		title: "Panadol Extra",
 		location: "Beirut",
 		rating: 4.5,
 		type: "Food",
 		price: "15",
+		quantity:"1",
+		weight:"0.5",
 		username: "Rami",
 		imageSrc: require(`../assets/ItemImages/Panadol.png.webp`),
 		timePosted: "12 hours ago",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		prefPayment:"cre"
 	},
 	{
 		id: "u2",
@@ -17,9 +21,13 @@ export const DUMMY_DATA = [
 		rating: 1.2,
 		type: "Accessories",
 		price: "15",
+		quantity:"2",
+		weight:"0.25",
 		username: "Chokor",
 		imageSrc: require(`../assets/ItemImages/takis.jpeg`),
 		timePosted: "12 hours ago",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		prefPayment:"wes"
 	},
 	{
 		id: "u3",
@@ -28,9 +36,13 @@ export const DUMMY_DATA = [
 		rating: 4.5,
 		type: "Electronics",
 		price: "1000",
+		quantity:"1",
+		weight:"3",
 		username: "Nabil",
 		imageSrc: require(`../assets/ItemImages/laptop.jpeg`),
 		timePosted: "12 hours ago",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		prefPayment:"cod"
 	},
 	{
 		id: "u4",
@@ -39,8 +51,12 @@ export const DUMMY_DATA = [
 		rating: 4.5,
 		type: "Electronics",
 		price: "799",
+		quantity:"1",
+		weight:"1",
 		username: "Karam",
 		imageSrc: require(`../assets/ItemImages/iphone.jpg.webp`),
 		timePosted: "12 hours ago",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		prefPayment:"cod"
 	},
 ];

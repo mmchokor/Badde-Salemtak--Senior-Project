@@ -79,10 +79,10 @@ function AddItemScreen({ navigation }) {
 										<View
 											style={{ flexDirection: "row", alignItems: "center" }}
 										>
-											<FontAwesome5 name='weight-hanging' size={15} />
+											<FontAwesome5 name='weight-hanging' size={14} />
 											<Text
 												style={{
-													fontSize: 12,
+													fontSize: 14,
 													opacity: 0.7,
 													fontFamily: "inter-light",
 												}}
