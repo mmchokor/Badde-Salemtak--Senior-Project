@@ -44,3 +44,46 @@ export const DUMMY_DATA = [
 		timePosted: "12 hours ago",
 	},
 ];
+
+export const DUMMY_DATA_RESIDENT = [
+	{
+		id: "u1",
+		fromLocation: "Dubai",
+		toLocation: "Beirut",
+		rating: 4.5,
+		maxWeight: 15,
+		username: "Rami",
+		imageSrc: require("../assets/ItemImages/maps.jpg"),
+		timePosted: "12 hours ago",
+	},
+	{
+		id: "u2",
+		fromLocation: "America",
+		toLocation: "Beirut",
+		rating: 3.5,
+		maxWeight: 15,
+		username: "Chokor",
+		imageSrc: require("../assets/ItemImages/maps.jpg"),
+		timePosted: "12 hours ago",
+	},
+	{
+		id: "u3",
+		fromLocation: "Qatar",
+		toLocation: "Beirut",
+		rating: 5.0,
+		maxWeight: 15,
+		username: "Nabil",
+		imageSrc: require("../assets/ItemImages/maps.jpg"),
+		timePosted: "10 hours ago",
+	},
+	{
+		id: "u4",
+		fromLocation: "Riyadh",
+		toLocation: "Beirut",
+		rating: 3.9,
+		maxWeight: 29,
+		username: "Rami",
+		imageSrc: require("../assets/ItemImages/maps.jpg"),
+		timePosted: "10 seconds ago",
+	},
+];
