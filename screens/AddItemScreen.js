@@ -136,7 +136,8 @@ function AddItemScreen({ navigation }) {
 							<Text style={styles.textHead}>Preferred Payment Method</Text>
 						</View>
 						<View style={{ marginBottom: 80 }}>
-							<PreferredPayment />
+						
+							<PreferredPayment/>
 						</View>
 					</View>
 				</KeyboardAvoidingView>

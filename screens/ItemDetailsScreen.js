@@ -12,7 +12,29 @@ import BorderStyle from "../components/AddItemsLocations/BorderStyle";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 import MyText from "../components/UI/MyText";
+import PreferredPayment from "../components/AddItemsLocations/PreferredPayment";
 function ItemDetailsScreen({ route }) {
+	const text=route.params.prefPayment;
+	const types = {
+		1:require("../assets/PaymentsLogos/cash-on-delivery-steacker-free-vector.webp"),
+	2:require("../assets/PaymentsLogos/Western-Union-Logo-768x432.png"),
+        3:require("../assets/PaymentsLogos/Artboard10.jpg"),
+		
+	};
+	const payment = () => {
+		if (text === "cod") {
+			return <Image source={Object.values(types)[0]} style={{width:80,height:40}}/>;
+		} else if (text === "cre") {
+			return (
+				<Image source={Object.values(types)[1]} style={{width:80,height:40}}/>
+			);
+		} else if (text === "wes") {
+			return<Image source={Object.values(types)[2]} style={{width:80,height:40}}/>
+		} else{
+			return(<Image source={Object.values(types)[0]} style={{width:80,height:40}}/>);
+		}
+		
+	};
 	return (
 		<View>
 			{/* <Text>Item Details Screen:{route.params.id}  {route.params.title}</Text> */}
@@ -111,35 +133,47 @@ function ItemDetailsScreen({ route }) {
 							</View>
 						</View>
 						<View style={styles.body}>
-
-
 							{/* More Details */}
 							<Text style={styles.textHead}>More Details</Text>
 							<BorderStyle style={{ borderRadius: 10 }}>
 								<Text style={styles.textBody}>{route.params.moreD}</Text>
 							</BorderStyle>
 
-
 							{/* Location */}
 							<Text style={styles.textHead}>Location</Text>
 							<BorderStyle>
-								<View style={{ flexDirection: "row", alignItems: "center",padding:4 }}>
+								<View
+									style={{
+										flexDirection: "row",
+										alignItems: "center",
+										padding: 4,
+									}}
+								>
 									<Image
 										source={require("../assets/LocationImages/location.png")}
 										style={styles.locImage}
 									/>
 									<Text style={styles.textBody}>{route.params.location}</Text>
-									<FontAwesome name='location-arrow' size={24} />
+									<FontAwesome
+										name='location-arrow'
+										size={24}
+										style={{ left: 210 }}
+										color={Colors.darkGreen}
+									/>
 								</View>
 							</BorderStyle>
 							<Text style={styles.textHead}>User Info</Text>
-							<View>
-								<Text style={styles.textBody}>{route.params.username}</Text>
-							</View>
+							<BorderStyle>
+								<View>
+									<Text style={styles.textBody}>{route.params.username}</Text>
+								</View>
+							</BorderStyle>
 							<Text style={styles.textHead}>Preferred Payment Method</Text>
-							<View>
-								<Text>{route.params.prefPayment}</Text>
-							</View>
+							<BorderStyle>
+								<View style={styles.paymentContainer}>
+									{payment()}
+								</View>
+							</BorderStyle>
 							<View style={styles.chatNow}>
 								<Text style={styles.chatNowText}>Chat now</Text>
 							</View>
@@ -175,6 +209,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.darkGreen,
 		borderRadius: 21,
 		alignItems: "center",
+		marginTop:8
 	},
 	chatNowText: {
 		fontFamily: "inter-bold",
@@ -203,8 +238,9 @@ const styles = StyleSheet.create({
 		fontFamily: "inter-bold",
 		color: Colors.black,
 		fontSize: 16,
-		width: 190,
+		width: 220,
 		paddingVertical: 6,
+		
 	},
 	textBody: {
 		fontFamily: "inter-regular",
@@ -214,5 +250,14 @@ const styles = StyleSheet.create({
 		width: 60,
 		height: 60,
 		borderRadius: 10,
+	},
+	paymentContainer: {
+        marginTop:5,
+		borderColor: Colors.gray,
+		borderRadius: 5,
+		padding: 10,
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
 	},
 });
