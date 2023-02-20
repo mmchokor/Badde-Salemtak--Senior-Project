@@ -14,26 +14,42 @@ import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import MyText from "../components/UI/MyText";
 import PreferredPayment from "../components/AddItemsLocations/PreferredPayment";
 function ItemDetailsScreen({ route }) {
-	const text=route.params.prefPayment;
+	const text = route.params.prefPayment;
 	const types = {
-		1:require("../assets/PaymentsLogos/cash-on-delivery-steacker-free-vector.webp"),
-	2:require("../assets/PaymentsLogos/Western-Union-Logo-768x432.png"),
-        3:require("../assets/PaymentsLogos/Artboard10.jpg"),
-		
+		1: require("../assets/PaymentsLogos/cash-on-delivery-steacker-free-vector.webp"),
+		2: require("../assets/PaymentsLogos/Western-Union-Logo-768x432.png"),
+		3: require("../assets/PaymentsLogos/Artboard10.jpg"),
 	};
 	const payment = () => {
 		if (text === "cod") {
-			return <Image source={Object.values(types)[0]} style={{width:80,height:40}}/>;
+			return (
+				<Image
+					source={Object.values(types)[0]}
+					style={{ width: 80, height: 40 }}
+				/>
+			);
 		} else if (text === "cre") {
 			return (
-				<Image source={Object.values(types)[1]} style={{width:80,height:40}}/>
+				<Image
+					source={Object.values(types)[1]}
+					style={{ width: 80, height: 40 }}
+				/>
 			);
 		} else if (text === "wes") {
-			return<Image source={Object.values(types)[2]} style={{width:80,height:40}}/>
-		} else{
-			return(<Image source={Object.values(types)[0]} style={{width:80,height:40}}/>);
+			return (
+				<Image
+					source={Object.values(types)[2]}
+					style={{ width: 80, height: 40 }}
+				/>
+			);
+		} else {
+			return (
+				<Image
+					source={Object.values(types)[0]}
+					style={{ width: 80, height: 40 }}
+				/>
+			);
 		}
-		
 	};
 	return (
 		<View>
@@ -154,13 +170,16 @@ function ItemDetailsScreen({ route }) {
 										style={styles.locImage}
 									/>
 									<Text style={styles.textBody}>{route.params.location}</Text>
-									<FontAwesome
-										name='location-arrow'
-										size={24}
-										style={{ left: 210 }}
-										color={Colors.darkGreen}
-									/>
 								</View>
+								<FontAwesome
+									name='location-arrow'
+									size={28}
+									style={{ left: 320, bottom: 26, position: "absolute" }}
+									color={Colors.darkGreen}
+									onPress={() => {
+										alert("karam was here");
+									}}
+								/>
 							</BorderStyle>
 							<Text style={styles.textHead}>User Info</Text>
 							<BorderStyle>
@@ -170,9 +189,7 @@ function ItemDetailsScreen({ route }) {
 							</BorderStyle>
 							<Text style={styles.textHead}>Preferred Payment Method</Text>
 							<BorderStyle>
-								<View style={styles.paymentContainer}>
-									{payment()}
-								</View>
+								<View style={styles.paymentContainer}>{payment()}</View>
 							</BorderStyle>
 							<View style={styles.chatNow}>
 								<Text style={styles.chatNowText}>Chat now</Text>
@@ -209,7 +226,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.darkGreen,
 		borderRadius: 21,
 		alignItems: "center",
-		marginTop:8
+		marginTop: 8,
 	},
 	chatNowText: {
 		fontFamily: "inter-bold",
@@ -240,7 +257,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		width: 220,
 		paddingVertical: 6,
-		
 	},
 	textBody: {
 		fontFamily: "inter-regular",
@@ -252,7 +268,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	paymentContainer: {
-        marginTop:5,
+		marginTop: 5,
 		borderColor: Colors.gray,
 		borderRadius: 5,
 		padding: 10,

@@ -8,6 +8,7 @@ import {useState} from 'react';
 import TravelerScreen from "./TravelerScreen";
 import ResidentScreen from "./ResidentScreen";
 import ItemDetailsScreen from "./ItemDetailsScreen";
+import LocationDetailsScreen from "./LocationDetailsScreen";
 const Stack = createNativeStackNavigator();
 
 function HomeScreen() {
@@ -136,6 +137,11 @@ function HomeScreen() {
 				<Stack.Screen
 					name='ItemDetails'
 					component={ItemDetailsScreen}
+					options={{ headerShown: true}}
+				/>
+				<Stack.Screen
+					name='LocationDetails'
+					component={LocationDetailsScreen}
 					options={{ headerShown: true}}
 				/>
 			</Stack.Navigator>

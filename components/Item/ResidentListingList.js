@@ -3,10 +3,11 @@ import React from "react";
 import { DUMMY_DATA_RESIDENT } from "../../constants/DUMMY_DATA";
 import ResidentListing from "./ResidentListing";
 import Listing from "./Listing";
-
-const ResidentListingList = ({onPress}) => {
-
+import { useNavigation } from '@react-navigation/native'
+const ResidentListingList = () => {
+  const navigation=useNavigation();
   return (
+   
     <View style={styles.wrapper}>
         
       <FlatList
@@ -16,7 +17,23 @@ const ResidentListingList = ({onPress}) => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <ResidentListing
-          onPress={onPress}
+          onPress={() =>
+                     navigation.navigate('ItemDetails', {
+                        id: item._id,
+                        title: item.name,
+                        location: item.cityOfResidence,
+                        rating: 4,
+                        type: item.productType,
+                        price: item.price,
+                        quantity: item.quantity,
+                        weight: item.approximateWeight,
+                        username: item.user,
+                        imageSrc: item.imageCover,
+                        timePosted: item.createdAt,
+                        moreD: item.description,
+                        prefPayment: item.paymentMethod,
+                     })
+                  }
             id={item.id}
             toLocation={item.toLocation}
             fromLocation={item.fromLocation}
