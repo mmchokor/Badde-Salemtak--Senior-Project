@@ -13,10 +13,6 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const LoginHeader = () => {
-  if (Platform.OS === "ios") {
-    console.log("here");
-  }
-
   return (
     <View style={styles.wrapper}>
       <View>

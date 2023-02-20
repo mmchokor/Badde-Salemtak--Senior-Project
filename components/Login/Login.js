@@ -4,10 +4,10 @@ import {
   View,
   Image,
   Platform,
-  ScrollView,
   Dimensions,
+  TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Colors } from "../../constants/colors";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
@@ -18,14 +18,59 @@ import CredentialWrapper from "../UI/CredentialWrapper";
 const height = Dimensions.get("window").height;
 
 const Login = () => {
-  const navigation = useNavigation();
+  const [password, setPassword] = useState("");
+  const [passIsValid, setPassIsValid] = useState(true);
+  const [email, setEmail] = useState("");
+  const [emailIsValid, setEmailIsValid] = useState(true);
 
-  const LoginHandler = () => {
-    navigation.navigate("Homee");
+  const navigation = useNavigation();
+  const [passIsVisible, setPassIsVisible] = useState(true);
+
+  function passwordInputHandler(userInput) {
+    setPassword(userInput);
+  }
+  function emailInputHandler(userInput) {
+    setEmail(userInput);
+  }
+
+  function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    }
+    return false;
+  }
+
+  const setPassIsVisibleHandler = () => {
+    setPassIsVisible((current) => !current);
   };
 
+  const LoginHandler = () => {
+    if (password.trim().length < 6) {
+      setPassIsValid(false);
+    } else {
+      setPassIsValid(true);
+    }
+    setEmailIsValid(ValidateEmail(email))
+
+    const passIsValid = password.trim().length < 6 ? false : true
+    const emailIsValid = ValidateEmail(email)
+
+    if (passIsValid && emailIsValid) {
+      //user Data collected
+      const userData = {
+        email,
+        password
+      }
+      navigation.navigate("Homee");
+    }
+  };
+
+ 
+  
+
   const signUpBtnPressedHandler = () => {
-    navigation.navigate("signup");
+    //navigation.navigate("signup");
+    navigation.navigate("signupDetails");
   };
   return (
     <View
@@ -35,15 +80,38 @@ const Login = () => {
     >
       <LoginHeader />
 
-      {/* scroll view */}
-      {/* <View style={styles.credentialWrapper}> */}
       <CredentialWrapper>
-        <Input label="Email" />
-        <Input label="Password" />
-
+        {/* Email Input */}
+        <Input
+          label="Email"
+          inValid={!emailIsValid}
+          inValidText="Invalid Email!"
+        >
+          <TextInput
+            onChangeText={emailInputHandler}
+            autoCapitalize={false}
+            autoCorrect={false}
+            style={[styles.input, !emailIsValid && styles.inValidInput]}
+          ></TextInput>
+        </Input>
+        {/* Pass Input */}
+        <Input
+          label="Password"
+          setPassIsVisible={setPassIsVisibleHandler}
+          passIsVisible={passIsVisible}
+          inValid={!passIsValid}
+          inValidText="Invalid Password!"
+        >
+          <TextInput
+            onChangeText={passwordInputHandler}
+            autoCapitalize={false}
+            autoCorrect={false}
+            style={[styles.input, !passIsValid && styles.inValidInput]}
+            secureTextEntry={!passIsVisible ? false : true}
+          ></TextInput>
+        </Input>
         <Text style={styles.forgotPass}>Forgot Password?</Text>
 
-        {/* <View style={styles.loginContainer}> */}
         <Button onPress={LoginHandler}>Log in</Button>
         <Text style={styles.orWord}>Or</Text>
 
@@ -51,7 +119,6 @@ const Login = () => {
           style={styles.googleImg}
           source={require("../../assets/LoginImages/googleLogo.png")}
         />
-        {/* </View> */}
         <View style={styles.signInWrapper}>
           <Text style={styles.accountText}>Don't have an account? </Text>
           <Text
@@ -61,8 +128,7 @@ const Login = () => {
             Sign up!
           </Text>
         </View>
-        </CredentialWrapper>
-      {/* </View> */}
+      </CredentialWrapper>
     </View>
   );
 };
@@ -127,5 +193,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+  input: {
+    padding: height < 800 ? 7 : 12,
+    //marginBottom: 15,
+    borderColor: Colors.gray,
+    borderWidth: 1,
+    borderRadius: 20, //was 10,
+  },
+  inValidInput: {
+    borderColor: "#FFCCCC",
+    borderWidth: 1,
+    backgroundColor: "#fae8e8",
   },
 });

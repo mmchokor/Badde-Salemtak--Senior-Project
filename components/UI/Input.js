@@ -1,5 +1,5 @@
-import { Platform, Pressable, StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
-import React, { useState } from "react";
+import { Platform, StyleSheet, Text, View, Dimensions } from "react-native";
+import React from "react";
 import { Colors } from "../../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -9,24 +9,24 @@ const height = Dimensions.get('window').height
 // iphone 14 height is 844
 //emulator is 683
 
-
-const Input = ({ label, customStyle, placeholder, isNumberPad }) => {
-  const [passIsVisible, setPassIsVisible] = useState(true);
-
-  let passTextInput;
+const inValid = false;
+const Input = ({ label, customStyle, children, setPassIsVisible, passIsVisible, inValid, inValidText}) => {
+  inValid = inValid
+  let textInput;
 
   if (label.includes("Password")) {
-    passTextInput = (
+    textInput = (
       <View>
-        <TextInput style={styles.input} secureTextEntry={!passIsVisible ? false: true}></TextInput>
-        {/* <Pressable style = {({pressed}) => pressed && styles.pressed}> */}
+        {children}
+        {/* <TextInput onChangeText={emailInputHandler} autoCapitalize={false} autoCorrect={false} style={styles.input} secureTextEntry={!passIsVisible ? false: true}></TextInput> */}
         {!passIsVisible && (
           <MaterialIcons
             style={styles.icon}
             name="visibility"
             size={24}
             color={Colors.darkGreen}
-            onPress={() => setPassIsVisible((current) => !current)}
+            //onPress={() => setPassIsVisible((current) => !current)}
+            onPress={() => setPassIsVisible()}
           />
         )}
         {passIsVisible && (
@@ -35,34 +35,34 @@ const Input = ({ label, customStyle, placeholder, isNumberPad }) => {
             size={24}
             color={Colors.darkGreen}
             style={styles.icon}
-            onPress={() => setPassIsVisible((current) => !current)}
+            //onPress={() => setPassIsVisible((current) => !current)}
+            onPress={() => setPassIsVisible()}
           />
         )}
-
-        {/* </Pressable> */}
       </View>
     );
   } else {
-    passTextInput = <TextInput keyboardType={isNumberPad && 'number-pad'} placeholder={placeholder} style={styles.input}></TextInput>;
+    textInput = <View>{children}</View>
+   //textInput = <TextInput onChangeText={emailInputHandler} autoCapitalize={false} autoCorrect={false} keyboardType={isNumberPad && 'number-pad'} placeholder={placeholder} style={styles.input}></TextInput>;
   }
 
+  
   
 
   return (
     <View style={[styles.inputWrapper, customStyle]}>
       <Text style={styles.label}>{label}</Text>
-      {/* {label} */}
-      {/* <TextInput style={styles.input} secureTextEntry = {label === 'Password' ? true : false}></TextInput> */}
-      {passTextInput}
+      {textInput}
+      {inValid && <Text style={[styles.label, styles.inValidText ]}>{inValidText}</Text>}
     </View>
   );
 };
 
 export default Input;
-
 const styles = StyleSheet.create({
   inputWrapper: {
     //marginTop: 40
+    marginBottom: 15
   },
   label: {
     fontFamily: "inter-regular",
@@ -73,13 +73,11 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   input: {
-    //padding: Platform.OS === "android" ? 10 : 15,
-    //padding: 7,
     padding: height < 800 ? 7 : 12,
-    marginBottom: 15,
+    //marginBottom: 15,
     borderColor: Colors.gray,
     borderWidth: 1,
-    borderRadius: 20, //was 10
+    borderRadius: 20, //was 10,
   },
   pressed: {
     opacity: 0.75,
@@ -92,4 +90,9 @@ const styles = StyleSheet.create({
     right: 0,
     margin: 'auto'
   },
+  inValidText: {
+    color: Colors.errorRedDark, 
+    opacity: 0.8,
+    fontSize: 12
+  }
 });
