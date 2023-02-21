@@ -18,20 +18,20 @@ const ResidentListingList = () => {
         renderItem={({ item }) => (
           <ResidentListing
           onPress={() =>
-                     navigation.navigate('ItemDetails', {
-                        id: item._id,
-                        title: item.name,
-                        location: item.cityOfResidence,
-                        rating: 4,
-                        type: item.productType,
-                        price: item.price,
-                        quantity: item.quantity,
-                        weight: item.approximateWeight,
-                        username: item.user,
-                        imageSrc: item.imageCover,
-                        timePosted: item.createdAt,
-                        moreD: item.description,
-                        prefPayment: item.paymentMethod,
+                     navigation.navigate('LocationDetails', {
+                      id:item.id,
+            toLocation:item.toLocation,
+            fromLocation:item.fromLocation,
+            rating:item.rating,
+            maxWeight:item.maxWeight,
+            username:item.username,
+            imageSrc:item.imageSrc,
+            timePosted:item.timePosted,
+            userLocation:item.userLocation,
+            prefPayment:item.prefPayment,
+            moreD:item.moreD,
+            type:item.type,
+            
                      })
                   }
             id={item.id}
@@ -42,6 +42,10 @@ const ResidentListingList = () => {
             username={item.username}
             imageSrc={item.imageSrc}
             timePosted={item.timePosted}
+            userLocation={item.userLocation}
+            prefPayment={item.prefPayment}
+            moreD={item.moreD}
+            type={item.type}
           />
         )}
       />

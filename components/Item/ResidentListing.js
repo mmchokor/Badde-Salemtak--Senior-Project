@@ -27,6 +27,7 @@ const ResidentListing = ({
   username,
   imageSrc,
   timePosted,
+  
   onPress,
 }) => {
   return (

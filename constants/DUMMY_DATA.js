@@ -71,7 +71,10 @@ export const DUMMY_DATA_RESIDENT = [
 		username: "Rami",
 		imageSrc: require("../assets/ItemImages/maps.jpg"),
 		timePosted: "12 hours ago",
-	},
+		userLocation:'Debbie',
+		prefPayment:"cod",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		type: "Electronics",},
 	{
 		id: "u2",
 		fromLocation: "America",
@@ -81,6 +84,10 @@ export const DUMMY_DATA_RESIDENT = [
 		username: "Chokor",
 		imageSrc: require("../assets/ItemImages/maps.jpg"),
 		timePosted: "12 hours ago",
+		userLocation:'Debbie',
+		prefPayment:"wes",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		type: "Electronics",
 	},
 	{
 		id: "u3",
@@ -91,6 +98,10 @@ export const DUMMY_DATA_RESIDENT = [
 		username: "Nabil",
 		imageSrc: require("../assets/ItemImages/maps.jpg"),
 		timePosted: "10 hours ago",
+		userLocation:'Debbie',
+		prefPayment:"wes",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		type: "Electronics",
 	},
 	{
 		id: "u4",
@@ -101,5 +112,9 @@ export const DUMMY_DATA_RESIDENT = [
 		username: "Rami",
 		imageSrc: require("../assets/ItemImages/maps.jpg"),
 		timePosted: "10 seconds ago",
+		userLocation:'Debbie',
+		prefPayment:"cre",
+		moreD:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+		type: "Electronics",
 	},
 ];
