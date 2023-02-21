@@ -4,5 +4,7 @@ export const Colors = {
     grayBackground:"#EDEEF1",//Opacity 50% for background
     black:"#333333",
     gray: "#9E9E9E",
-    lightGreen: "#60B177"
+    lightGreen: "#60B177",
+    errorRedLight: '#FFCCCC',
+    errorRedDark: '#ff0033'
 }
