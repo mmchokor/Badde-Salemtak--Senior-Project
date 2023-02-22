@@ -6,11 +6,15 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../UI/ButtonProfile";
 import { ScrollView } from "react-native-gesture-handler";
+import { useAtom } from "jotai";
+import { isLoggedIn } from "../../store/LoginStore/LoginStore";
 
 function ProfileComponent() {
+	const [, setIsLoggedIn] = useAtom(isLoggedIn)
 	const navigation = useNavigation();
 	function LogoutNavigationHandler() {
-		navigation.navigate("Login");
+		setIsLoggedIn(false)
+		//navigation.navigate("Login");
 	}
 	const [checked, setChecked] = useState("National ID");
 
