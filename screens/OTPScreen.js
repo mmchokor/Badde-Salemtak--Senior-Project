@@ -15,6 +15,8 @@ import { Colors } from "../constants/colors";
 import CredentialWrapper from "../components/UI/CredentialWrapper";
 import Button from "../components/UI/Button";
 import ProgressBar from "../components/UI/ProgressBar";
+import { useAtom } from "jotai";
+import { isLoggedIn } from "../store/LoginStore/LoginStore";
 
 const height = Dimensions.get("window").width;
 
@@ -23,6 +25,7 @@ const OTPScreen = () => {
 
   const [OtpInput, setOtpInput] = useState("");
   const [timer, setTimer] = useState(59);
+  const [, setIsLoggedIn] = useAtom(isLoggedIn)
 
   const resetCodeHandler = () => {
     setTimer(59);
@@ -42,7 +45,9 @@ const OTPScreen = () => {
   };
 
   const OtpSubmitHandler = () => {
-    console.log(OtpInput);
+    setIsLoggedIn(true)
+    //console.log(OtpInput);
+
   };
 
   const goBackHandler = () => {

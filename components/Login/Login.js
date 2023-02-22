@@ -6,6 +6,7 @@ import {
   Platform,
   Dimensions,
   TextInput,
+  StatusBar
 } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../../constants/colors";
@@ -14,6 +15,8 @@ import Button from "../UI/Button";
 import LoginHeader from "./LoginHeader";
 import { useNavigation } from "@react-navigation/native";
 import CredentialWrapper from "../UI/CredentialWrapper";
+import { useAtom } from "jotai";
+import { isLoggedIn } from "../../store/LoginStore/LoginStore";
 
 const height = Dimensions.get("window").height;
 
@@ -25,6 +28,8 @@ const Login = () => {
 
   const navigation = useNavigation();
   const [passIsVisible, setPassIsVisible] = useState(true);
+  const [, setToggleLoggedin] = useAtom(isLoggedIn)
+
 
   function passwordInputHandler(userInput) {
     setPassword(userInput);
@@ -61,7 +66,8 @@ const Login = () => {
         email,
         password
       }
-      navigation.navigate("Homee");
+      setToggleLoggedin(true)
+      //navigation.navigate("Homee");
     }
   };
 
@@ -69,8 +75,8 @@ const Login = () => {
   
 
   const signUpBtnPressedHandler = () => {
-    //navigation.navigate("signup");
-    navigation.navigate("signupDetails");
+    navigation.navigate("signup");
+    //navigation.navigate("signupDetails");
   };
   return (
     <View
@@ -78,6 +84,7 @@ const Login = () => {
       alwaysBounceVertical={false}
       showsVerticalScrollIndicator={false}
     >
+      <StatusBar style='light' />
       <LoginHeader />
 
       <CredentialWrapper>
