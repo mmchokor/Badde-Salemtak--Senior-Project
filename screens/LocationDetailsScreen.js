@@ -8,13 +8,17 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { Colors } from "../constants/colors";
 import ButtonItemType from "../components/AddItemsLocations/ButtonItemType";
-import BorderStyle from "../components/AddItemsLocations/BorderStyle";
-import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
+import {
+	FontAwesome5,
+	FontAwesome,
+	Ionicons,
+	Feather,
+} from "@expo/vector-icons";
 
 import MyText from "../components/UI/MyText";
 import DetailsBody from "../components/DetailsItemLocation/DetailsBody";
 import Weight from "../components/DetailsItemLocation/Weight";
-
+import CountryFlag from "react-native-country-flag";
 function LocationDetailsScreen({ route }) {
 	return (
 		<View>
@@ -23,44 +27,136 @@ function LocationDetailsScreen({ route }) {
 			<ScrollView>
 				<KeyboardAvoidingView behavior='padding'>
 					<View style={styles.container}>
-						<View style={{ paddingBottom: 12, paddingHorizontal: 10 }}>
+						<View style={{ paddingBottom: 5, paddingHorizontal: 10 }}>
 							<View
 								style={{
-									flexDirection: "row",
+									flexDirection: "column",
+									alignItems: "baseline",
 								}}
 							>
-								<View
-									style={{ flexDirection: "column", alignItems: "flex-start" }}
-								>
-									<Image
-										source={route.params.imageSrc}
-										style={styles.itemPhoto}
-									/>
-									
-								</View>
 								<View>
-									{/* Title */}
-									<Text>From</Text>
-									<MyText style={styles.textTitle}>{route.params.fromLocation}</MyText>
-									<Text>To</Text>
-									<MyText style={styles.textTitle}>{route.params.toLocation}</MyText>
-									
-
-									{/* Weight */}
-									<View style={{ marginTop: 8,flexDirection:"column",alignItems:"flex-start"}}>
-										
-										<View
-											style={{ alignItems: "center", flexDirection: "row" }}
+									<View
+										style={{
+											flexDirection: "row",
+											alignItems: "center",
+										}}
+									>
+										<FontAwesome
+											name='paper-plane'
+											size={18}
+											color={Colors.darkGreen}
+										/>
+										<MyText
+											style={{
+												marginLeft: 8,
+												fontSize: 18,
+												color: Colors.black,
+											}}
 										>
-										
-											<Text style={[styles.qTwText, { marginRight: 14 }]}>
-												Weight
-											</Text>
-											<Weight value={route.params.maxWeight} />
-										</View>
-									<View style={{ marginTop: 10 }}>
-										<ButtonItemType text={route.params.type} />
+											From:
+										</MyText>
 									</View>
+									<View
+										style={{
+											flexDirection: "row",
+											alignItems: "center",
+											marginLeft: 60,
+										}}
+									>
+										<CountryFlag isoCode='AE' size={28} />
+										<MyText style={[styles.textTitle, { marginLeft: 10 }]}>
+											{route.params.fromLocation}
+										</MyText>
+									</View>
+								</View>
+								<View style={{ marginTop: 10 }}>
+									<View
+										style={{
+											flexDirection: "row",
+											alignItems: "center",
+										}}
+									>
+										<Ionicons name='location-sharp' size={18} color='red' />
+										<MyText
+											style={{
+												marginLeft: 8,
+												fontSize: 18,
+												color: Colors.black,
+											}}
+										>
+											To:
+										</MyText>
+									</View>
+
+									<View
+										style={{
+											flexDirection: "row",
+											alignItems: "center",
+											marginLeft: 60,
+										}}
+									>
+										<CountryFlag isoCode='Lb' size={28} />
+										<MyText style={[styles.textTitle, { marginLeft: 10 }]}>
+											{route.params.toLocation}
+										</MyText>
+									</View>
+								</View>
+							</View>
+
+							{/* Weight and Type */}
+							<View style={{ marginTop: 10 }}>
+								<View
+									style={{
+										flexDirection: "row",
+										alignItems: "center",
+									}}
+								>
+									<Feather
+										name='check-circle'
+										size={18}
+										color={Colors.darkGreen}
+									/>
+									<MyText
+										style={{
+											marginLeft: 8,
+											fontSize: 18,
+											color: Colors.black,
+										}}
+									>
+										Preferred:
+									</MyText>
+								</View>
+
+								<View
+									style={{
+										alignItems: "center",
+										flexDirection: "row",
+									}}
+								>
+									<View>
+										<Text
+											style={[
+												styles.qTwText,
+												{ marginRight: 10, marginLeft: 10 },
+											]}
+										>
+											Type
+										</Text>
+										<View>
+											<ButtonItemType text={route.params.type} />
+										</View>
+									</View>
+									{/* Weight */}
+									<View style={{ marginLeft: 50 }}>
+										<Text
+											style={[
+												styles.qTwText,
+												{ marginRight: 10, marginLeft: 10 },
+											]}
+										>
+											Weight
+										</Text>
+										<Weight value={route.params.maxWeight} />
 									</View>
 								</View>
 							</View>
@@ -84,7 +180,7 @@ export default LocationDetailsScreen;
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: Colors.white,
-		paddingTop: 15,
+		paddingTop: 10,
 	},
 	itemPhoto: {
 		width: 130,
@@ -96,8 +192,9 @@ const styles = StyleSheet.create({
 	textTitle: {
 		fontFamily: "inter-bold",
 		color: Colors.black,
-		fontSize: 24,
+		fontSize: 35,
 		width: 190,
+		//backgroundColor: "black",
 	},
 	priceText: {
 		fontFamily: "inter-bold",
