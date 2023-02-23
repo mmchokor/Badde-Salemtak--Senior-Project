@@ -19,6 +19,8 @@ import MyText from "../components/UI/MyText";
 import DetailsBody from "../components/DetailsItemLocation/DetailsBody";
 import Weight from "../components/DetailsItemLocation/Weight";
 import CountryFlag from "react-native-country-flag";
+import CFlag from "../constants/CFlag";
+
 function LocationDetailsScreen({ route }) {
 	return (
 		<View>
@@ -63,7 +65,7 @@ function LocationDetailsScreen({ route }) {
 											marginLeft: 60,
 										}}
 									>
-										<CountryFlag isoCode='AE' size={28} />
+										<CFlag country={route.params.fromLocation} s={28} />
 										<MyText style={[styles.textTitle, { marginLeft: 10 }]}>
 											{route.params.fromLocation}
 										</MyText>
@@ -95,7 +97,7 @@ function LocationDetailsScreen({ route }) {
 											marginLeft: 60,
 										}}
 									>
-										<CountryFlag isoCode='Lb' size={28} />
+										<CFlag country={route.params.toLocation} s={28} />
 										<MyText style={[styles.textTitle, { marginLeft: 10 }]}>
 											{route.params.toLocation}
 										</MyText>
@@ -161,6 +163,7 @@ function LocationDetailsScreen({ route }) {
 								</View>
 							</View>
 						</View>
+						
 						{/* Body */}
 						<DetailsBody
 							details={route.params.moreD}

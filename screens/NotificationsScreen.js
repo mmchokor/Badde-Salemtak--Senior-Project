@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 
 function NotificationsScreen() {
-	return (
-		<View>
-			<Text>Notifications Screen</Text>
-		</View>
-	);
-}
+
+
+  return (
+  <Text>NotificationsScreen</Text>
+  );
+	}
+	
 export default NotificationsScreen;
 
 const styles = StyleSheet.create({});

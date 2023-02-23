@@ -27,86 +27,85 @@ const queryClient = new QueryClient();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    "inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
-    "inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
-    "inter-light": require("./assets/fonts/Inter-Light.ttf"),
-    "inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
-  });
-  const [LoggedIn] = useAtom(isLoggedIn)
-  useEffect(() => {
-    async function prepare() {
-      SplashScreen.preventAutoHideAsync();
-    }
-    prepare();
-  }, []);
+	const [fontsLoaded] = useFonts({
+		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
+		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
+		"inter-light": require("./assets/fonts/Inter-Light.ttf"),
+		"inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
+	});
+	const [LoggedIn] = useAtom(isLoggedIn);
+	useEffect(() => {
+		async function prepare() {
+			SplashScreen.preventAutoHideAsync();
+		}
+		prepare();
+	}, []);
 
-  if (!fontsLoaded) {
-    return undefined;
-  } else {
-    SplashScreen.hideAsync();
-  }
+	if (!fontsLoaded) {
+		return undefined;
+	} else {
+		SplashScreen.hideAsync();
+	}
 
-  function LoginNavigator() {
-    return (
-      <NavigationContainer>
-         <StatusBar style="light" />
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="signup"
-            component={SignupScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="signupDetails"
-            component={SignupDetailsScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="otpScreen"
-            component={OTPScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-  function MainAppNavigator() {
-    return (
-      <NavigationContainer>
-         <StatusBar style="dark" />
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Homee"
-            component={BottomBar}
-            options={{ headerShown: false }}
-          />
+	function LoginNavigator() {
+		return (
+			<NavigationContainer>
+				<StatusBar style='light' />
+				<Stack.Navigator>
+					<Stack.Screen
+						name='Login'
+						component={LoginScreen}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name='signup'
+						component={SignupScreen}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name='signupDetails'
+						component={SignupDetailsScreen}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name='otpScreen'
+						component={OTPScreen}
+						options={{ headerShown: false }}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		);
+	}
+	function MainAppNavigator() {
+		return (
+			<NavigationContainer>
+				<StatusBar style='dark' />
+				<Stack.Navigator>
+					<Stack.Screen
+						name='Homee'
+						component={BottomBar}
+						options={{ headerShown: false }}
+					/>
 
-          <Stack.Screen
-            name="Fav"
-            component={BottomBar}
-            options={{ headerShown: true }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+					<Stack.Screen
+						name='Fav'
+						component={BottomBar}
+						options={{ headerShown: true }}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		);
+	}
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      {/* <StatusBar style="dark" /> */}
-      <View style={{ flex: 1 }}>
-
-      {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
-       
-      </View>
-    </QueryClientProvider>
-  );
+	return (
+		<QueryClientProvider client={queryClient}>
+			{/* <StatusBar style="dark" /> */}
+			<View style={{ flex: 1 }}>
+				{/* {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />} */}
+				{LoggedIn ? <MainAppNavigator /> : <MainAppNavigator />}
+			</View>
+		</QueryClientProvider>
+	);
 }
 
 const styles = StyleSheet.create({});
