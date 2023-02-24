@@ -26,7 +26,7 @@ function LocationDetailsScreen({ route }) {
 		<View>
 			{/* <Text>Location Details Screen:{route.params.id}  {route.params.title}</Text> */}
 
-			<ScrollView>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				<KeyboardAvoidingView behavior='padding'>
 					<View style={styles.container}>
 						<View style={{ paddingBottom: 5, paddingHorizontal: 10 }}>

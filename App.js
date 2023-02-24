@@ -11,11 +11,11 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Colors } from "./constants/colors";
 // Importing Screens
 import BottomBar from "./components/layouts/BottomBar";
-import FavoritesScreen from "./screens/FavoritesScreen";
 import LoginScreen from "./screens/LoginScreen";
 import OTPScreen from "./screens/OTPScreen";
 import SignupDetailsScreen from "./screens/SignUpDetailsScreen";
 import SignupScreen from "./screens/SignupScreen";
+
 import { useAtom } from "jotai";
 import { isLoggedIn } from "./store/LoginStore/LoginStore";
 // Creating a query client for React Query
@@ -84,25 +84,27 @@ export default function App() {
 						options={{ headerShown: false }}
 					/>
 
-					<Stack.Screen
-						name='Fav'
-						component={BottomBar}
-						options={{ headerShown: true }}
-					/>
-				</Stack.Navigator>
-			</NavigationContainer>
-		);
-	}
+          <Stack.Screen
+            name="Fav"
+            component={BottomBar}
+            options={{ headerShown: true }}
+          />
+          
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 
-	return (
-		<QueryClientProvider client={queryClient}>
-			{/* <StatusBar style="dark" /> */}
-			<View style={{ flex: 1 }}>
-				{/* {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />} */}
-				{LoggedIn ? <MainAppNavigator /> : <MainAppNavigator />}
-			</View>
-		</QueryClientProvider>
-	);
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* <StatusBar style="dark" /> */}
+      <View style={{ flex: 1 }}>
+
+      {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
+       {/* <MainAppNavigator /> */}
+      </View>
+    </QueryClientProvider>
+  );
 }
 
 const styles = StyleSheet.create({});
