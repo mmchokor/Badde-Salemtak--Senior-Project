@@ -28,6 +28,7 @@
     "react-native-country-flag": "^1.1.9",
     "react-native-dropdown-picker": "^5.4.4",
     "react-native-gesture-handler": "~2.8.0",
+    "react-native-gifted-chat": "^1.1.1",
     "react-native-otp-form": "^1.1.2",
     "react-native-otp-textinput": "^1.0.0",
     "react-native-paper": "^5.1.4",
