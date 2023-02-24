@@ -64,8 +64,8 @@ export const DUMMY_DATA = [
 export const DUMMY_DATA_RESIDENT = [
 	{
 		id: "u1",
-		fromLocation: "Dubai",
-		toLocation: "Beirut",
+		fromLocation:  "America",
+		toLocation: "Lebanon",
 		rating: 4.5,
 		maxWeight: 15,
 		username: "Rami",
@@ -78,7 +78,7 @@ export const DUMMY_DATA_RESIDENT = [
 	{
 		id: "u2",
 		fromLocation: "America",
-		toLocation: "Beirut",
+		toLocation: "Lebanon",
 		rating: 3.5,
 		maxWeight: 15,
 		username: "Chokor",
@@ -91,8 +91,8 @@ export const DUMMY_DATA_RESIDENT = [
 	},
 	{
 		id: "u3",
-		fromLocation: "Qatar",
-		toLocation: "Beirut",
+		fromLocation: "America",
+		toLocation: "Lebanon",
 		rating: 5.0,
 		maxWeight: 15,
 		username: "Nabil",
@@ -105,8 +105,8 @@ export const DUMMY_DATA_RESIDENT = [
 	},
 	{
 		id: "u4",
-		fromLocation: "Riyadh",
-		toLocation: "Beirut",
+		fromLocation:  "America",
+		toLocation: "Lebanon",
 		rating: 3.9,
 		maxWeight: 29,
 		username: "Rami",
