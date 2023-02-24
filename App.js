@@ -16,9 +16,6 @@ import LoginScreen from "./screens/LoginScreen";
 import OTPScreen from "./screens/OTPScreen";
 import SignupDetailsScreen from "./screens/SignUpDetailsScreen";
 import SignupScreen from "./screens/SignupScreen";
-import TravelerScreen from "./screens/TravelerScreen";
-import ResidentScreen from "./screens/ResidentScreen";
-import ItemDetailsScreen from "./screens/ItemDetailsScreen";
 import { useAtom } from "jotai";
 import { isLoggedIn } from "./store/LoginStore/LoginStore";
 // Creating a query client for React Query

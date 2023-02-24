@@ -144,6 +144,7 @@ function HomeScreen() {
 					component={LocationDetailsScreen}
 					options={{ headerShown: true}}
 				/>
+				
 			</Stack.Navigator>
 		</NavigationContainer>
 	
