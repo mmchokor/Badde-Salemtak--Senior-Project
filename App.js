@@ -100,7 +100,8 @@ export default function App() {
       {/* <StatusBar style="dark" /> */}
       <View style={{ flex: 1 }}>
 
-      {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
+      {/* {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />} */}
+	  {LoggedIn ? <MainAppNavigator /> : <MainAppNavigator />}
        {/* <MainAppNavigator /> */}
       </View>
     </QueryClientProvider>

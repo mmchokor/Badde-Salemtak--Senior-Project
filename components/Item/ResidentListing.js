@@ -60,7 +60,7 @@ const ResidentListing = ({
                 <MyText style={styles.header}><MyText style={{opacity: 0.6}}>To:</MyText>{toLocation}</MyText>
               </View>
             </View>
-            <ListingOptions />
+            <ListingOptions id={id} />
           </View>
           <View style={styles.bodyWrapper}>
             <View style={styles.iconTextWrapper}>

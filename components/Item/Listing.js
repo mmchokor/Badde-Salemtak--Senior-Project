@@ -41,7 +41,7 @@ const Listing = ({
         <View style={styles.sectionWrapper}>
           <View style={styles.headerWrapper}>
             <MyText style={styles.header}>{title}</MyText>
-            <ListingOptions />
+            <ListingOptions id={id}/>
           </View>
           <View style={styles.bodyWrapper}>
             <ListingDetails
