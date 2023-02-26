@@ -92,16 +92,16 @@ export default function App() {
           
         </Stack.Navigator>
       </NavigationContainer>
+	  
     );
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient} contextSharing={true}>
       {/* <StatusBar style="dark" /> */}
       <View style={{ flex: 1 }}>
 
-      {/* {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />} */}
-	  {LoggedIn ? <MainAppNavigator /> : <MainAppNavigator />}
+      {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
        {/* <MainAppNavigator /> */}
       </View>
     </QueryClientProvider>

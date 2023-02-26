@@ -6,9 +6,9 @@ import {
   Platform,
   Dimensions,
   TextInput,
-  StatusBar
+  StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Colors } from "../../constants/colors";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
@@ -17,6 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import CredentialWrapper from "../UI/CredentialWrapper";
 import { useAtom } from "jotai";
 import { isLoggedIn } from "../../store/LoginStore/LoginStore";
+import { useMutation } from "react-query";
+import { signIn } from "../../api/userAPI";
 
 const height = Dimensions.get("window").height;
 
@@ -25,11 +27,15 @@ const Login = () => {
   const [passIsValid, setPassIsValid] = useState(true);
   const [email, setEmail] = useState("");
   const [emailIsValid, setEmailIsValid] = useState(true);
-
+  const [incorrectCredentials, setIncorrectCredentials] = useState(false);
   const navigation = useNavigation();
   const [passIsVisible, setPassIsVisible] = useState(true);
-  const [, setToggleLoggedin] = useAtom(isLoggedIn)
-
+  const [, setToggleLoggedin] = useAtom(isLoggedIn);
+  const loginQuery = useMutation({
+    mutationFn: signIn,
+    onSuccess: () => setToggleLoggedin(true),
+    onError: (data) => setIncorrectCredentials(true),
+  });
 
   function passwordInputHandler(userInput) {
     setPassword(userInput);
@@ -55,24 +61,20 @@ const Login = () => {
     } else {
       setPassIsValid(true);
     }
-    setEmailIsValid(ValidateEmail(email))
+    setEmailIsValid(ValidateEmail(email));
 
-    const passIsValid = password.trim().length < 6 ? false : true
-    const emailIsValid = ValidateEmail(email)
+    const passIsValid = password.trim().length < 6 ? false : true;
+    const emailIsValid = ValidateEmail(email);
 
     if (passIsValid && emailIsValid) {
       //user Data collected
       const userData = {
         email,
-        password
-      }
-      setToggleLoggedin(true)
-      //navigation.navigate("Homee");
+        password,
+      };
+      loginQuery.mutate(userData);
     }
   };
-
- 
-  
 
   const signUpBtnPressedHandler = () => {
     navigation.navigate("signup");
@@ -84,7 +86,7 @@ const Login = () => {
       alwaysBounceVertical={false}
       showsVerticalScrollIndicator={false}
     >
-      <StatusBar style='light' />
+      <StatusBar style="light" />
       <LoginHeader />
 
       <CredentialWrapper>
@@ -117,9 +119,12 @@ const Login = () => {
             secureTextEntry={!passIsVisible ? false : true}
           ></TextInput>
         </Input>
-        <Text style={styles.forgotPass}>Forgot Password?</Text>
-
-        <Button onPress={LoginHandler}>Log in</Button>
+        {incorrectCredentials && <View style={styles.forgotPassContainer}>
+          {<Text style={styles.incorrectPass}>Incorrect Email or Password!</Text>}
+          <Text style={styles.forgotPass}>Forgot Password?</Text>
+        </View>}
+        {!incorrectCredentials && <Text style={styles.forgotPass}>Forgot Password?</Text>}
+        <Button onPress={LoginHandler}>{loginQuery.isLoading ? "Loading..." :"Log in"}</Button>
         <Text style={styles.orWord}>Or</Text>
 
         <Image
@@ -159,6 +164,14 @@ const styles = StyleSheet.create({
     //paddingTop: 50,
     paddingTop: Platform.OS === "ios" ? 30 : 20,
   },
+  forgotPassContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  incorrectPass: {
+    marginLeft: 20,
+    color: Colors.errorRedDark
+  },  
   forgotPass: {
     alignSelf: "flex-end",
     color: Colors.darkGreen,
