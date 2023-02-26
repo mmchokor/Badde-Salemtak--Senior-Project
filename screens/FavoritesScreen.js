@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { useAtom } from "jotai";
-import { favorites } from "../components/Listings/ListingOptions";
-import { Listing } from "../components/Item/Listing";
-function FavoritesScreen() {
-	const [fav] = useAtom(favorites);
+import { favorites } from "../store/Favorites/favorites";
 
+function FavoritesScreen() {
+	const [fav, setFav] = useAtom(favorites);
 	return (
 		<View style={styles.wrapper}>
-			<FlatList data={fav} renderItem={({ item }) => <Text>{item}</Text>} />
+			<FlatList
+				data={fav}
+				keyExtractor={(item, index) => index.toString()}
+				renderItem={({ item }) => <Text>{item}</Text>}
+			/>
 		</View>
 	);
 }

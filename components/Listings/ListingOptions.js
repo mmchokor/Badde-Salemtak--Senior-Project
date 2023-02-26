@@ -1,23 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Colors } from "../../constants/colors";
-import { atom } from "jotai";
+import { favorites } from "../../store/Favorites/favorites";
 import { useAtom } from "jotai";
-import { useState,useEffect } from "react";
-export const favorites = atom([]);
+import { useState, useEffect } from "react";
 
 const ListingOptions = ({ id }) => {
 	const [fav, setFav] = useAtom(favorites);
-	
+	const [isFavorite, setIsFavorite] = useState(fav.includes(id));
 
 	const addToFavorites = () => {
-		if (!fav.includes(id)) {
-      setFav([...fav,id]);
-      console.log("clicked2");
-    }
-   
+		if (!isFavorite) {
+			setFav([...fav, id]);
+			setIsFavorite(true);
+		} else {
+			setFav(fav.filter((item) => item !== id));
+			setIsFavorite(false);
+		}
 	};
 
 	const optionsHandler = () => {
@@ -26,11 +27,11 @@ const ListingOptions = ({ id }) => {
 
 	return (
 		<View style={styles.optionsWrapper}>
-			<FontAwesome5
+			<FontAwesome
 				style={styles.optionsIcon}
-				name='bookmark'
-				size={16}
-				color='black'
+				name={isFavorite ? "bookmark" : "bookmark-o"}
+				size={18}
+				color={isFavorite ? Colors.red : Colors.gray}
 				onPress={addToFavorites}
 			/>
 			<SimpleLineIcons
