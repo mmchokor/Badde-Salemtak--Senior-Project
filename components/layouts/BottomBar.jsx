@@ -49,7 +49,7 @@ function BottomBar({ navigation }) {
         name="Favorites"
         component={FavoritesScreen}
         options={{
-          title: "",
+          title: "Favorites",
 
           tabBarIcon: ({ color, size }) => (
             <Fontisto name="favorite" size={size} color={color} />
