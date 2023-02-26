@@ -16,9 +16,10 @@ import LoginHeader from "./LoginHeader";
 import { useNavigation } from "@react-navigation/native";
 import CredentialWrapper from "../UI/CredentialWrapper";
 import { useAtom } from "jotai";
-import { isLoggedIn } from "../../store/LoginStore/LoginStore";
+import { isLoggedIn, authToken } from "../../store/LoginStore/LoginStore";
 import { useMutation } from "react-query";
 import { signIn } from "../../api/userAPI";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const height = Dimensions.get("window").height;
 
@@ -31,9 +32,14 @@ const Login = () => {
   const navigation = useNavigation();
   const [passIsVisible, setPassIsVisible] = useState(true);
   const [, setToggleLoggedin] = useAtom(isLoggedIn);
+  const [, setAuthToken] = useAtom(authToken);
   const loginQuery = useMutation({
     mutationFn: signIn,
-    onSuccess: () => setToggleLoggedin(true),
+    onSuccess: (data) => {
+        setAuthToken(data.data.token),
+        AsyncStorage.setItem("token", data.data.token),
+        setToggleLoggedin(true);
+    },
     onError: (data) => setIncorrectCredentials(true),
   });
 
@@ -119,12 +125,22 @@ const Login = () => {
             secureTextEntry={!passIsVisible ? false : true}
           ></TextInput>
         </Input>
-        {incorrectCredentials && <View style={styles.forgotPassContainer}>
-          {<Text style={styles.incorrectPass}>Incorrect Email or Password!</Text>}
+        {incorrectCredentials && (
+          <View style={styles.forgotPassContainer}>
+            {
+              <Text style={styles.incorrectPass}>
+                Incorrect Email or Password!
+              </Text>
+            }
+            <Text style={styles.forgotPass}>Forgot Password?</Text>
+          </View>
+        )}
+        {!incorrectCredentials && (
           <Text style={styles.forgotPass}>Forgot Password?</Text>
-        </View>}
-        {!incorrectCredentials && <Text style={styles.forgotPass}>Forgot Password?</Text>}
-        <Button onPress={LoginHandler}>{loginQuery.isLoading ? "Loading..." :"Log in"}</Button>
+        )}
+        <Button onPress={LoginHandler}>
+          {loginQuery.isLoading ? "Loading..." : "Log in"}
+        </Button>
         <Text style={styles.orWord}>Or</Text>
 
         <Image
@@ -165,13 +181,13 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "ios" ? 30 : 20,
   },
   forgotPassContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   incorrectPass: {
     marginLeft: 20,
-    color: Colors.errorRedDark
-  },  
+    color: Colors.errorRedDark,
+  },
   forgotPass: {
     alignSelf: "flex-end",
     color: Colors.darkGreen,
