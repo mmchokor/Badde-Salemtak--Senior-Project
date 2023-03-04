@@ -36,8 +36,8 @@ const Login = () => {
 
    const { mutate, isLoading, error, isSuccess } = useMutation(signIn, {
       onSuccess: (data) => {
-         setAuthToken(data.data.token)
-         AsyncStorage.setItem('token', data.data.token)
+         setAuthToken(data)
+         AsyncStorage.setItem('token', data)
          setToggleLoggedin(true)
       },
       onError: () => {
