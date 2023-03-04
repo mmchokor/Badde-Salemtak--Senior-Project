@@ -16,9 +16,9 @@ import OTPScreen from "./screens/OTPScreen";
 import SignupDetailsScreen from "./screens/SignUpDetailsScreen";
 import SignupScreen from "./screens/SignupScreen";
 
-import { useAtom } from "jotai";
-import { isLoggedIn, authToken } from "./store/LoginStore/LoginStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAtom } from "jotai";
+import { authToken, isLoggedIn } from "./store/LoginStore/LoginStore";
 // Creating a query client for React Query
 const queryClient = new QueryClient();
 // Creating a stack navigator
@@ -116,8 +116,8 @@ export default function App() {
       {/* <StatusBar style="dark" /> */}
       <View style={{ flex: 1 }}>
 
-      {/* {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />} */}
-       <MainAppNavigator />
+      {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
+       {/* <MainAppNavigator /> */}
       </View>
     </QueryClientProvider>
   );
