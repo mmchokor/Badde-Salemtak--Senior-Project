@@ -1,22 +1,22 @@
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
 import {
+  Dimensions,
   Image,
+  Platform,
   StyleSheet,
   TextInput,
   View,
-  Platform,
-  Dimensions,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import Input from "../UI/Input";
-import Button from "../UI/Button";
-import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
-import CredentialWrapper from "../UI/CredentialWrapper";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Colors } from "../../constants/colors";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useMutation } from "react-query";
 import { signUp } from "../../api/userAPI";
+import { Colors } from "../../constants/colors";
+import Button from "../UI/Button";
+import CredentialWrapper from "../UI/CredentialWrapper";
+import Input from "../UI/Input";
 
 // iphone 14 height 844
 // android simulator height 683
@@ -33,8 +33,7 @@ const SignUpDetails = ({ userData }) => {
   const [userInfo, setUserInfo] = useState();
   const navigation = useNavigation();
 
-  const createUserMutation = useMutation({
-    mutationFn: signUp,
+  const {mutate, isLoading} = useMutation(signUp, {
     onSuccess: () => navigation.navigate('Login'),
     onError: () => Alert.alert('Sign up error', 'Please try again', [
       {
@@ -44,6 +43,7 @@ const SignUpDetails = ({ userData }) => {
       {text: 'OK'},
     ])
   });
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -104,7 +104,7 @@ const SignUpDetails = ({ userData }) => {
       console.log(userDataDetails)
       setUserInfo(userDataDetails);
 
-      createUserMutation.mutate(userDataDetails)
+      mutate(userDataDetails)
       
 
       // if (success) {
@@ -181,7 +181,7 @@ const SignUpDetails = ({ userData }) => {
 
         <Button onPress={signUpHandler}>
           {/* Sign up!{" "} */}
-          {createUserMutation.isLoading? "Signing you up!" : "Sign up"}
+          {isLoading ? "Signing you up!" : "Sign up"}
           <SimpleLineIcons
             name="login"
             size={Platform.OS === "ios" ? 20 : 16}
