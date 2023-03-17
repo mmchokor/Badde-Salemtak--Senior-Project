@@ -16,8 +16,9 @@ import OTPScreen from "./screens/OTPScreen";
 import SignupDetailsScreen from "./screens/SignUpDetailsScreen";
 import SignupScreen from "./screens/SignupScreen";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAtom } from "jotai";
-import { isLoggedIn } from "./store/LoginStore/LoginStore";
+import { authToken, isLoggedIn } from "./store/LoginStore/LoginStore";
 // Creating a query client for React Query
 const queryClient = new QueryClient();
 // Creating a stack navigator
@@ -30,15 +31,29 @@ export default function App() {
 		"inter-light": require("./assets/fonts/Inter-Light.ttf"),
 		"inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
 	});
-	const [LoggedIn] = useAtom(isLoggedIn);
+	const [LoggedIn, setIsLoggedIn] = useAtom(isLoggedIn);
+	const [, setAuthToken] = useAtom(authToken);
+	const [appIsLoading, setAppIsLoading] = useState(true);
 	useEffect(() => {
 		async function prepare() {
 			SplashScreen.preventAutoHideAsync();
 		}
+
+		async function fetchToken() {
+			const storedToken = await AsyncStorage.getItem('token')
+			if (storedToken) {
+				setIsLoggedIn(true)
+				setAuthToken(storedToken)
+			}
+
+			setAppIsLoading(false)
+		}
+		
+		fetchToken()
 		prepare();
 	}, []);
 
-	if (!fontsLoaded) {
+	if (!fontsLoaded || appIsLoading) {
 		return undefined;
 	} else {
 		SplashScreen.hideAsync();
@@ -92,11 +107,12 @@ export default function App() {
           
         </Stack.Navigator>
       </NavigationContainer>
+	  
     );
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient} contextSharing={true}>
       {/* <StatusBar style="dark" /> */}
       <View style={{ flex: 1 }}>
 

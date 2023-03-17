@@ -5,21 +5,31 @@ import {
 	View,
 	Pressable,
 	KeyboardAvoidingView,
+	FlatList,
 } from "react-native";
 import { Colors } from "../constants/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
+import { useState } from "react";
+import { flags } from "../constants/flags";
 import BorderStyle from "../components/AddItemsLocations/BorderStyle";
 import ItemType from "../components/AddItemsLocations/ItemType";
 import InputBorderStyle from "../components/AddItemsLocations/InputBorderStyle";
 import PreferredPayment from "../components/AddItemsLocations/PreferredPayment";
-
+import DropDownPicker from "react-native-dropdown-picker";
 function AddLocationScreen({ navigation }) {
 	function PressEventHandler() {
 		navigation.navigate("Item");
 	}
+	const [open, setOpen] = useState(false);
+	const [value, setValue] = useState(null);
+	const [items, setItems] = useState([flags]);
+
+	const [opent, setOpent] = useState(false);
+	const [valuet, setValuet] = useState(null);
+	const [itemst, setItemst] = useState([flags]);
 	return (
-		<View style={{ alignItems: "center",backgroundColor:Colors.white }}>
+		<View style={{ alignItems: "center", backgroundColor: Colors.white }}>
 			<View style={styles.upperButton}>
 				<Pressable onPress={PressEventHandler}>
 					<View style={styles.item}>
@@ -31,21 +41,74 @@ function AddLocationScreen({ navigation }) {
 				</View>
 			</View>
 
-			<ScrollView>
+			{/* <ScrollView>
 				<KeyboardAvoidingView
 					behavior='padding'
 					enabled
 					style={{ height: 720 }}
-				>
-					<View style={{ paddingHorizontal: 20 }}>
-						<Text style={styles.textHead}>Country Name From*</Text>
-						<TextInput style={styles.inputT} />
-						<Text style={styles.textHead}>Country Name From*</Text>
-						<TextInput style={styles.inputT} />
+				>  */}
+			<View style={{ paddingHorizontal: 90 }}>
+				<Text style={styles.textHead}>Country Name From*</Text>
+				{/* <TextInput style={styles.inputT} /> */}
 
-						{/* Weight View */}
+				<View>
+					<DropDownPicker
+						open={open}
+						value={value}
+						items={Object.entries(items[0]).map(([label, value]) => ({
+							label,
+							value,
+						}))}
+						setOpen={setOpen}
+						setValue={setValue}
+						setItems={setItems}
+						searchable={true}
+						style={{ zIndex: 1 }}
+						textStyle={{
+							fontSize: 16,
+							fontFamily: "inter-regular",
+						}}
+						placeholder='Enter country'
+						labelStyle={{
+							color: Colors.darkGreen,
+						}}
+						onChangeValue={(value) => {
+							console.log(value);
+						}}
+					/>
+				</View>
 
-						<View style={{ marginRight: 70 }}>
+				<Text style={styles.textHead}>Country Name From*</Text>
+				<View>
+					<DropDownPicker
+						open={opent}
+						value={valuet}
+						items={Object.entries(itemst[0]).map(([label, value]) => ({
+							label,
+							value,
+						}))}
+						setOpen={setOpent}
+						setValue={setValuet}
+						setItems={setItemst}
+						searchable={true}
+						style={{ zIndex: 0.9 }}
+						textStyle={{
+							fontSize: 16,
+							fontFamily: "inter-regular",
+						}}
+						placeholder='Enter country'
+						labelStyle={{
+							color: Colors.darkGreen,
+						}}
+						onChangeValue={(valuet) => {
+							console.log(valuet);
+						}}
+					/>
+				</View>
+
+				<ScrollView>
+					<KeyboardAvoidingView behavior='position' enabled>
+						<View>
 							<View>
 								<Text style={styles.textHead}>Preferred Weight</Text>
 								<View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -96,9 +159,11 @@ function AddLocationScreen({ navigation }) {
 						<View>
 							<PreferredPayment />
 						</View>
-					</View>
-				</KeyboardAvoidingView>
-			</ScrollView>
+					</KeyboardAvoidingView>
+				</ScrollView>
+			</View>
+			{/* </KeyboardAvoidingView>
+			</ScrollView> */}
 		</View>
 	);
 }

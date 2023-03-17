@@ -20,6 +20,7 @@ const height = Dimensions.get("window").height;
 // iphone 14 height 844
 // android simulator height 683
 
+
 const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passIsValid, setPassIsValid] = useState(true);
@@ -84,7 +85,7 @@ const SignUp = () => {
         confirmPassword,
       };
 
-      navigation.navigate("signupDetails");
+      navigation.navigate("signupDetails", {userData});
     }
   };
 

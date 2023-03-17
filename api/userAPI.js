@@ -1,75 +1,89 @@
+import axios from 'axios'
 import { API_URL } from '../constants/apiURL'
 
 // It is a sign up function that takes data as a parameter and returns the result
 // results contain all the user info in a form of an object
 const signUp = async (data) => {
-   const response = await fetch(`${API_URL}/users/`, {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-   })
-   const result = await response.json()
-   return result
+   try {
+      const response = await axios.post(`${API_URL}/users/`, data, {
+         headers: {
+            'Content-Type': 'application/json',
+         },
+      })
+      return response.data // Return only the data object from the response
+   } catch (error) {
+      throw error.response.data // Throw the response data as an error
+   }
 }
 
 // It is a sign in function that takes data as a parameter and returns the result
-// results contain all the user info in a form of an object
+// results contain only the authentication token
 const signIn = async (data) => {
-   const response = await fetch(`${API_URL}/users/login`, {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-   })
-   const result = await response.json()
-   return result
+   try {
+      const response = await axios.post(`${API_URL}/users/login`, data, {
+         headers: {
+            'Content-Type': 'application/json',
+         },
+      })
+      return response.data.token // Return only the token from the response
+   } catch (error) {
+      throw error.response.data // Throw the response data as an error
+   }
 }
 
 // It is a forget password function that takes data as a parameter and returns the result
 // return either a success message or an error message
 const forgetPassword = async (data) => {
-   const response = await fetch(`${API_URL}/users/forgetPassword`, {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-   })
-   const result = await response.json()
-   return result
+   try {
+      const response = await axios.post(
+         `${API_URL}/users/forgetPassword`,
+         data,
+         {
+            headers: {
+               'Content-Type': 'application/json',
+            },
+         }
+      )
+      return response.data
+   } catch (error) {
+      throw error.response.data
+   }
 }
 
 // It is a update user info function that takes data and token as a parameter and returns the result
 // return the updates user info in a form of an object
 const updateUserInfo = async (data, token) => {
-   const response = await fetch(`${API_URL}/users/updateMe`, {
-      method: 'PATCH',
-      headers: {
-         Authorization: `Bearer ${token}`,
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-   })
-   const result = await response.json()
-   return result
+   try {
+      const response = await axios.patch(`${API_URL}/users/updateMe`, data, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+         },
+      })
+      return response.data
+   } catch (error) {
+      throw error.response.data
+   }
 }
 
 // It is a update user password function that takes data and token as a parameter and returns the result
 // return either a success message or an error message and the user with new token
 const updateUserPassword = async (data, token) => {
-   const response = await fetch(`${API_URL}/users/updateMyPassword`, {
-      method: 'PATCH',
-      headers: {
-         Authorization: `Bearer ${token}`,
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-   })
-   const result = await response.json()
-   return result
+   try {
+      const response = await axios.patch(
+         `${API_URL}/users/updateMyPassword`,
+         data,
+         {
+            headers: {
+               Authorization: `Bearer ${token}`,
+               'Content-Type': 'application/json',
+            },
+         }
+      )
+      return response.data
+   } catch (error) {
+      throw error.response.data
+   }
 }
 
 // export all module

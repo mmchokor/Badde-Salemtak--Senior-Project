@@ -17,8 +17,8 @@ const LoginHeader = () => {
     <View style={styles.wrapper}>
       <View>
         {/* Welcome Back */}
-        <Text style={styles.header}>Create Your</Text>
-        <Text style={styles.header}>account</Text>
+        <Text style={styles.header}>Welcome</Text>
+        <Text style={styles.header}>Back!</Text>
       </View>
 
       <Image

@@ -3,11 +3,11 @@ import { StyleSheet, Text, View } from "react-native";
 function NotificationsScreen() {
 
 
-  return (
-  <Text>NotificationsScreen</Text>
-  );
-	}
-	
+	return (
+   <View></View>
+	);
+}
+
 export default NotificationsScreen;
 
 const styles = StyleSheet.create({});

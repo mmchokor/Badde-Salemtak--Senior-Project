@@ -7,13 +7,17 @@ import { useNavigation } from "@react-navigation/native";
 import Button from "../UI/ButtonProfile";
 import { ScrollView } from "react-native-gesture-handler";
 import { useAtom } from "jotai";
-import { isLoggedIn } from "../../store/LoginStore/LoginStore";
+import { isLoggedIn, authToken } from "../../store/LoginStore/LoginStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function ProfileComponent() {
 	const [, setIsLoggedIn] = useAtom(isLoggedIn)
+	const [, setAuthToken] = useAtom(authToken)
 	const navigation = useNavigation();
 	function LogoutNavigationHandler() {
 		setIsLoggedIn(false)
+		setAuthToken(null)
+		AsyncStorage.removeItem('token')
 		//navigation.navigate("Login");
 	}
 	const [checked, setChecked] = useState("National ID");

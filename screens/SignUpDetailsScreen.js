@@ -9,7 +9,7 @@ import ProgressBar from "../components/UI/ProgressBar";
 
 const height = Dimensions.get("window").width;
 
-const SignupDetailsScreen = () => {
+const SignupDetailsScreen = ({route}) => {
   const navigation = useNavigation();
 
   const goBackHandler = () => {
@@ -31,7 +31,7 @@ const SignupDetailsScreen = () => {
         <MyText style={styles.header}>Enter your details</MyText>
         <ProgressBar two={true} />
       </View>
-      <SignUpDetails />
+      <SignUpDetails userData={route.params.userData} />
     </View>
   );
 };

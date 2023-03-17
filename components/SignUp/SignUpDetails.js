@@ -1,35 +1,48 @@
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
 import {
+  Dimensions,
   Image,
+  Platform,
   StyleSheet,
   TextInput,
   View,
-  Platform,
-  Dimensions,
 } from "react-native";
-import React, { useState } from "react";
-import Input from "../UI/Input";
-import Button from "../UI/Button";
-import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
-import CredentialWrapper from "../UI/CredentialWrapper";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Colors } from "../../constants/colors";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useMutation } from "react-query";
+import { signUp } from "../../api/userAPI";
+import { Colors } from "../../constants/colors";
+import Button from "../UI/Button";
+import CredentialWrapper from "../UI/CredentialWrapper";
+import Input from "../UI/Input";
 
 // iphone 14 height 844
 // android simulator height 683
 
 const height = Dimensions.get("window").height;
-const SignUpDetails = () => {
+const SignUpDetails = ({ userData }) => {
   const [firstName, setFirstName] = useState("");
   const [firstNameIsValid, setFirstNameIsValid] = useState(true);
   const [lastName, setLastName] = useState("");
   const [lastNameIsValid, setLastNameIsValid] = useState(true);
-  const [country, setCountry] = useState("");
   const [countryIsValid, setCountryIsValid] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneNumberIsValid, setPhoneNumberIsValid] = useState(true);
+  const [userInfo, setUserInfo] = useState();
   const navigation = useNavigation();
+
+  const {mutate, isLoading} = useMutation(signUp, {
+    onSuccess: () => navigation.navigate('Login'),
+    onError: () => Alert.alert('Sign up error', 'Please try again', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {text: 'OK'},
+    ])
+  });
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -38,6 +51,8 @@ const SignUpDetails = () => {
     { label: "United Arab Emirates", value: "United Arab Emirates" },
     { label: "Saudi Arabia", value: "Saudi Arabia" },
   ]);
+
+
 
   function firstNameHandler(userInput) {
     setFirstName(userInput);
@@ -78,15 +93,26 @@ const SignUpDetails = () => {
 
     if (firstNameIsValid && lastNameIsValid && phoneNumberIsValid) {
       //user data collected from the user
-      const userData = {
-        firstName,
-        lastName,
-        phoneNumber,
-        country: value
+      let userDataDetails = {
+        firstname : firstName,
+        lastname: lastName,
+        phone: phoneNumber.toString(),
+        country: value,
       };
 
+      userDataDetails = { ...userData, ...userDataDetails };
+      console.log(userDataDetails)
+      setUserInfo(userDataDetails);
 
-      navigation.navigate("otpScreen");
+      mutate(userDataDetails)
+      
+
+      // if (success) {
+      //   console.log("User added")
+      //   navigation.navigate("Login")
+      // }
+
+      //navigation.navigate("otpScreen");
     }
   };
 
@@ -125,9 +151,8 @@ const SignUpDetails = () => {
           label="Country"
           inValid={!open && !countryIsValid}
           inValidText="Please select a country"
-          customStyle={Platform.OS === 'ios' ? {zIndex: 100} : {}}
+          customStyle={Platform.OS === "ios" ? { zIndex: 100 } : {}}
         >
-          
           <DropDownPicker
             open={open}
             value={value}
@@ -155,7 +180,8 @@ const SignUpDetails = () => {
         </Input>
 
         <Button onPress={signUpHandler}>
-          Sign up!{" "}
+          {/* Sign up!{" "} */}
+          {isLoading ? "Signing you up!" : "Sign up"}
           <SimpleLineIcons
             name="login"
             size={Platform.OS === "ios" ? 20 : 16}
