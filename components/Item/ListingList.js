@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
@@ -11,16 +12,19 @@ const ListingList = () => {
    const { status, data: residentListings, isError, error, isLoading } = useQuery(
       'traverlerLisitngs',
       async () => {
+         // i want to get from AsyncStroage
+         const token = await AsyncStorage.getItem('token')
          const response = await fetch(
             'https://badde-salemtak-api.vercel.app/api/resident/',
             {
                headers: {
                   Authorization:
-                     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTI5M2M3NWJhOGQyYWIxZjFjNjgyMCIsImlhdCI6MTY3NTc5MzQxMiwiZXhwIjoxNjc4Mzg1NDEyfQ.xeDDusb55YcGcIlSFR5UA0QGYE9PUrCZeSOI4vPay_E',
+                     'Bearer ' + token,
                },
             }
          )
          const data = await response.json()
+         console.log(data)
          return data.data.residentListings
       }
    )
