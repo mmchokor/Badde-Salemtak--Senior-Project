@@ -10,6 +10,9 @@ function DetailsBody({ details, location, username, payment }) {
 	function chatHandler () {
 		navigation.navigate('chat', {username})
 	}
+	function paymentHandler () {
+		navigation.navigate('productConfirm', {username, details, location})
+	}
 
   return (
     <View>
@@ -57,8 +60,13 @@ function DetailsBody({ details, location, username, payment }) {
           <PreferredPayment text={payment} />
         </BorderStyle>
         <Pressable onPress={chatHandler} style={({pressed}) => {opacity: 0.75}}>
-          <View style={styles.chatNow}>
-            <Text style={styles.chatNowText}>Chat Now</Text>
+          <View style={styles.confirmBtn}>
+            <Text style={styles.confirmText}>Chat Now</Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={paymentHandler} style={({pressed}) => {opacity: 0.75}}>
+          <View style={[styles.confirmBtn, styles.paymentBtn]}>
+            <Text style={styles.confirmText}>Make payment</Text>
           </View>
         </Pressable>
       </View>
@@ -101,16 +109,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 100,
   },
-  chatNow: {
+  confirmBtn: {
     backgroundColor: Colors.darkGreen,
     borderRadius: 21,
     alignItems: "center",
     marginTop: 8,
   },
-  chatNowText: {
+  confirmText: {
     fontFamily: "inter-bold",
     color: Colors.white,
     fontSize: 20,
     padding: 8,
   },
+  paymentBtn: {
+    backgroundColor: '#FFC300'
+  }
 });

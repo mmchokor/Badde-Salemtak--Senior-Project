@@ -17,6 +17,7 @@ import ResidentScreen from "./ResidentScreen";
 import ItemDetailsScreen from "./ItemDetailsScreen";
 import LocationDetailsScreen from "./LocationDetailsScreen";
 import ChatScreen from "./ChatScreen";
+import ProductConfirmation from "../components/Checkout/ProductConfirmation";
 const Stack = createNativeStackNavigator();
 
 function HomeScreen() {
@@ -28,14 +29,16 @@ function HomeScreen() {
     setSearch(text);
   }
 
-  function getTabBarVisibility (route) {
-	const routeName = route.state ? route.state.routes[route.state.index].name : ''
-	//console.log(route.name)
-	if (route.name === 'chat') {
-		return false
-	} else {
-		return true;
-	}
+  function getTabBarVisibility(route) {
+    const routeName = route.state
+      ? route.state.routes[route.state.index].name
+      : "";
+    //console.log(route.name)
+    if (route.name === "chat") {
+      return false;
+    } else {
+      return true;
+    }
   }
   return (
     <NavigationContainer independent={true}>
@@ -154,7 +157,22 @@ function HomeScreen() {
         <Stack.Screen
           name="chat"
           component={ChatScreen}
-          options={({route}) => ({ headerShown: true, tapBarVisibility: false })}
+          options={({ route }) => ({
+            headerShown: true,
+            tapBarVisibility: false,
+          })}
+        />
+        <Stack.Screen
+          name="productConfirm"
+          component={ProductConfirmation}
+          options={({ route }) => ({
+            headerShown: true,
+            headerTransparent: true,
+            title: "Your cart",
+            headerTitleStyle: { fontSize: 20, color: Colors.black },
+            headerBackTitle: "",
+            headerTintColor: Colors.darkGreen
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
