@@ -3,14 +3,14 @@ import { useNavigation } from '@react-navigation/native'
 import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
 import {
-  Dimensions,
-  Image,
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
+   Dimensions,
+   Image,
+   Platform,
+   StatusBar,
+   StyleSheet,
+   Text,
+   TextInput,
+   View,
 } from 'react-native'
 import { useMutation, useQuery } from 'react-query'
 import { signIn } from '../../api/userAPI'
@@ -42,6 +42,9 @@ const Login = () => {
       },
       onError: () => {
          setIncorrectCredentials(true)
+         setTimeout(() => {
+            setIncorrectCredentials(false)
+         }, 3000)
       },
    })
 
@@ -141,7 +144,9 @@ const Login = () => {
             {!incorrectCredentials && (
                <Text style={styles.forgotPass}>Forgot Password?</Text>
             )}
-            <Button onPress={LoginHandler}>{isLoading ? 'Loading' : 'Login'}</Button>
+            <Button onPress={LoginHandler}>
+               {isLoading ? 'Loading' : 'Login'}
+            </Button>
             <Text style={styles.orWord}>Or</Text>
 
             <Image

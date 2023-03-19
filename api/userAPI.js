@@ -27,7 +27,7 @@ const signIn = async (data) => {
       })
       return response.data.token // Return only the token from the response
    } catch (error) {
-      throw error.response.data // Throw the response data as an error
+      throw error // Throw the response data as an error
    }
 }
 
@@ -87,5 +87,5 @@ const updateUserPassword = async (data, token) => {
 }
 
 // export all module
-export { signUp, signIn, forgetPassword, updateUserInfo, updateUserPassword }
+export { forgetPassword, signIn, signUp, updateUserInfo, updateUserPassword }
 

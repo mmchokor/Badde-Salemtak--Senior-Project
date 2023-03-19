@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
+import { getResidentListings } from '../../api/residentListingsAPI'
 import { DUMMY_DATA } from '../../constants/DUMMY_DATA'
 import Listing from './Listing'
 
@@ -9,32 +10,42 @@ const ListingList = () => {
    const navigation = useNavigation()
 
    // i want use React query to get data from my server
-   const { status, data: residentListings, isError, error, isLoading } = useQuery(
-      'traverlerLisitngs',
-      async () => {
-         // i want to get from AsyncStroage
-         const token = await AsyncStorage.getItem('token')
-         const response = await fetch(
-            'https://badde-salemtak-api.vercel.app/api/resident/',
-            {
-               headers: {
-                  Authorization:
-                     'Bearer ' + token,
-               },
-            }
-         )
-         const data = await response.json()
-         console.log(data)
-         return data.data.residentListings
-      }
-   )
+   // const { status, data: residentListings, isError, error, isLoading } = useQuery(
+   //    'traverlerLisitngs',
+   //    async () => {
+   //       // i want to get from AsyncStroage
+   //       const token = await AsyncStorage.getItem('token')
+   //       const response = await fetch(
+   //          'https://badde-salemtak-api.vercel.app/api/resident/',
+   //          {
+   //             headers: {
+   //                Authorization:
+   //                   'Bearer ' + token,
+   //             },
+   //          }
+   //       )
+   //       const data = await response.json()
+   //       console.log(data)
+   //       return data.data.residentListings
+   //    }
+   // )
+   const {
+      status,
+      data: residentListings,
+      isError,
+      error,
+      isLoading,
+   } = useQuery('traverlerLisitngs', getResidentListings)
 
    if (isLoading) {
       //return <Text>Loading...</Text>
       return (
-      <View style={{justifyContent: 'center', alignItems:'center', flex: 1}}>
-      <Image  source={require("../../assets/LoginImages/bsalemtak.gif")} />
-      </View>)
+         <View
+            style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+         >
+            <Image source={require('../../assets/LoginImages/bsalemtak.gif')} />
+         </View>
+      )
    }
 
    if (isError) {
