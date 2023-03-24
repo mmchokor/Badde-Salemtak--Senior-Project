@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
+import { getResidentListings } from '../../api/residentListingsAPI'
 import { DUMMY_DATA } from '../../constants/DUMMY_DATA'
 import Listing from './Listing'
 
@@ -31,9 +32,12 @@ const ListingList = () => {
    if (isLoading) {
       //return <Text>Loading...</Text>
       return (
-      <View style={{justifyContent: 'center', alignItems:'center', flex: 1}}>
-      <Image  source={require("../../assets/LoginImages/bsalemtak.gif")} />
-      </View>)
+         <View
+            style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+         >
+            <Image source={require('../../assets/LoginImages/bsalemtak.gif')} />
+         </View>
+      )
    }
 
    if (isError) {
