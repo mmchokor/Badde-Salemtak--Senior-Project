@@ -4,13 +4,6 @@ import { Colors } from "../../constants/colors";
 import MyText from "../UI/MyText.js";
 import ListingOptions from "../Listings/ListingOptions";
 import ListingDetails from "../Listings/ListingDetails";
-// iphone 14 HEIGHT 844
-// android simulator HEIGHT 683
-// my phone Height 755
-
-// iphone 14 Width 390
-// android simulator Width 411
-// my phone Width 360
 
 const height = Dimensions.get("window").height;
 
@@ -36,7 +29,7 @@ const Listing = ({
       {/* <ListingOptions /> */}
       <View style={styles.contentWrapper}>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={imageSrc} />
+          <Image style={styles.image}  source={{uri: imageSrc}} />
         </View>
         <View style={styles.sectionWrapper}>
           <View style={styles.headerWrapper}>

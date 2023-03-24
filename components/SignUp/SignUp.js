@@ -17,9 +17,6 @@ import { useNavigation } from "@react-navigation/native";
 import CredentialWrapper from "../UI/CredentialWrapper";
 
 const height = Dimensions.get("window").height;
-// iphone 14 height 844
-// android simulator height 683
-
 
 const SignUp = () => {
   const [password, setPassword] = useState("");

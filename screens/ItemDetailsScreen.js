@@ -4,6 +4,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Image,
+  Pressable,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Colors } from "../constants/colors";
@@ -12,8 +13,34 @@ import BorderStyle from "../components/AddItemsLocations/BorderStyle";
 import MyText from "../components/UI/MyText";
 import DetailsBody from "../components/DetailsItemLocation/DetailsBody";
 import Weight from "../components/DetailsItemLocation/Weight";
+import { useNavigation } from "@react-navigation/native";
 
 function ItemDetailsScreen({ route }) {
+  const username = route.params.username;
+  const image = route.params.imageSrc;
+  const price = route.params.price;
+  const title = route.params.title;
+  const location = route.params.location;
+
+  const navigation = useNavigation();
+
+  function chatHandler() {
+    navigation.navigate("chat", { username });
+  }
+  function offerHandler() {
+    navigation.navigate("offerRecieved", { username, image, price, title, location });
+  }
+  // I changed the location after the button is clicked to this instead of the other one.
+  // function offerHandler() {
+  //   navigation.navigate("makeOffer", {
+  //     username,
+  //     image,
+  //     price,
+  //     title,
+  //     location,
+  //   });
+  // }
+
   return (
     <View>
       {/* <Text>Item Details Screen:{route.params.id}  {route.params.title}</Text> */}
@@ -31,7 +58,7 @@ function ItemDetailsScreen({ route }) {
                   style={{ flexDirection: "column", alignItems: "flex-start" }}
                 >
                   <Image
-                    source={route.params.imageSrc}
+                    source={{ uri: image}}
                     style={styles.itemPhoto}
                   />
                   <View style={{ marginTop: 10 }}>
@@ -84,12 +111,36 @@ function ItemDetailsScreen({ route }) {
               </View>
             </View>
             {/* Body */}
-            <DetailsBody
-              details={route.params.moreD}
-              location={route.params.location}
-              username={route.params.username}
-              payment={route.params.prefPayment}
-            />
+            <View style={styles.body}>
+              <DetailsBody
+                details={route.params.moreD}
+                location={route.params.location}
+                username={route.params.username}
+                payment={route.params.prefPayment}
+              />
+              <View style={styles.btnWrapper}>
+                <Pressable
+                  onPress={chatHandler}
+                  style={({ pressed }) => {
+                    opacity: 0.75;
+                  }}
+                >
+                  <View style={styles.confirmBtn}>
+                    <Text style={styles.confirmText}>Chat Now</Text>
+                  </View>
+                </Pressable>
+                <Pressable
+                  onPress={offerHandler}
+                  style={({ pressed }) => {
+                    opacity: 0.75;
+                  }}
+                >
+                  <View style={[styles.confirmBtn, styles.paymentBtn]}>
+                    <Text style={styles.confirmText}>Make Offer</Text>
+                  </View>
+                </Pressable>
+              </View>
+            </View>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -127,5 +178,27 @@ const styles = StyleSheet.create({
     fontFamily: "inter-regular",
     opacity: 0.9,
     fontSize: 15,
+  },
+  confirmBtn: {
+    backgroundColor: Colors.darkGreen,
+    borderRadius: 21,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  confirmText: {
+    fontFamily: "inter-bold",
+    color: Colors.white,
+    fontSize: 20,
+    padding: 8,
+  },
+  paymentBtn: {
+    backgroundColor: "#FFC300",
+  },
+  body: {
+    marginTop: 1,
+    backgroundColor: Colors.grayBackground,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    //paddingBottom: 20,
   },
 });

@@ -4,15 +4,14 @@ import { Colors } from "../../constants/colors";
 import BorderStyle from "../AddItemsLocations/BorderStyle";
 import { FontAwesome } from "@expo/vector-icons";
 import PreferredPayment from "./PreferredPayment";
-import { useNavigation } from '@react-navigation/native';
-function DetailsBody({ details, location, username, payment }) {
-	const navigation = useNavigation();
-	function chatHandler () {
-		navigation.navigate('chat', {username})
-	}
-	function paymentHandler () {
-		navigation.navigate('productConfirm', {username, details, location})
-	}
+import { useNavigation } from "@react-navigation/native";
+function DetailsBody({
+  details,
+  location,
+  username,
+  payment
+}) {
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -59,16 +58,6 @@ function DetailsBody({ details, location, username, payment }) {
         <BorderStyle style={styles.paymentContainer}>
           <PreferredPayment text={payment} />
         </BorderStyle>
-        <Pressable onPress={chatHandler} style={({pressed}) => {opacity: 0.75}}>
-          <View style={styles.confirmBtn}>
-            <Text style={styles.confirmText}>Chat Now</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={paymentHandler} style={({pressed}) => {opacity: 0.75}}>
-          <View style={[styles.confirmBtn, styles.paymentBtn]}>
-            <Text style={styles.confirmText}>Make payment</Text>
-          </View>
-        </Pressable>
       </View>
     </View>
   );
@@ -76,13 +65,13 @@ function DetailsBody({ details, location, username, payment }) {
 export default DetailsBody;
 
 const styles = StyleSheet.create({
-  body: {
-    marginTop: 1,
-    backgroundColor: Colors.grayBackground,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    paddingBottom: 20,
-  },
+  // body: {
+  //   marginTop: 1,
+  //   backgroundColor: Colors.grayBackground,
+  //   paddingHorizontal: 10,
+  //   borderRadius: 10,
+  //   paddingBottom: 20,
+  // },
   textHead: {
     fontFamily: "inter-bold",
     color: Colors.black,
@@ -109,19 +98,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 100,
   },
-  confirmBtn: {
-    backgroundColor: Colors.darkGreen,
-    borderRadius: 21,
-    alignItems: "center",
-    marginTop: 8,
-  },
-  confirmText: {
-    fontFamily: "inter-bold",
-    color: Colors.white,
-    fontSize: 20,
-    padding: 8,
-  },
-  paymentBtn: {
-    backgroundColor: '#FFC300'
-  }
 });

@@ -4,11 +4,11 @@ import { Colors } from "../../constants/colors";
 
 const height = Dimensions.get('window').height
 
-const Button = ({onPress, children, style, textStyle}) => {
+const Button = ({onPress, children, style, textStyle, styleWrapper}) => {
   return (
     
-    <Pressable onPress={onPress} style={({pressed}) => pressed ? styles.pressed : [styles.container]}>
-      <View style={[styles.wrapper, style]}>
+    <Pressable onPress={onPress} style={({pressed}) => pressed ? [styles.pressed, style] : [styles.container, style]}>
+      <View style={[styles.wrapper, styleWrapper]}>
         <Text style={[styles.text, textStyle]}>{children}</Text>
       </View>
     </Pressable>

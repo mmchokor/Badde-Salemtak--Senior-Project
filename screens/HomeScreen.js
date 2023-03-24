@@ -17,7 +17,8 @@ import ResidentScreen from "./ResidentScreen";
 import ItemDetailsScreen from "./ItemDetailsScreen";
 import LocationDetailsScreen from "./LocationDetailsScreen";
 import ChatScreen from "./ChatScreen";
-import ProductConfirmation from "../components/Checkout/ProductConfirmation";
+import OfferReceived from "../components/Orders/OfferReceived";
+import MakeOffer from "../components/Orders/MakeOffer";
 const Stack = createNativeStackNavigator();
 
 function HomeScreen() {
@@ -163,17 +164,34 @@ function HomeScreen() {
           })}
         />
         <Stack.Screen
-          name="productConfirm"
-          component={ProductConfirmation}
+          name="offerRecieved"
+          component={OfferReceived}
           options={({ route }) => ({
             headerShown: true,
-            headerTransparent: true,
-            title: "Your cart",
-            headerTitleStyle: { fontSize: 20, color: Colors.black },
+            headerTransparent: false,
+            title: "Offer Received",
+            headerTitleStyle: { fontSize: 24, color: Colors.black},
             headerBackTitle: "",
-            headerTintColor: Colors.darkGreen
+            headerTintColor: Colors.darkGreen,
+            headerTitleAlign: 'center',
+            headerStyle: {backgroundColor: Colors.grayBackground}
           })}
         />
+        <Stack.Screen
+          name="makeOffer"
+          component={MakeOffer}
+          options={({ route }) => ({
+            headerShown: true,
+            headerShadowVisible: false,
+            title: "Your Offer",
+            headerTitleStyle: { fontSize: 24, color: Colors.black},
+            headerBackTitle: "",
+            headerTintColor: Colors.darkGreen,
+            headerTitleAlign: 'center',
+            headerStyle: {backgroundColor: Colors.grayBackground}
+          })}
+        />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

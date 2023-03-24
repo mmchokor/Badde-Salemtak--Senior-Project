@@ -102,7 +102,7 @@ export default function App() {
           <Stack.Screen
             name="Fav"
             component={BottomBar}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }} // was true but was making double back entries
           />
           
         </Stack.Navigator>
@@ -116,8 +116,8 @@ export default function App() {
       {/* <StatusBar style="dark" /> */}
       <View style={{ flex: 1 }}>
 
-      {/* {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />} */}
-       <MainAppNavigator />
+      {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
+       {/* <MainAppNavigator /> */}
       </View>
     </QueryClientProvider>
   );

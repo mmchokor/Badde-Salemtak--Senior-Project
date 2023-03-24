@@ -91,11 +91,12 @@ function BottomBar({ navigation }) {
         name="Notifications"
         component={NotificationsScreen}
         options={{
-          title: "",
+          title: "Notifications",
 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="notifications" size={30} color={color} />
           ),
+          headerTitleAlign: "center",
         }}
       />
       <BottomTabs.Screen
