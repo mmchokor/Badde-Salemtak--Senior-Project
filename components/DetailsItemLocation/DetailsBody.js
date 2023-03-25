@@ -65,13 +65,13 @@ function DetailsBody({
 export default DetailsBody;
 
 const styles = StyleSheet.create({
-  // body: {
-  //   marginTop: 1,
-  //   backgroundColor: Colors.grayBackground,
-  //   paddingHorizontal: 10,
-  //   borderRadius: 10,
-  //   paddingBottom: 20,
-  // },
+  body: {
+    marginTop: 1,
+    backgroundColor: Colors.grayBackground,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    paddingBottom: 20,
+  },
   textHead: {
     fontFamily: "inter-bold",
     color: Colors.black,
