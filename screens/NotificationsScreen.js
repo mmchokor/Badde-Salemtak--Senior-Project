@@ -1,34 +1,43 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, FlatList } from "react-native";
 import { Colors } from "../constants/colors";
+import NotificationOrderReceived from "../components/Notifications/NotificationOrderReceived";
+import { useAtom } from "jotai";
+import { notifications } from "../store/Notifications/notification";
+
+function NotificationsScreen({ navigation, route }) {
+  const [notification, setNotification] = useAtom(notifications);
 
 
-function NotificationsScreen({navigation}) {
-
-	const viewOfferHandler = () => {
-		navigation.navigate('Homee', {screen: 'Home', params:{screen: 'ItemDetails'}})
-	}
-
-  return (
-    <View>
-      <View style={styles.cardWrapper}>
-        <View style={styles.profileImg}></View>
-        <View style={styles.contentWrapper}>
-          <Text style={styles.text}>You have received an offer from 
-			<Text style={styles.username}> Rami ElSkakini!</Text>
-		  </Text>
-          <Text style={styles.timeReceived}>5 min ago</Text>
-		  <View style={styles.buttonWrapper}>
-				<Pressable style={[styles.button, styles.buttonAccept]} onPress={viewOfferHandler}>
-					<Text style={[styles.text, styles.textAccept]}>View Offer</Text>
-				</Pressable>
-				<Pressable style={styles.button}>
-					<Text style={styles.text}>Decline</Text>
-				</Pressable>
-		  </View>
-        </View>
+  if (notification.length == 0) {
+    return (
+      <View>
+        <Text>Nothing to see here</Text>
       </View>
-    </View>
-  );
+    );
+  } else {
+    const { image, price, title, location } = route.params;
+
+    return (
+      <View>
+        <FlatList
+          data={notification}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <NotificationOrderReceived
+              key = {item.id}
+              image={item.image}
+              price={item.price}
+              title={item.title}
+              location={item.location}
+              id = {item.id}
+            />
+          )}
+        />
+      </View>
+    );
+
+    
+  }
 }
 
 export default NotificationsScreen;
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   contentWrapper: {
-	marginLeft: 10
+    marginLeft: 10,
   },
   profileImg: {
     height: 40,
@@ -51,31 +60,31 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   timeReceived: {
-	fontSize: 12,
-	color: Colors.lightGray
-  }, 
+    fontSize: 12,
+    color: Colors.lightGray,
+  },
   username: {
-	fontFamily: 'inter-bold',
-	color: Colors.darkGreen
+    fontFamily: "inter-bold",
+    color: Colors.darkGreen,
   },
   buttonWrapper: {
-	flexDirection: 'row',
-	marginTop: 10
+    flexDirection: "row",
+    marginTop: 10,
   },
   button: {
-	padding: 8,
-	borderRadius: 6,
-	borderColor: Colors.lightGray,
-	borderWidth: 1,
-	marginRight: 5
+    padding: 8,
+    borderRadius: 6,
+    borderColor: Colors.lightGray,
+    borderWidth: 1,
+    marginRight: 5,
   },
   buttonAccept: {
-	backgroundColor: Colors.darkGreen
-  },	
+    backgroundColor: Colors.darkGreen,
+  },
   text: {
-	fontSize: 14
+    fontSize: 14,
   },
   textAccept: {
-	color: Colors.white
-  }
+    color: Colors.white,
+  },
 });

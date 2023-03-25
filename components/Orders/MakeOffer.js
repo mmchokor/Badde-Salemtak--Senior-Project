@@ -19,10 +19,12 @@ import OrderHeader from "./OrderHeader";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Checkoutbtn from "../UI/Checkoutbtn";
 import StraightLine from "../UI/StraightLine";
+import { useAtom } from "jotai";
+import { notifications } from "../../store/Notifications/notification";
 
 const height = Dimensions.get("window").height;
 
-const MakeOffer = ({ route }) => {
+const MakeOffer = ({ route, navigation }) => {
   const image = route.params.image;
   const price = route.params.price;
   const title = route.params.title;
@@ -32,6 +34,7 @@ const MakeOffer = ({ route }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [deliveryFee, setDeliveryFee] = useState('5');
+  const [notification, setNotification] = useAtom(notifications);
 
   const totalPrice = +price + 5 + +deliveryFee + 10
 
@@ -76,8 +79,21 @@ const MakeOffer = ({ route }) => {
         subTotal: price,
         deliveryFee,
         serviceFee: 5,
-        totalPrice
+        totalPrice,
+        image,
+        price,
+        title,
+        location,
+        id: Math.random() + new Date()
     }
+    
+    setNotification(prev => [...prev, orderSummary])
+
+    const bottomBarNav = navigation.getParent('bottomTab');
+   
+    
+    bottomBarNav.navigate('Notifications', { image, price, title, location })
+
   }
 
   return (

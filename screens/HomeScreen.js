@@ -42,9 +42,9 @@ function HomeScreen() {
     }
   }
   return (
-    <NavigationContainer independent={true}>
-      <StatusBar style="dark" />
-      <Stack.Navigator screenOptions={{ animation: "none" }}>
+    //<NavigationContainer independent={true}>
+      //<StatusBar style="dark" />
+      <Stack.Navigator screenOptions={{ animation: "none" }} id="test">
         <Stack.Screen
           name="Traveler"
           component={TravelerScreen}
@@ -193,7 +193,7 @@ function HomeScreen() {
         />
         
       </Stack.Navigator>
-    </NavigationContainer>
+   // </NavigationContainer>
   );
 }
 export default HomeScreen;

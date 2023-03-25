@@ -20,7 +20,7 @@ function BottomBar({ navigation }) {
     setSearch(text);
   }
   return (
-    <BottomTabs.Navigator
+    <BottomTabs.Navigator id="bottomTab"
       screenOptions={({ navigation }) => ({
         tabBarStyle: {
           backgroundColor: Colors.white,

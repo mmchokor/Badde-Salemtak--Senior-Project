@@ -27,19 +27,19 @@ function ItemDetailsScreen({ route }) {
   function chatHandler() {
     navigation.navigate("chat", { username });
   }
-  function offerHandler() {
-    navigation.navigate("offerRecieved", { username, image, price, title, location });
-  }
-  // I changed the location after the button is clicked to this instead of the other one.
   // function offerHandler() {
-  //   navigation.navigate("makeOffer", {
-  //     username,
-  //     image,
-  //     price,
-  //     title,
-  //     location,
-  //   });
+  //   navigation.navigate("offerRecieved", { username, image, price, title, location });
   // }
+  // I changed the location after the button is clicked to this instead of the other one.
+  function offerHandler() {
+    navigation.navigate("makeOffer", {
+      username,
+      image,
+      price,
+      title,
+      location,
+    });
+  }
 
   return (
     <View>

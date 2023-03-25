@@ -99,11 +99,11 @@ export default function App() {
 						options={{ headerShown: false }}
 					/>
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Fav"
             component={BottomBar}
             options={{ headerShown: false }} // was true but was making double back entries
-          />
+          /> */}
           
         </Stack.Navigator>
       </NavigationContainer>
