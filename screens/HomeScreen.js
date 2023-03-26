@@ -20,6 +20,7 @@ import ChatScreen from './ChatScreen';
 import OfferReceived from '../components/Orders/OfferReceived';
 import MakeOffer from '../components/Orders/MakeOffer';
 import ProceedToPayment from './ProceedToPayment';
+import OrderConfirmation from './OrderConfirmation';
 const Stack = createNativeStackNavigator();
 
 function HomeScreen() {
@@ -199,6 +200,21 @@ function HomeScreen() {
 					headerShown: true,
 					headerShadowVisible: false,
 					title: 'Payment',
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white},
+					
+				})}
+			/>
+			<Stack.Screen
+				name='OrderConfirmation'
+				component={OrderConfirmation}
+				options={({ route }) => ({
+					headerShown: true,
+					headerShadowVisible: false,
+					title: 'Order Confirmation',
 					headerTitleStyle: { fontSize: 24, color: Colors.black },
 					headerBackTitle: '',
 					headerTintColor: Colors.darkGreen,
