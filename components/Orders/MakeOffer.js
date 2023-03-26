@@ -29,7 +29,7 @@ const MakeOffer = ({ route, navigation }) => {
   const price = route.params.price;
   const title = route.params.title;
   const location = route.params.location;
-
+  const username=route.params.username;
   const [isChecked, setChecked] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
@@ -94,6 +94,7 @@ const MakeOffer = ({ route, navigation }) => {
       location,
       message,
       selectedDate,
+      username,
     };
 
     if (selectedDate === "") {

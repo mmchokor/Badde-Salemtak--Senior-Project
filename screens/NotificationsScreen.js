@@ -15,7 +15,7 @@ function NotificationsScreen({ navigation, route }) {
       </View>
     );
   } else {
-    const { image, price, title, location } = route.params;
+    const { image, price, title, location,username } = route.params;
 
     return (
       <View>
@@ -32,6 +32,7 @@ function NotificationsScreen({ navigation, route }) {
               message={item.message}
               date={item.selectedDate}
               id = {item.id}
+              username={item.username}
               totalPrice={item.totalPrice}
             />
           )}
