@@ -6,14 +6,14 @@ import { useAtom } from "jotai";
 import { notifications } from '../../store/Notifications/notification';
 
 
-const NotificationOrderReceived = ({image, price, title, location, id}) => {
+const NotificationOrderReceived = ({image, price, title, location, id, message, date, totalPrice,username}) => {
     const [notification, setNotification] = useAtom(notifications);
     const navigation = useNavigation();
     
     const viewOfferHandler = () => {
         navigation.navigate("Home", {
           screen: "offerRecieved",
-          params: { image, price, title, location },
+          params: { image, price, title, location, date, message, totalPrice,username },
         });
       };
 

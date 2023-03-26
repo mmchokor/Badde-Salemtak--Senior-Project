@@ -29,18 +29,20 @@ const MakeOffer = ({ route, navigation }) => {
   const price = route.params.price;
   const title = route.params.title;
   const location = route.params.location;
-  
+  const username=route.params.username;
   const [isChecked, setChecked] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState('5');
+  const [selectedDateIsEmpty, setSelectedDateIsEmpty] = useState(false);
+  const [message, setMessage] = useState("");
+  const [deliveryFee, setDeliveryFee] = useState("5");
   const [notification, setNotification] = useAtom(notifications);
 
-  const totalPrice = +price + 5 + +deliveryFee + 10
+  const totalPrice = +price + 5 + +deliveryFee + 10;
 
-    const extraFeesPriceHandler = (input) => {
-        setDeliveryFee(+input + 5)
-    }
+  const extraFeesPriceHandler = (input) => {
+    setDeliveryFee(+input + 5);
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -67,48 +69,53 @@ const MakeOffer = ({ route, navigation }) => {
       "December",
     ];
     const month = monthNames[today.getMonth()];
-    const day = today.getDay();
+    const day = today.getDate();
     const year = today.getFullYear();
 
     setSelectedDate([month, day, year].join(" "));
+    setSelectedDateIsEmpty(false)
     hideDatePicker();
+  };
+
+  const messageInputHandler = (message) => {
+    setMessage(message);
   };
 
   const submitOfferHandler = () => {
     const orderSummary = {
-        subTotal: price,
-        deliveryFee,
-        serviceFee: 5,
-        totalPrice,
-        image,
-        price,
-        title,
-        location,
-        id: Math.random() + new Date()
+      id: Math.random() + new Date(),
+      subTotal: price,
+      deliveryFee,
+      serviceFee: 5,
+      totalPrice,
+      image,
+      price,
+      title,
+      location,
+      message,
+      selectedDate,
+      username,
+    };
+
+    if (selectedDate === "") {
+      setSelectedDateIsEmpty(true);
+    } else {
+      setNotification((prev) => [orderSummary, ...prev]);
+      const bottomBarNav = navigation.getParent("bottomTab");
+      bottomBarNav.navigate("Notifications", { image, price, title, location });
     }
-    
-    setNotification(prev => [...prev, orderSummary])
-
-    const bottomBarNav = navigation.getParent('bottomTab');
-   
-    
-    bottomBarNav.navigate('Notifications', { image, price, title, location })
-
-  }
+  };
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.wrapper}>
         <Image
           style={styles.image}
-          source={{uri: image}}
-          //source={require("../../assets/ItemImages/laptop.png")}
-          //replace with image here
-          //source={image}
+          source={{ uri: image }}
         />
         {/* {Order header includes the title of item and location} */}
         <OrderHeader title={title} location={location} />
-        
+
         {/* {Checkbox with its toggle input} */}
         <View style={styles.checkboxWrapper}>
           <Checkbox
@@ -119,7 +126,13 @@ const MakeOffer = ({ route, navigation }) => {
           <Text style={styles.checkboxText}>Add shipping and custom fees</Text>
         </View>
         {isChecked && (
-          <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 8 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginVertical: 8,
+            }}
+          >
             <Text style={{ fontSize: 18 }}>$ </Text>
             <TextInput
               keyboardType="numeric"
@@ -129,14 +142,19 @@ const MakeOffer = ({ route, navigation }) => {
           </View>
         )}
 
-
         <View style={styles.inputWrapper}>
           <Text style={styles.inputText}>
-            Please confirm your delivery date 
+            Please confirm your delivery date
             <Entypo name="calendar" size={16} color="black" />
           </Text>
 
-          <Pressable style={styles.datePickerButton} onPress={showDatePicker}>
+          <Pressable
+            style={[
+              styles.datePickerButton,
+              selectedDateIsEmpty && styles.datePickerButtonEmpty
+            ]}
+            onPress={showDatePicker}
+          >
             <Text style={styles.datePickerText}>
               {selectedDate === "" ? "Select Date" : selectedDate}
             </Text>
@@ -152,12 +170,17 @@ const MakeOffer = ({ route, navigation }) => {
         </View>
         <View style={styles.inputWrapper}>
           <Text style={styles.inputText}>Add a message</Text>
-          <TextInput style={styles.input}></TextInput>
+          <TextInput
+            style={styles.input}
+            onChangeText={messageInputHandler}
+          ></TextInput>
         </View>
-        
-        <OfferReceivedPriceSummary subTotal={price} deliveryFee={deliveryFee} totalPrice={totalPrice} />
-        
-        
+
+        <OfferReceivedPriceSummary
+          subTotal={price}
+          deliveryFee={deliveryFee}
+          totalPrice={totalPrice}
+        />
 
         <View style={styles.buttonWrapper}>
           <Button
@@ -166,7 +189,7 @@ const MakeOffer = ({ route, navigation }) => {
             style={styles.button}
             onPress={submitOfferHandler}
           >
-             Submit Offer
+            Submit Offer
           </Button>
         </View>
       </View>
@@ -211,7 +234,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontFamily: "inter-bold",
     fontSize: 14,
-    marginBottom: 6
+    marginBottom: 6,
   },
   input: {
     backgroundColor: Colors.inputGray,
@@ -219,7 +242,7 @@ const styles = StyleSheet.create({
     padding: height < 800 ? 4 : 6,
     //marginTop: 10,
   },
-  
+
   buttonWrapper: {
     marginVertical: 10,
     borderRadius: 12,
@@ -232,6 +255,11 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     flex: 1,
+  },
+  datePickerButtonEmpty: {
+    backgroundColor: Colors.errorRedLight,
+    borderColor: Colors.errorRedDark,
+    borderWidth: 1,
   },
   datePickerText: {
     textAlign: "center",

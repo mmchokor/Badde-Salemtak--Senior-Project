@@ -117,6 +117,7 @@ export default function App() {
       <View style={{ flex: 1 }}>
 
       {LoggedIn ? <MainAppNavigator /> : <LoginNavigator />}
+	  {/* {LoggedIn ? <MainAppNavigator /> : <MainAppNavigator  />} */}
        {/* <MainAppNavigator /> */}
       </View>
     </QueryClientProvider>
