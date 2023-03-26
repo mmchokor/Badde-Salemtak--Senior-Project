@@ -44,6 +44,8 @@ const ListingList = () => {
       return <Text>{error.message}</Text>
    }
 
+
+
    return (
       <View style={styles.wrapper}>
          <FlatList

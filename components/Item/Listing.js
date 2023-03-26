@@ -17,8 +17,11 @@ const Listing = ({
   username,
   imageSrc,
   timePosted,
-  onPress
+  onPress,
 }) => {
+  const hour = Math.abs(new Date().getHours() - timePosted.substring(11, 13));
+  const day = Math.abs(new Date().getDay() - timePosted.substring(8, 10));
+
   return (
     <Pressable
       style={({ pressed }) =>
@@ -29,12 +32,12 @@ const Listing = ({
       {/* <ListingOptions /> */}
       <View style={styles.contentWrapper}>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image}  source={{uri: imageSrc}} />
+          <Image style={styles.image} source={{ uri: imageSrc }} />
         </View>
         <View style={styles.sectionWrapper}>
           <View style={styles.headerWrapper}>
             <MyText style={styles.header}>{title}</MyText>
-            <ListingOptions id={id}/>
+            <ListingOptions id={id} />
           </View>
           <View style={styles.bodyWrapper}>
             <ListingDetails
@@ -48,7 +51,9 @@ const Listing = ({
                 <View style={styles.profileImg}></View>
                 <MyText style={styles.username}>{username}</MyText>
               </View>
-              <MyText style={[styles.detail, styles.time]}>{timePosted}</MyText>
+              <MyText style={[styles.detail, styles.time]}>
+                {day < 1 ? `${hour} hours ago` : `${day} days ago`}
+              </MyText>
             </View>
           </View>
         </View>
@@ -124,12 +129,12 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 12,
     fontFamily: "inter-light",
-    opacity: 0.4
+    opacity: 0.4,
   },
   time: {
     fontFamily: "inter-light",
     fontSize: 12,
-    opacity: 0.4
+    opacity: 0.4,
   },
   pressed: {
     opacity: 0.75,
