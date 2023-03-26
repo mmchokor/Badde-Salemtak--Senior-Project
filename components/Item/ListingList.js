@@ -12,21 +12,7 @@ const ListingList = () => {
    // i want use React query to get data from my server
    const { status, data: residentListings, isError, error, isLoading } = useQuery(
       'traverlerLisitngs',
-      async () => {
-         // i want to get from AsyncStroage
-         const token = await AsyncStorage.getItem('token')
-         const response = await fetch(
-            'https://badde-salemtak-api.vercel.app/api/resident/',
-            {
-               headers: {
-                  Authorization:
-                     'Bearer ' + token,
-               },
-            }
-         )
-         const data = await response.json()
-         return data.data.residentListings
-      }
+      getResidentListings
    )
 
    if (isLoading) {
@@ -62,7 +48,7 @@ const ListingList = () => {
                         price: item.price,
                         quantity: item.quantity,
                         weight: item.approximateWeight,
-                        username: item.user,
+                        username: item.user.firstname + ' ' + item.user.lastname,
                         imageSrc: item.imageCover,
                         timePosted: item.createdAt,
                         moreD: item.description,
@@ -77,7 +63,7 @@ const ListingList = () => {
                   price={item.price}
                   quantity={item.quantity}
                   weight={item.approximateWeight}
-                  username={item.user}
+                  username={item.user.firstname + ' ' + item.user.lastname}
                   imageSrc={item.imageCover}
                   timePosted={item.createdAt}
                   moreD={item.description}
