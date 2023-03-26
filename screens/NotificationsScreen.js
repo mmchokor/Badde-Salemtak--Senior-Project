@@ -29,7 +29,10 @@ function NotificationsScreen({ navigation, route }) {
               price={item.price}
               title={item.title}
               location={item.location}
+              message={item.message}
+              date={item.selectedDate}
               id = {item.id}
+              totalPrice={item.totalPrice}
             />
           )}
         />

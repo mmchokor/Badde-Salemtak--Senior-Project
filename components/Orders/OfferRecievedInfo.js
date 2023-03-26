@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const OfferRecievedInfo = () => {
+const OfferRecievedInfo = ({date, message}) => {
   return (
     <View>
       <View style={styles.textBlock}>
         <Text style={styles.blockLight}>Delivery Date:</Text>
-        <Text style={styles.blockDark}>April 5 2023</Text>
+        <Text style={styles.blockDark}>{date}</Text>
       </View>
       <View style={styles.textBlock}>
         <Text style={styles.blockLight}>Extra fees added by traveler:</Text>
@@ -15,8 +15,7 @@ const OfferRecievedInfo = () => {
       <View style={styles.textBlock}>
         <Text style={styles.blockLight}>Message from traveler:</Text>
         <Text style={styles.blockDark}>
-          The price of the item has changed since the time you posted that’s why
-          I added the extra $10
+          {message == '' ? "No message" : message}
         </Text>
       </View>
     </View>

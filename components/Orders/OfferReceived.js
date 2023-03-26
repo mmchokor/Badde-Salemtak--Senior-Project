@@ -18,20 +18,18 @@ const height = Dimensions.get("window").height;
 
 const OfferReceived = ({route}) => {
 
-  //const username = route.params.username;
-  const image = route.params.image;
-  const price = route.params.price;
-  const title = route.params.title;
-  const location=route.params.location
+
+
+  const {image, price, title, location, date, message, totalPrice} = route.params
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.wrapper}>
         <Image
           style={styles.image}
-          source={require("../../assets/ItemImages/laptop.png")}
+          //source={require("../../assets/ItemImages/laptop.png")}
           //replace with image here
-          //source={image}
+          source={{uri: image}}
         />
         <View style={styles.header}>
           <View style={styles.linkContainer}>
@@ -60,8 +58,8 @@ const OfferReceived = ({route}) => {
           />
 
           <Text style={styles.headerTwo}>Offer Received</Text>
-          <OfferRecievedInfo />
-          <OfferReceivedPriceSummary travelerReward={10} subTotal={price} deliveryFee={20} />
+          <OfferRecievedInfo date={date} message={message} />
+          <OfferReceivedPriceSummary travelerReward={10} subTotal={price} deliveryFee={20} totalPrice={totalPrice} />
           
 
           <View style={styles.buttonWrapper}>
@@ -86,6 +84,8 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: "center",
+    height: 150,
+    width: 150,
   },
   header: {
     marginTop: 5,
