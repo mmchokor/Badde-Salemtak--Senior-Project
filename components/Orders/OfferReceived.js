@@ -1,34 +1,37 @@
 import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions,
-} from "react-native";
-import React from "react";
-import { Colors } from "../../constants/colors";
-import { Entypo } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
-import Button from "../UI/Button";
-import OfferRecievedInfo from "./OfferRecievedInfo";
-import OfferReceivedPriceSummary from "./OfferReceivedPriceSummary";
+	SafeAreaView,
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	Dimensions,
+} from 'react-native';
+import React from 'react';
+import { Colors } from '../../constants/colors';
+import { Entypo } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
+import Button from '../UI/Button';
+import OfferRecievedInfo from './OfferRecievedInfo';
+import OfferReceivedPriceSummary from './OfferReceivedPriceSummary';
 
-const height = Dimensions.get("window").height;
+const height = Dimensions.get('window').height;
 
-const OfferReceived = ({route}) => {
-
+const OfferReceived = ({route, navigation}) => {
 
 
   const {image, price, title, location, date, message, totalPrice} = route.params
+
+  function confirmPayNav() {
+		navigation.navigate('ProceedToPayment', {});
+	}
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.wrapper}>
         <Image
           style={styles.image}
-          //source={require("../../assets/ItemImages/laptop.png")}
           //replace with image here
+          //source={image}
           source={{uri: image}}
         />
         <View style={styles.header}>
@@ -63,8 +66,15 @@ const OfferReceived = ({route}) => {
           
 
           <View style={styles.buttonWrapper}>
-            <Button textStyle={{fontSize: 14}} styleWrapper={styles.buttonWrapper} style={styles.button}>Proceed To Payment</Button>
-          </View>
+						<Button
+							textStyle={{ fontSize: 14 }}
+							styleWrapper={styles.buttonWrapper}
+							style={styles.button}
+							onPress={confirmPayNav}
+						>
+							Proceed To Payment
+						</Button>
+					</View>
         </View>
       </View>
     </ScrollView>
