@@ -50,7 +50,14 @@ function BottomBar({ navigation }) {
         component={FavoritesScreen}
         options={{
           title: "Favorites",
-
+          headerShown: true,
+					headerShadowVisible: false,
+					title: 'Favorites',
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white},
           tabBarIcon: ({ color, size }) => (
             <Fontisto name="favorite" size={size} color={color} />
           ),
@@ -92,7 +99,13 @@ function BottomBar({ navigation }) {
         component={NotificationsScreen}
         options={{
           title: "Notifications",
-
+          headerShown: true,
+					headerShadowVisible: false,
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white},
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="notifications" size={30} color={color} />
           ),
@@ -105,8 +118,13 @@ function BottomBar({ navigation }) {
         options={{
           title: "",
           headerTitle: "Profile",
-
-          headerTitleAlign: "center",
+          headerShown: true,
+					headerShadowVisible: false,
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white},
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" size={size} color={color} />
           ),

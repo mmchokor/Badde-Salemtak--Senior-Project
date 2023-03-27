@@ -6,7 +6,7 @@ import { Colors } from '../constants/colors';
 import { useAtom } from 'jotai';
 import { paymentM } from '../store/PaymentOrder/paymentOrder';
 const height = Dimensions.get('window').height;
-function ProceedToPayment({ route }) {
+function ProceedToPayment({ route ,navigation}) {
 	const { price, title, totalPrice, username } = route.params;
 	const [payment, setPayment] = useAtom(paymentM);
 
@@ -108,6 +108,14 @@ function ProceedToPayment({ route }) {
 					textStyle={{ fontSize: 14 }}
 					styleWrapper={styles.buttonWrapper}
 					style={styles.button}
+					onPress={() => {
+						navigation.navigate('OrderConfirmation', {
+							price: price,
+							title: title,
+							totalPrice: totalPrice,
+							username: username,
+						});
+					}}
 				>
 					Confirm Payment
 				</Button>
