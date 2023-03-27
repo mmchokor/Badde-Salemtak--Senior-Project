@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
 import { getResidentListings } from '../../api/residentListingsAPI'
-import { DUMMY_DATA } from '../../constants/DUMMY_DATA'
+
 import Listing from './Listing'
 
 const ListingList = () => {
