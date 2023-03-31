@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useMutation, useQuery } from 'react-query';
-import { createFavorite } from '../../api/favoriteAPI';
+import { createFavorite, deleteFavorite } from '../../api/favoriteAPI';
 import { Colors } from '../../constants/colors';
 import { favorites } from '../../store/Favorites/favorites';
 
@@ -12,8 +12,9 @@ const ListingOptions = ({ id }) => {
 	const [fav, setFav] = useAtom(favorites);
 	const [isFavorite, setIsFavorite] = useState(fav.includes(id));
 	const { mutate, error } = useMutation(createFavorite);
-	
-	const modifieFavorite = () => {
+	const del = useMutation(deleteFavorite);
+
+	const modifyFavorite = async () => {
 		// console.log(id);
 		if (!isFavorite) {
 			addToFavorites();
@@ -22,6 +23,9 @@ const ListingOptions = ({ id }) => {
 		} else {
 			setFav(fav.filter((item) => item !== id));
 			setIsFavorite(false);
+			const listing = id.toString();
+			del.mutate({ listing });
+			
 		}
 	};
 
@@ -40,7 +44,7 @@ const ListingOptions = ({ id }) => {
 	};
 
 	const optionsHandler = () => {
-		console.log('clicked2');
+		console.log('Clicked 2:');
 	};
 
 	return (
@@ -50,7 +54,7 @@ const ListingOptions = ({ id }) => {
 				name={isFavorite ? 'bookmark' : 'bookmark-o'}
 				size={18}
 				color={isFavorite ? Colors.red : Colors.gray}
-				onPress={modifieFavorite}
+				onPress={modifyFavorite}
 			/>
 			<SimpleLineIcons
 				style={styles.optionsIcon}

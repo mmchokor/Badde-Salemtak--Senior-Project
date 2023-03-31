@@ -5,22 +5,20 @@ import { useQuery } from 'react-query';
 import Listing from '../components/Item/Listing';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants/colors';
-import{useState} from "react";
-import { authToken } from '../store/LoginStore/LoginStore';
+
+import { getFavoritesByUser } from '../api/favoriteAPI';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 function FavoritesScreen() {
 	const navigation = useNavigation();
 	const [fav, setFav] = useAtom(favorites);
-	
-	console.log(authToken._id);
 
-	
-
-	const { status, data: Favorites, isError, error, isLoading } = useQuery(
-		'traverlerLisitngs',
+	const { status, Favorites, isError, error, isLoading } = useQuery(
+		'Favorites',
+		async () => getFavoritesByUser(await AsyncStorage.getItem('userID')),
 	);
 
 	if (isLoading) {
-		//return <Text>Loading...</Text>
 		return (
 			<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
 				<Text>Loading</Text>
@@ -38,39 +36,45 @@ function FavoritesScreen() {
 				data={Favorites}
 				keyExtractor={(item) => item._id}
 				renderItem={({ item }) => (
-					<Listing
-						onPress={() =>
-							navigation.navigate('ItemDetails', {
-								id: item._id,
-								title: item.name,
-								location: item.cityOfResidence,
-								rating: 4,
-								type: item.productType,
-								price: item.price,
-								quantity: item.quantity,
-								weight: item.approximateWeight,
-								username: item.user.firstname + ' ' + item.user.lastname,
-								imageSrc: item.imageCover,
-								timePosted: item.createdAt,
-								moreD: item.description,
-								prefPayment: item.paymentMethod,
-							})
-						}
-						id={item._id}
-						title={item.name}
-						location={item.cityOfResidence}
-						rating={4}
-						type={item.productType}
-						price={item.price}
-						quantity={item.quantity}
-						weight={item.approximateWeight}
-						username={item.user.firstname + ' ' + item.user.lastname}
-						imageSrc={item.imageCover}
-						timePosted={item.createdAt}
-						moreD={item.description}
-						prefPayment={item.paymentMethod}
-						color={fav? Colors.red : Colors.gray}
-					/>
+					<Text>
+						Test
+						{() => {
+							console.log("Testing ");
+						}}
+					</Text>
+					// <Listing
+					// 	onPress={() =>
+					// 		navigation.navigate('ItemDetails', {
+					// 			id: item._id,
+					// 			title: item.name,
+					// 			location: item.cityOfResidence,
+					// 			rating: 4,
+					// 			type: item.productType,
+					// 			price: item.price,
+					// 			quantity: item.quantity,
+					// 			weight: item.approximateWeight,
+					// 			username: item.user.firstname + ' ' + item.user.lastname,
+					// 			imageSrc: item.imageCover,
+					// 			timePosted: item.createdAt,
+					// 			moreD: item.description,
+					// 			prefPayment: item.paymentMethod,
+					// 		})
+					// 	}
+					// 	id={item._id}
+					// 	title={item.name}
+					// 	location={item.cityOfResidence}
+					// 	rating={4}
+					// 	type={item.productType}
+					// 	price={item.price}
+					// 	quantity={item.quantity}
+					// 	weight={item.approximateWeight}
+					// 	username={item.user.firstname + ' ' + item.user.lastname}
+					// 	imageSrc={item.imageCover}
+					// 	timePosted={item.createdAt}
+					// 	moreD={item.description}
+					// 	prefPayment={item.paymentMethod}
+					// 	color={fav ? Colors.red : Colors.gray}
+					// />
 				)}
 			/>
 		</View>
