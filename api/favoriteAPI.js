@@ -53,7 +53,7 @@ const deleteFavorite = async (id) => {
       return data.success
    } catch (error) {
       console.error(error)
-      throw new Error('Failed to delete favorite listing')
+      throw new Error('Failed to delete favorite listing');
    }
 }
 

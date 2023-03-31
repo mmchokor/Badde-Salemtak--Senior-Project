@@ -4,10 +4,16 @@ import { favorites } from '../store/Favorites/favorites';
 import { useQuery } from 'react-query';
 import Listing from '../components/Item/Listing';
 import { useNavigation } from '@react-navigation/native';
-
+import { Colors } from '../constants/colors';
+import{useState} from "react";
+import { authToken } from '../store/LoginStore/LoginStore';
 function FavoritesScreen() {
 	const navigation = useNavigation();
 	const [fav, setFav] = useAtom(favorites);
+	
+	console.log(authToken._id);
+
+	
 
 	const { status, data: Favorites, isError, error, isLoading } = useQuery(
 		'traverlerLisitngs',
@@ -63,6 +69,7 @@ function FavoritesScreen() {
 						timePosted={item.createdAt}
 						moreD={item.description}
 						prefPayment={item.paymentMethod}
+						color={fav? Colors.red : Colors.gray}
 					/>
 				)}
 			/>
