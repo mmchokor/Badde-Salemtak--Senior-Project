@@ -36,8 +36,6 @@ const ListingOptions = ({ id }) => {
 			listingType,
 		};
 
-		console.log(data);
-
 		mutate(data);
 	};
 
