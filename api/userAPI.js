@@ -25,7 +25,7 @@ const signIn = async (data) => {
             'Content-Type': 'application/json',
          },
       })
-      return response.data.token // Return only the token from the response
+      return response.data 
    } catch (error) {
       throw error // Throw the response data as an error
    }

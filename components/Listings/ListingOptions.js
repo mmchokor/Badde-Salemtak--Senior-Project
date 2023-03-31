@@ -1,4 +1,5 @@
 import { FontAwesome, SimpleLineIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -25,7 +26,7 @@ const ListingOptions = ({ id }) => {
 	};
 
 	const addToFavorites = async () => {
-		const user = '641efa8915219b62c1c9d86b';
+		const user = await AsyncStorage.getItem('userID');
 		const listing = id.toString();
 		const listingType = 'residentListing';
 
@@ -34,6 +35,8 @@ const ListingOptions = ({ id }) => {
 			listing,
 			listingType,
 		};
+
+		console.log(data);
 
 		mutate(data);
 	};
