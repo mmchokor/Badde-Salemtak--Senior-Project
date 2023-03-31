@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { API_URL } from '../constants/apiURL';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import { API_URL } from '../constants/apiURL'
 
 // Set up an instance of axios with the base URL
 const api = axios.create({
-	baseURL: API_URL + '/favorite',
-});
+   baseURL: API_URL + '/favorite',
+})
 
 /**
  * Adds a listing to the user's favorites
@@ -14,28 +14,27 @@ const api = axios.create({
  * @param {ListingType} listingType
  * @returns {Favorite} The newly created favorite object
  */
-const createFavorite = async (user, listing, listingType) => {
-	try {
-		// POST the favorite data to the API
-		const token = await AsyncStorage.getItem('token').then(async () => {
-			const { data } = await api.post(
-				'/',
-				{ user, listing, listingType },
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
-			);
-		});
+const createFavorite = async (formData) => {
+   const token = await AsyncStorage.getItem('token')
+   try {
+      // POST the favorite data to the API
+      const { data } = await axios.post(
+         `${API_URL}/favorite/`,
+         formData,
+         {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         }
+      )
 
-		// Return the data from the API
-		return data;
-	} catch (error) {
-		console.error(error);
-		throw new Error('Failed to add favorite listing');
-	}
-};
+      // Return the data from the API
+      return data
+   } catch (error) {
+      console.error(error)
+      throw new Error('Failed to add favorite listing')
+   }
+}
 
 /**
  * getFavoritesByUser is a function that returns the user's favorite listings
@@ -43,18 +42,18 @@ const createFavorite = async (user, listing, listingType) => {
  * @returns {data.data.favorite}: The user's favorite listings
  */
 const getFavoritesByUser = async (userId) => {
-	try {
-		const { data } = await api.get(`/users/${userId}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
-		return data.data.favorite;
-	} catch (error) {
-		console.error(error);
-		throw new Error('Failed to get favorite listings');
-	}
-};
+   try {
+      const { data } = await api.get(`/users/${userId}`, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      })
+      return data.data.favorite
+   } catch (error) {
+      console.error(error)
+      throw new Error('Failed to get favorite listings')
+   }
+}
 
 /**
  * Delete a listing from the favorites list
@@ -63,17 +62,17 @@ const getFavoritesByUser = async (userId) => {
  * @throws {Error} - Throws an error if the deletion failed
  */
 const deleteFavorite = async (id) => {
-	try {
-		const { data } = await api.delete(`/${id}`);
-		return data.success;
-	} catch (error) {
-		console.error(error);
-		throw new Error('Failed to delete favorite listing');
-	}
-};
+   try {
+      const { data } = await api.delete(`/${id}`)
+      return data.success
+   } catch (error) {
+      console.error(error)
+      throw new Error('Failed to delete favorite listing')
+   }
+}
 
 module.exports = {
-	createFavorite,
-	getFavoritesByUser,
-	deleteFavorite,
-};
+   createFavorite,
+   getFavoritesByUser,
+   deleteFavorite,
+}

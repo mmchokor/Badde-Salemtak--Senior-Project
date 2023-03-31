@@ -1,38 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { Colors } from '../../constants/colors';
-import { favorites } from '../../store/Favorites/favorites';
+import { FontAwesome, SimpleLineIcons } from '@expo/vector-icons';
 import { useAtom } from 'jotai';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { useMutation, useQuery } from 'react-query';
 import { createFavorite } from '../../api/favoriteAPI';
+import { Colors } from '../../constants/colors';
+import { favorites } from '../../store/Favorites/favorites';
+
 const ListingOptions = ({ id }) => {
 	const [fav, setFav] = useAtom(favorites);
 	const [isFavorite, setIsFavorite] = useState(fav.includes(id));
 	const { mutate, error } = useMutation(createFavorite);
-	const addToFavorites = () => {
-		console.log(id);
+	
+	const modifieFavorite = () => {
+		// console.log(id);
 		if (!isFavorite) {
+			addToFavorites();
 			setFav([...fav, id]);
 			setIsFavorite(true);
 		} else {
 			setFav(fav.filter((item) => item !== id));
 			setIsFavorite(false);
 		}
-		const userId = '641efa8915219b62c1c9d86b';
-		const listingId = id.toString();
-		const type = 'residentListing';
+	};
+
+	const addToFavorites = async () => {
+		const user = '641efa8915219b62c1c9d86b';
+		const listing = id.toString();
+		const listingType = 'residentListing';
 
 		const data = {
-			userId,
-			listingId,
-			type,
+			user,
+			listing,
+			listingType,
 		};
 
 		mutate(data);
-		console.log('Done');
 	};
 
 	const optionsHandler = () => {
@@ -46,7 +49,7 @@ const ListingOptions = ({ id }) => {
 				name={isFavorite ? 'bookmark' : 'bookmark-o'}
 				size={18}
 				color={isFavorite ? Colors.red : Colors.gray}
-				onPress={addToFavorites}
+				onPress={modifieFavorite}
 			/>
 			<SimpleLineIcons
 				style={styles.optionsIcon}
