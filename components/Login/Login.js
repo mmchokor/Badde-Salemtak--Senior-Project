@@ -15,7 +15,7 @@ import {
 import { useMutation, useQuery } from 'react-query'
 import { signIn } from '../../api/userAPI'
 import { Colors } from '../../constants/colors'
-import { authToken, isLoggedIn } from '../../store/LoginStore/LoginStore'
+import { authToken, isLoggedIn, userID } from '../../store/LoginStore/LoginStore'
 import Button from '../UI/Button'
 import CredentialWrapper from '../UI/CredentialWrapper'
 import Input from '../UI/Input'
@@ -33,11 +33,14 @@ const Login = () => {
    const [passIsVisible, setPassIsVisible] = useState(true)
    const [, setToggleLoggedin] = useAtom(isLoggedIn)
    const [, setAuthToken] = useAtom(authToken)
+   const [, setUserID] = useAtom(authToken)
 
    const { mutate, isLoading, error, isSuccess } = useMutation(signIn, {
       onSuccess: (data) => {
-         setAuthToken(data)
-         AsyncStorage.setItem('token', data)
+         setAuthToken(data.token)
+         setUserID(data.userID)
+         AsyncStorage.setItem('token', data.token)
+         AsyncStorage.setItem('userID', data._id)
          setToggleLoggedin(true)
       },
       onError: () => {

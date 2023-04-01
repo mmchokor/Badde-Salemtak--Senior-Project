@@ -1,15 +1,77 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import { useAtom } from "jotai";
-import { favorites } from "../store/Favorites/favorites";
-
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { useAtom } from 'jotai';
+import { favorites } from '../store/Favorites/favorites';
+import { useQuery } from 'react-query';
+import Listing from '../components/Item/Listing';
+import { useNavigation } from '@react-navigation/native';
+import { Colors } from '../constants/colors';
+import{useState} from "react";
+import { authToken } from '../store/LoginStore/LoginStore';
 function FavoritesScreen() {
+	const navigation = useNavigation();
 	const [fav, setFav] = useAtom(favorites);
+	
+	console.log(authToken._id);
+
+	
+
+	const { status, data: Favorites, isError, error, isLoading } = useQuery(
+		'traverlerLisitngs',
+	);
+
+	if (isLoading) {
+		//return <Text>Loading...</Text>
+		return (
+			<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+				<Text>Loading</Text>
+			</View>
+		);
+	}
+
+	if (isError) {
+		return <Text>{error.message}</Text>;
+	}
 	return (
 		<View style={styles.wrapper}>
 			<FlatList
-				data={fav}
-				keyExtractor={(item, index) => index.toString()}
-				renderItem={({ item }) => <Text>{item}</Text>}
+				showsVerticalScrollIndicator={false}
+				data={Favorites}
+				keyExtractor={(item) => item._id}
+				renderItem={({ item }) => (
+					<Listing
+						onPress={() =>
+							navigation.navigate('ItemDetails', {
+								id: item._id,
+								title: item.name,
+								location: item.cityOfResidence,
+								rating: 4,
+								type: item.productType,
+								price: item.price,
+								quantity: item.quantity,
+								weight: item.approximateWeight,
+								username: item.user.firstname + ' ' + item.user.lastname,
+								imageSrc: item.imageCover,
+								timePosted: item.createdAt,
+								moreD: item.description,
+								prefPayment: item.paymentMethod,
+							})
+						}
+						id={item._id}
+						title={item.name}
+						location={item.cityOfResidence}
+						rating={4}
+						type={item.productType}
+						price={item.price}
+						quantity={item.quantity}
+						weight={item.approximateWeight}
+						username={item.user.firstname + ' ' + item.user.lastname}
+						imageSrc={item.imageCover}
+						timePosted={item.createdAt}
+						moreD={item.description}
+						prefPayment={item.paymentMethod}
+						color={fav? Colors.red : Colors.gray}
+					/>
+				)}
 			/>
 		</View>
 	);
