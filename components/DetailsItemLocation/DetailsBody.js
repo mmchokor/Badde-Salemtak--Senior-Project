@@ -5,12 +5,7 @@ import BorderStyle from "../AddItemsLocations/BorderStyle";
 import { FontAwesome } from "@expo/vector-icons";
 import PreferredPayment from "./PreferredPayment";
 import { useNavigation } from "@react-navigation/native";
-function DetailsBody({
-  details,
-  location,
-  username,
-  payment
-}) {
+function DetailsBody({ details, location, username, payment }) {
   const navigation = useNavigation();
 
   return (
@@ -29,24 +24,26 @@ function DetailsBody({
             style={{
               flexDirection: "row",
               alignItems: "center",
+              justifyContent: "space-between",
               padding: 4,
             }}
           >
-            <Image
-              source={require("../../assets/LocationImages/location.png")}
-              style={styles.locImage}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image
+                source={require("../../assets/LocationImages/location.png")}
+                style={styles.locImage}
+              />
+              <Text style={styles.textBody}>{location}</Text>
+            </View>
+            <FontAwesome
+              name="location-arrow"
+              size={28}
+              color={Colors.darkGreen}
+              onPress={() => {
+                alert("karam was here");
+              }}
             />
-            <Text style={styles.textBody}>{location}</Text>
           </View>
-          <FontAwesome
-            name="location-arrow"
-            size={28}
-            style={{ left: 320, bottom: 26, position: "absolute" }}
-            color={Colors.darkGreen}
-            onPress={() => {
-              alert("karam was here");
-            }}
-          />
         </BorderStyle>
         <Text style={styles.textHead}>User Info</Text>
         <BorderStyle>
