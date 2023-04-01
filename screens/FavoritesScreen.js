@@ -42,6 +42,7 @@ function FavoritesScreen() {
 							console.log("Testing ");
 						}}
 					</Text>
+				
 					// <Listing
 					// 	onPress={() =>
 					// 		navigation.navigate('ItemDetails', {
