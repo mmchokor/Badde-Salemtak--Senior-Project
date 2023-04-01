@@ -34,6 +34,7 @@ function BottomBar({ navigation }) {
         tabBarHideOnKeyboard: true,
       })}
     >
+
       <BottomTabs.Screen
         name="Home"
         component={HomeScreen}
