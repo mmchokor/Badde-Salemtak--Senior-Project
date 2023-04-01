@@ -15,6 +15,12 @@ function AddItemBody() {
 	const [quantity, setQuantity] = useState(0);
 	const [itemWeight, setWeight] = useState('');
 	const [itemType, setType] = useState('');
+	const [details, setDetails] = useState('');
+	const [address, setAddress] = useState('');
+	const [streetName, setStreetName] = useState('');
+	const [building, setBuilding] = useState('');
+	const [floor, setFloor] = useState('');
+	const [selectedOption, setSelectedOption] = useState('');
 
 	const handleInputName = (text) => {
 		setItemName(text);
@@ -34,6 +40,25 @@ function AddItemBody() {
 		setType(option);
 	};
 
+	const handleDetails = (text) => {
+		setDetails(text);
+	};
+	const handleAddress = (text) => {
+		setAddress(text);
+	};
+	const handleStreetName = (text) => {
+		setStreetName(text);
+	};
+	const handleBuilding = (text) => {
+		setBuilding(text);
+	};
+
+	const handleFloor = (text) => {
+		setFloor(text);
+	};
+	function handlePaymentMethod(option) {
+		setSelectedOption(option);
+	}
 	let type = '';
 
 	switch (itemType) {
@@ -58,9 +83,33 @@ function AddItemBody() {
 		default:
 			type = 'Others';
 	}
+	let PreferredPaymentMethod = '';
 
-	console.log();
+	switch (selectedOption) {
+		case 0:
+			PreferredPaymentMethod = 'Cash';
+			break;
+		case 1:
+			PreferredPaymentMethod = 'MoneyTransfer';
+			break;
+		case 2:
+			PreferredPaymentMethod = 'BankTransfer';
+			break;
 
+		default:
+			type = 'Cash';
+	}
+
+	const name = itemName.toString();
+	const price = parseInt(itemPrice);
+	//quantity
+	const approximateWeight = parseInt(itemWeight);
+	const productType = itemType.toString();
+	const description = details.toString();
+	const cityOfResidence =
+		address + ' ' + streetName + ' ' + building + ' ' + floor;
+	const paymentMethod = PreferredPaymentMethod;
+	console.log(paymentMethod);
 	return (
 		<View style={{ paddingHorizontal: 20 }}>
 			<Text style={styles.textHead}>Item Name*</Text>
@@ -68,6 +117,7 @@ function AddItemBody() {
 				style={styles.inputT}
 				onChangeText={handleInputName}
 				value={itemName}
+				maxLength={70}
 			/>
 			<Text style={styles.textHead}>Price</Text>
 
@@ -138,12 +188,12 @@ function AddItemBody() {
 			{/* More Details,Location */}
 			<View>
 				<Text style={styles.textHead}>More Details</Text>
-				<InputBorderStyle />
+				<InputBorderStyle onChangeText={handleDetails} />
 				<Text style={styles.textHead}>Location</Text>
 				<Text style={styles.textL}>Address*</Text>
-				<InputBorderStyle />
+				<InputBorderStyle onChangeText={handleAddress} />
 				<Text style={styles.textL}>Street Name*</Text>
-				<InputBorderStyle />
+				<InputBorderStyle onChangeText={handleStreetName} />
 				<View
 					style={{
 						flexDirection: 'row',
@@ -153,19 +203,21 @@ function AddItemBody() {
 				>
 					<View>
 						<Text style={[styles.textL, { width: 250 }]}>Building*</Text>
-						<InputBorderStyle />
+						<InputBorderStyle onChangeText={handleBuilding} />
 					</View>
 					<View style={{}}>
 						<Text style={[styles.textL, { width: 60 }]}>Floor</Text>
-						<InputBorderStyle keyboardType='number-pad' maxLength={4} />
+						<InputBorderStyle
+							keyboardType='number-pad'
+							maxLength={4}
+							onChangeText={handleFloor}
+						/>
 					</View>
 				</View>
-				<Text style={styles.textL}>Additional Description</Text>
-				<InputBorderStyle />
-				<Text style={styles.textHead}>Preferred Payment Method</Text>
 			</View>
+			<Text style={styles.textHead}>Preferred Payment Method</Text>
 
-			<PreferredPayment />
+			<PreferredPayment onSelectOption={handlePaymentMethod} />
 
 			<Button style={styles.button}>Add Item</Button>
 		</View>
