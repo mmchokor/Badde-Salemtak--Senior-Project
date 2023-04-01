@@ -9,6 +9,8 @@ import FavoritesScreen from "../../screens/FavoritesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
+import PublicProfileScreen from "../../screens/PublicProfileScreen";
+import { SimpleLineIcons } from '@expo/vector-icons';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -112,7 +114,7 @@ function BottomBar({ navigation }) {
           headerTitleAlign: "center",
         }}
       />
-      <BottomTabs.Screen
+      {/* <BottomTabs.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
@@ -129,6 +131,26 @@ function BottomBar({ navigation }) {
             <Ionicons name="person" size={size} color={color} />
           ),
           headerRight: () => <Text></Text>,
+        }}
+      /> */}
+      <BottomTabs.Screen
+        name="Profile"
+        component={PublicProfileScreen}
+        options={{
+          title: "",
+          headerTitle: "Profile",
+          headerShown: true,
+					headerShadowVisible: false,
+					headerTitleStyle: { fontSize: 24, color: Colors.white, },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.darkGreen},
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size} color={color} />
+          ),
+          //headerRight: () => {return (<SimpleLineIcons style={{marginRight: 10}} name="options-vertical" size={24} color={Colors.white} />)},
+          
         }}
       />
     </BottomTabs.Navigator>
