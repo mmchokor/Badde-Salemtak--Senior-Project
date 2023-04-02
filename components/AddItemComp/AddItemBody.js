@@ -8,8 +8,13 @@ import InputBorderStyle from '../../components/AddItemsLocations/InputBorderStyl
 import PreferredPayment from '../../components/AddItemsLocations/PreferredPayment';
 import QuantityButton from '../../components/AddItemsLocations/QuantityButton';
 import Button from '../../components/UI/Button';
+import { useMutation, useQuery } from 'react-query';
+import { createResidentListing } from '../../api/residentListingsAPI';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AddItemBody() {
+	const { mutate, error } = useMutation(createResidentListing);
+
 	const [itemName, setItemName] = useState('');
 	const [itemPrice, setPrice] = useState('');
 	const [quantity, setQuantity] = useState(0);
@@ -100,16 +105,36 @@ function AddItemBody() {
 			type = 'Cash';
 	}
 
-	const name = itemName.toString();
-	const price = parseInt(itemPrice);
-	//quantity
-	const approximateWeight = parseInt(itemWeight);
-	const productType = itemType.toString();
-	const description = details.toString();
-	const cityOfResidence =
-		address + ' ' + streetName + ' ' + building + ' ' + floor;
-	const paymentMethod = PreferredPaymentMethod;
-	console.log(paymentMethod);
+	function handleAddItem() {
+		addTheItem();
+	}
+
+	const addTheItem = async () => {
+		const user = await AsyncStorage.getItem('userID');
+		const name = itemName.toString();
+		const price = parseInt(itemPrice);
+		//quantity
+		const approximateWeight = parseInt(itemWeight);
+		const productType = type.toString();
+		const description = details.toString();
+		const cityOfResidence =
+			address + ' ' + streetName + ' ' + building + ' ' + floor;
+		const paymentMethod = PreferredPaymentMethod;
+		const data = {
+			name: name,
+			description: description,
+			user: user,
+			cityOfResidence: cityOfResidence,
+			approximateWeight: approximateWeight,
+			quantity: quantity,
+			price: price,
+			paymentMethod: paymentMethod,
+			productType: productType,
+		};
+		console.log(data, user);
+		mutate(data, user);
+	};
+
 	return (
 		<View style={{ paddingHorizontal: 20 }}>
 			<Text style={styles.textHead}>Item Name*</Text>
@@ -219,7 +244,9 @@ function AddItemBody() {
 
 			<PreferredPayment onSelectOption={handlePaymentMethod} />
 
-			<Button style={styles.button}>Add Item</Button>
+			<Button style={styles.button} onPress={handleAddItem}>
+				Add Item
+			</Button>
 		</View>
 	);
 }
