@@ -15,6 +15,7 @@ import MakeOffer from "../components/Orders/MakeOffer";
 import ProceedToPayment from "./ProceedToPayment";
 import OrderConfirmation from "./OrderConfirmation";
 import TravelerAndResidentScreen from "./TravelerAndResidentScreen";
+import ProfileScreen from "./ProfileScreen";
 const Stack = createNativeStackNavigator();
 
 function HomeScreen() {
@@ -95,6 +96,22 @@ function HomeScreen() {
           headerShown: true,
           tapBarVisibility: false,
         })}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: "",
+          headerTitle: "Profile",
+          headerShown: true,
+					headerShadowVisible: false,
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white},
+          
+        }}
       />
       <Stack.Screen
         name="offerRecieved"

@@ -115,25 +115,6 @@ function BottomBar({ navigation }) {
           headerTitleAlign: "center",
         }}
       />
-      {/* <BottomTabs.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          title: "",
-          headerTitle: "Profile",
-          headerShown: true,
-					headerShadowVisible: false,
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white},
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
-          ),
-          headerRight: () => <Text></Text>,
-        }}
-      /> */}
       <BottomTabs.Screen
         name="Profile"
         component={PublicProfileScreen}
