@@ -10,51 +10,14 @@ import { Colors } from '../constants/colors';
 import NotificationOrderReceived from '../components/Notifications/NotificationOrderReceived';
 import { useAtom } from 'jotai';
 import { notifications } from '../store/Notifications/notification';
-import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react';
-import Button from '../components/UI/Button';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-function NotificationsScreen({ navigation, route }) {
-	const [image, setImage] = useState('');
 
+function NotificationsScreen({ navigation, route }) {
 	const [notification, setNotification] = useAtom(notifications);
 
-	let imagePreview = <Text style={styles.previewText}>Upload Image</Text>;
-
-	async function openGallery() {
-		let image = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			aspect: [4, 4],
-			quality: 1,
-		});
-
-		if (!image.canceled) {
-			//console.log(image.assets[0].uri);
-			setImage(image.assets[0].uri);
-		}
-	}
-	if (image) {
-		imagePreview = <Image source={{ uri: image }} style={styles.imageStyle} />;
-	}
 	if (notification.length == 0) {
 		return (
 			<View>
 				<Text>Nothing to see here</Text>
-				<View>
-					<View>
-						<Pressable onPress={() => openGallery()}>
-							<View style={styles.imagepreviewcontainer}>{imagePreview}</View>
-						</Pressable>
-					</View>
-
-					<MaterialCommunityIcons
-						name='delete-alert-outline'
-						size={30}
-						color={Colors.darkGreen}
-						onPress={() => setImage('')}
-					/>
-				</View>
 			</View>
 		);
 	} else {
@@ -131,25 +94,5 @@ const styles = StyleSheet.create({
 	},
 	textAccept: {
 		color: Colors.white,
-	},
-	//For the image
-	imagepreviewcontainer: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		height: 100, //may be 90
-		width: 100,
-		borderRadius: 8,
-		backgroundColor: '#848484',
-		marginVertical: 8,
-		borderRadius: 10,
-	},
-	previewText: {
-		color: Colors.black,
-	},
-	imageStyle: {
-		height: 100, //may be 90
-		width: 100,
-		borderRadius: 8,
-		borderRadius: 10,
 	},
 });

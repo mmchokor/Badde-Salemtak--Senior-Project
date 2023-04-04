@@ -32,7 +32,7 @@ function AddItemScreen({ navigation }) {
 				<KeyboardAvoidingView
 					behavior='padding'
 					enabled
-					style={{ height: 860 }}
+					style={{ height: 900 }}
 				>
 					<AddItemBody />
 				</KeyboardAvoidingView>
