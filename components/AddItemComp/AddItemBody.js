@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { useState } from 'react';
@@ -10,11 +10,12 @@ import QuantityButton from '../../components/AddItemsLocations/QuantityButton';
 import Button from '../../components/UI/Button';
 import { useMutation, useQuery } from 'react-query';
 import { createResidentListing } from '../../api/residentListingsAPI';
+import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AddItemBody() {
 	const { mutate, error } = useMutation(createResidentListing);
-
+	const [image, setImage] = useState('');
 	const [itemName, setItemName] = useState('');
 	const [itemPrice, setPrice] = useState('');
 	const [quantity, setQuantity] = useState(0);
@@ -27,6 +28,18 @@ function AddItemBody() {
 	const [floor, setFloor] = useState('');
 	const [selectedOption, setSelectedOption] = useState('');
 
+	async function openGallery() {
+		let image = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			aspect: [4, 4],
+			quality: 1,
+		});
+		if (!image.canceled) {
+			//console.log(image.assets[0].uri);
+			setImage(image.assets[0].uri);
+		}
+	}
 	const handleInputName = (text) => {
 		setItemName(text);
 	};
@@ -134,7 +147,11 @@ function AddItemBody() {
 		console.log(data, user);
 		mutate(data, user);
 	};
+	let imagePreview = <Text style={styles.previewText}>No image taken yet</Text>;
 
+	if (image) {
+		imagePreview = <Image source={{ uri: image }} style={styles.imageStyle} />;
+	}
 	return (
 		<View style={{ paddingHorizontal: 20 }}>
 			<Text style={styles.textHead}>Item Name*</Text>
@@ -168,6 +185,7 @@ function AddItemBody() {
 					value={itemPrice}
 				/>
 			</View>
+
 			{/* Quantity and Weight View */}
 			<View style={{ flexDirection: 'row', marginTop: 2 }}>
 				<View style={{ marginRight: 70 }}>
@@ -275,5 +293,21 @@ const styles = StyleSheet.create({
 		width: '80%',
 		margin: 10,
 		marginTop: 0,
+	},
+	imagepreviewcontainer: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: 200,
+		backgroundColor: '#f0cced',
+		marginVertical: 8,
+		borderRadius: 8,
+	},
+	previewText: {
+		color: '#592454',
+	},
+	imageStyle: {
+		width: '100%',
+		height: '100%',
 	},
 });
