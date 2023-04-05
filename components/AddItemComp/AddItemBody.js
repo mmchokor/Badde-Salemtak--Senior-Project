@@ -1,16 +1,16 @@
-import { StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Colors } from '../../constants/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
+import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useMutation, useQuery } from 'react-query';
+import { createResidentListing } from '../../api/residentListingsAPI';
 import BorderStyle from '../../components/AddItemsLocations/BorderStyle';
-import ItemType from '../../components/AddItemsLocations/ItemType';
 import InputBorderStyle from '../../components/AddItemsLocations/InputBorderStyle';
+import ItemType from '../../components/AddItemsLocations/ItemType';
 import PreferredPayment from '../../components/AddItemsLocations/PreferredPayment';
 import QuantityButton from '../../components/AddItemsLocations/QuantityButton';
 import Button from '../../components/UI/Button';
-import { useMutation, useQuery } from 'react-query';
-import { createResidentListing } from '../../api/residentListingsAPI';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Colors } from '../../constants/colors';
 import ImageUpload from './ImageUpload';
 function AddItemBody() {
 	const { mutate, error } = useMutation(createResidentListing);
@@ -114,7 +114,6 @@ function AddItemBody() {
 	}
 
 	const addTheItem = async () => {
-		const user = await AsyncStorage.getItem('userID');
 		const name = itemName.toString();
 		const price = parseInt(itemPrice);
 		//quantity
@@ -127,16 +126,16 @@ function AddItemBody() {
 		const data = {
 			name: name,
 			description: description,
-			user: user,
 			cityOfResidence: cityOfResidence,
 			approximateWeight: approximateWeight,
 			quantity: quantity,
 			price: price,
 			paymentMethod: paymentMethod,
 			productType: productType,
+			// images: selectedImage,
 		};
-		console.log(data, user);
-		mutate(data, user);
+		// console.log(formData);
+		mutate(data);
 	};
 
 	return (
