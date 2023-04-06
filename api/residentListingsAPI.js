@@ -11,6 +11,7 @@ const getResidentListings = async () => {
 				Authorization: `Bearer ${token}`,
 			},
 		});
+		//console.log(response.data)
 		return response.data.data.residentListings;
 	} catch (error) {
 		throw error;

@@ -15,10 +15,11 @@ export default InputBorderStyle;
 
 const styles = StyleSheet.create({
 	button: {
-		borderColor: Colors.gray,
+		borderColor: Colors.lightGray,
+		borderWidth: 1,
 		borderRadius: 5,
 		padding: 4,
-		elevation: 3,
+		//elevation: 3,
 		backgroundColor: Colors.white,
 	},
 });

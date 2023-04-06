@@ -13,10 +13,15 @@ function FavoritesScreen() {
 	const navigation = useNavigation();
 	const [fav, setFav] = useAtom(favorites);
 
-	const { status, Favorites, isError, error, isLoading } = useQuery(
+	const { status, data: Favorites, isError, error, isLoading } = useQuery(
 		'Favorites',
 		async () => getFavoritesByUser(await AsyncStorage.getItem('userID')),
 	);
+
+	// global state --> setFavorites()
+	// in this array u also have favorite Id. 
+	
+
 
 	if (isLoading) {
 		return (
@@ -37,10 +42,9 @@ function FavoritesScreen() {
 				keyExtractor={(item) => item._id}
 				renderItem={({ item }) => (
 					<Text>
-						Test
-						{() => {
-							console.log("Testing ");
-						}}
+						{/* getting the user id */}
+
+						{console.log("here" + item._id)}
 					</Text>
 				
 					// <Listing

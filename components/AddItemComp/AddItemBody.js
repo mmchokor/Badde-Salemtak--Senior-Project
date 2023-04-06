@@ -115,7 +115,7 @@ function AddItemBody() {
 
 	const addTheItem = async () => {
 		const user = await AsyncStorage.getItem('userID');
-		const name = itemName.toString();
+		//const name = itemName.toString();
 		const price = parseInt(itemPrice);
 		//quantity
 		const approximateWeight = parseInt(itemWeight);
@@ -125,7 +125,8 @@ function AddItemBody() {
 			address + ' ' + streetName + ' ' + building + ' ' + floor;
 		const paymentMethod = PreferredPaymentMethod;
 		const data = {
-			name: name,
+			//name: name,
+			itemName,
 			description: description,
 			user: user,
 			cityOfResidence: cityOfResidence,
@@ -263,7 +264,7 @@ export default AddItemBody;
 
 const styles = StyleSheet.create({
 	textHead: {
-		color: Colors.darkGreen,
+		//color: Colors.darkGreen,
 		fontSize: 18,
 		fontFamily: 'inter-regular',
 		marginTop: 10,

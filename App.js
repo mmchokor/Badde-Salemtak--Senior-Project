@@ -1,5 +1,6 @@
 // Importing packages
 import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -21,11 +22,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAtom } from "jotai";
 import { authToken, isLoggedIn } from "./store/LoginStore/LoginStore";
 
+
 // Creating a query client for React Query
 const queryClient = new QueryClient();
 // Creating a stack navigator
 const Stack = createNativeStackNavigator();
-
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -64,35 +65,34 @@ export default function App() {
 
   function LoginNavigator() {
     return (
-      <NavigationContainer>
-        <StatusBar style="light" />
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="signup"
-            component={SignupScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="signupDetails"
-            component={SignupDetailsScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="otpScreen"
-            component={OTPScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      
+        <NavigationContainer>
+          <StatusBar style="light" />
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="signup"
+              component={SignupScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="signupDetails"
+              component={SignupDetailsScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="otpScreen"
+              component={OTPScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
     );
   }
-
-  
 
   function MainAppNavigator() {
     return (
@@ -110,6 +110,7 @@ export default function App() {
   }
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <QueryClientProvider client={queryClient} contextSharing={true}>
       {/* <StatusBar style="dark" /> */}
       <View style={{ flex: 1 }}>
@@ -118,6 +119,7 @@ export default function App() {
         {/* <MainAppNavigator /> */}
       </View>
     </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
 

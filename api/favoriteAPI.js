@@ -24,6 +24,9 @@ const createFavorite = async (formData) => {
 			},
 		});
 
+		//get id
+		//console.log(data.data.favorite._id)
+
 		// Return the data from the API
 		return data;
 	} catch (error) {
@@ -46,7 +49,11 @@ const getFavoritesByUser = async (userId) => {
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		return data.Favorites;
+		//got all the favorites
+		//console.log(data.data.favorite[0])
+		//console.log(data.data.favorite)
+		//return data.Favorites;
+		return data.data.favorite
 	} catch (error) {
 		console.error(error);
 		throw new Error('Failed to get favorite listings');
@@ -60,14 +67,19 @@ const getFavoritesByUser = async (userId) => {
  * @throws {Error} - Throws an error if the deletion failed
  */
 const deleteFavorite = async (id) => {
-	try {
-		const token = await AsyncStorage.getItem('token');
+	//listing id is being used
+	//const cid = '642ec8583ebd7e66b45de540'
 
-		const { data } = await api.delete(`/${id}`, {
+
+	try {
+		const token = await AsyncStorage.getItem('token'); 
+
+		const { data } = await api.delete(`/${cid}`, {  // should not use token.
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		});
+		console.log(data)
 		return data.success;
 	} catch (error) {
 		console.error(error);

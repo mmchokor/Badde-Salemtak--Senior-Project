@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import React, { useLayoutEffect, useRef, useMemo, useState } from "react";
+import React, { useLayoutEffect, useRef, useMemo, useState, useCallback } from "react";
 import { Colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
@@ -10,6 +10,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import {
+  BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
@@ -18,7 +19,7 @@ const PublicProfileScreen = ({ navigation }) => {
   const [darkBackDrop, setDarkBackDrop] = useState(false);
   const bottomSheetModalRef = useRef(null);
 
-  const snapPoints = useMemo(() => ["70%", "50%"], []);
+  const snapPoints = useMemo(() => ["50%", "70%"], []);
 
   const optionsHandler = () => {
     bottomSheetModalRef.current?.present();
@@ -51,6 +52,7 @@ const PublicProfileScreen = ({ navigation }) => {
       },
     });
   }, []);
+
 
   return (
     <BottomSheetModalProvider>
@@ -108,7 +110,7 @@ const PublicProfileScreen = ({ navigation }) => {
       {/* Here is the bottom sheet Modal when the options is clicked */}
       <BottomSheetModal
         ref={bottomSheetModalRef}
-        index={0}
+        index={1}
         snapPoints={snapPoints}
         onDismiss={() => setDarkBackDrop(false)}
       >

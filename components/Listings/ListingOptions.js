@@ -15,7 +15,6 @@ const ListingOptions = ({ id }) => {
 	const del = useMutation(deleteFavorite);
 
 	const modifyFavorite = async () => {
-		// console.log(id);
 		if (!isFavorite) {
 			addToFavorites();
 			setFav([...fav, id]);
@@ -24,6 +23,14 @@ const ListingOptions = ({ id }) => {
 			setFav(fav.filter((item) => item !== id));
 			setIsFavorite(false);
 			const listing = id.toString();
+
+			
+
+			// must pass favorite id
+			// find from jotai state
+
+			// filter the jotai array get the item he pressed
+			// pass the favorite id. 
 			del.mutate({ listing });
 			
 		}
