@@ -22,9 +22,9 @@ const Listing = ({
   const hour = Math.abs(new Date().getHours() - timePosted.substring(11, 13));
   const day = Math.abs(new Date().getDay() - timePosted.substring(8, 10));
 
-  if (imageSrc === '') {
-    return
-  }
+  // if (imageSrc === '') {
+  //   return
+  // }
   return (
     <Pressable
       style={({ pressed }) =>
