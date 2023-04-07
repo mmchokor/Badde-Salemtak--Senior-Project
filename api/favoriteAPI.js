@@ -74,7 +74,7 @@ const deleteFavorite = async (id) => {
 	try {
 		const token = await AsyncStorage.getItem('token'); 
 
-		const { data } = await api.delete(`/${cid}`, {  // should not use token.
+		const { data } = await api.delete(`/${id}`, {  // should not use token.
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},

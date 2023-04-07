@@ -35,7 +35,7 @@ const Listing = ({
       {/* <ListingOptions /> */}
       <View style={styles.contentWrapper}>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={{ uri: imageSrc }} />
+          <Image style={styles.image} source={{uri: imageSrc !== '' ?  imageSrc : undefined }} />
         </View>
         <View style={styles.sectionWrapper}>
           <View style={styles.headerWrapper}>

@@ -25,11 +25,11 @@ function AddItemBody() {
 	const [building, setBuilding] = useState('');
 	const [floor, setFloor] = useState('');
 	const [selectedOption, setSelectedOption] = useState('');
-	const [selectedImage, setSelectedImage] = useState([]);
+	const [selectedImage, setSelectedImage] = useState();
+	
 
 	function handleImageSelect(image) {
 		setSelectedImage(image);
-	
 	}
 	const handleInputName = (text) => {
 		setItemName(text);
@@ -124,19 +124,30 @@ function AddItemBody() {
 		const cityOfResidence =
 			address + ' ' + streetName + ' ' + building + ' ' + floor;
 		const paymentMethod = PreferredPaymentMethod;
-		const data = {
-			name: name,
-			description: description,
-			cityOfResidence: cityOfResidence,
-			approximateWeight: approximateWeight,
-			quantity: quantity,
-			price: price,
-			paymentMethod: paymentMethod,
-			productType: productType,
-			// images: selectedImage,
-		};
-		// console.log(formData);
-		mutate(data);
+
+		const formData = new FormData();
+		formData.append("name", name)
+		formData.append("description", description)
+		formData.append("cityOfResidence", cityOfResidence)
+		formData.append("approximateWeight", approximateWeight)
+		formData.append("productType", productType)
+		formData.append("price", price)
+		formData.append("quantity", quantity)
+		formData.append("images", selectedImage)
+		formData.append("paymentMethod", paymentMethod)
+		// const data = {
+		// 	name: name,
+		// 	description: description,
+		// 	cityOfResidence: cityOfResidence,
+		// 	approximateWeight: approximateWeight,
+		// 	quantity: quantity,
+		// 	price: price,
+		// 	paymentMethod: paymentMethod,
+		// 	productType: productType,
+		// 	images: selectedImage,
+		// };
+		 //console.log(data);
+		mutate(formData);
 	};
 
 	return (
