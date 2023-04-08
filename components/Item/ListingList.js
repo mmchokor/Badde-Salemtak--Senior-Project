@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View, RefreshControl } from 'react-native';
 import { useQuery } from 'react-query';
 import { getResidentListings } from '../../api/residentListingsAPI';
 

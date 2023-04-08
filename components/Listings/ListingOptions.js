@@ -8,31 +8,59 @@ import { createFavorite, deleteFavorite } from '../../api/favoriteAPI';
 import { Colors } from '../../constants/colors';
 import { favorites } from '../../store/Favorites/favorites';
 
-const ListingOptions = ({ id }) => {
+const ListingOptions = ({
+	id,
+	title,
+	location,
+	rating,
+	type,
+	price,
+	quantity,
+	weight,
+	username,
+	imageSrc,
+	timePosted,
+	moreD,
+	prefPayment,
+}) => {
 	const [fav, setFav] = useAtom(favorites);
 	const [isFavorite, setIsFavorite] = useState(fav.includes(id));
+
 	const { mutate, error } = useMutation(createFavorite);
 	const del = useMutation(deleteFavorite);
 
 	const modifyFavorite = async () => {
 		if (!isFavorite) {
 			addToFavorites();
-			setFav([...fav, id]);
+			setFav([
+				...fav,
+				{
+					id,
+					title,
+					location,
+					rating,
+					type,
+					price,
+					quantity,
+					weight,
+					username,
+					imageSrc,
+					timePosted,
+					moreD,
+					prefPayment,
+				},
+			]);
 			setIsFavorite(true);
 		} else {
-			setFav(fav.filter((item) => item !== id));
+			setFav(fav.filter((item) => item.id !== id));
 			setIsFavorite(false);
 			const listing = id.toString();
 
-			
-
 			// must pass favorite id
 			// find from jotai state
-
 			// filter the jotai array get the item he pressed
-			// pass the favorite id. 
-			del.mutate({ listing });
-			
+			// pass the favorite id.
+			del.mutate('643134bb34a66a50ffc20484');
 		}
 	};
 
