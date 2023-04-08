@@ -1,6 +1,13 @@
-import { StyleSheet, Text, View, FlatList, RefreshControl } from 'react-native';
+import {
+	StyleSheet,
+	Text,
+	View,
+	FlatList,
+	RefreshControl,
+	ScrollView,
+} from 'react-native';
 import { useAtom } from 'jotai';
-import { favorites } from '../store/Favorites/favorites';
+import { favorites, isFavScreenAtom } from '../store/Favorites/favorites';
 import { useQuery } from 'react-query';
 import Listing from '../components/Item/Listing';
 import { useNavigation } from '@react-navigation/native';
@@ -8,8 +15,21 @@ import { Colors } from '../constants/colors';
 import { useState, useCallback } from 'react';
 import { getFavoritesByUser } from '../api/favoriteAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 function FavoritesScreen() {
+	const [isFavScreen, setIsFavScreen] = useAtom(isFavScreenAtom);
+
+	useFocusEffect(
+		useCallback(() => {
+			setIsFavScreen(true);
+			console.log('Favorites screen focused');
+			return () => {
+				setIsFavScreen(false);
+				console.log('Favorites screen unfocused');
+			};
+		}, []),
+	);
 	const navigation = useNavigation();
 	const [fav, setFav] = useAtom(favorites);
 	const [refresh, setRefresh] = useState(false);
@@ -43,7 +63,23 @@ function FavoritesScreen() {
 	if (isError) {
 		return <Text>{error.message}</Text>;
 	}
-	//console.log(fav[0]);
+
+	if (Favorites[0] == null) {
+		return (
+			<ScrollView
+				contentContainerStyle={{
+					justifyContent: 'center',
+					alignItems: 'center',
+					flex: 1,
+				}}
+				refreshControl={
+					<RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+				}
+			>
+				<Text>No Favorite Added</Text>
+			</ScrollView>
+		);
+	}
 	return (
 		<View style={styles.wrapper}>
 			<FlatList
@@ -54,46 +90,6 @@ function FavoritesScreen() {
 				data={Favorites}
 				keyExtractor={(item) => item._id}
 				renderItem={({ item }) => (
-					// <Listing
-					// 	onPress={() =>
-					// 		navigation.navigate('ItemDetails', {
-					// 			id: item.id,
-					// 			title: item.title,
-					// 			location: item.location,
-					// 			rating: 4,
-					// 			type: item.type,
-					// 			price: item.price,
-					// 			quantity: item.quantity,
-					// 			weight: item.weight,
-					// 			username: item.username,
-					// 			imageSrc: item.imageSrc,
-					// 			timePosted: item.timePosted,
-					// 			moreD: item.moreD,
-					// 			prefPayment: item.prefPayment,
-					// 		})
-					// 	}
-					// 	id={item._id}
-					// 	title={item.title}
-					// 	location={item.location}
-					// 	rating={4}
-					// 	type={item.type}
-					// 	price={item.price}
-					// 	quantity={item.quantity}
-					// 	weight={item.weight}
-					// 	username={item.username}
-					// 	imageSrc={item.imageSrc}
-					// 	timePosted={item.timePosted}
-					// 	moreD={item.moreD}
-					// 	prefPayment={item.prefPayment}
-					// 	color={fav ? Colors.red : Colors.gray}
-					// />
-					// <Text>
-
-					// 	{/* getting the user id */}
-					// 	{/* {console.log("here " + item)} */}
-
-					// </Text>
-
 					<Listing
 						onPress={() =>
 							navigation.navigate('ItemDetails', {

@@ -6,7 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useMutation, useQuery } from 'react-query';
 import { createFavorite, deleteFavorite } from '../../api/favoriteAPI';
 import { Colors } from '../../constants/colors';
-import { favorites } from '../../store/Favorites/favorites';
+import { favorites, isFavScreenAtom } from '../../store/Favorites/favorites';
 
 const ListingOptions = ({
 	id,
@@ -24,6 +24,7 @@ const ListingOptions = ({
 	prefPayment,
 }) => {
 	const [fav, setFav] = useAtom(favorites);
+	const [isFavScreen] = useAtom(isFavScreenAtom);
 	const [isFavorite, setIsFavorite] = useState(fav.includes(id));
 
 	const { mutate, error } = useMutation(createFavorite);
@@ -54,13 +55,13 @@ const ListingOptions = ({
 		} else {
 			setFav(fav.filter((item) => item.id !== id));
 			setIsFavorite(false);
-			const listing = id.toString();
+			//const listing = id.toString();
 
 			// must pass favorite id
 			// find from jotai state
 			// filter the jotai array get the item he pressed
 			// pass the favorite id.
-			del.mutate('643134bb34a66a50ffc20484');
+			//del.mutate('643134bb34a66a50ffc20484');
 		}
 	};
 
@@ -84,13 +85,15 @@ const ListingOptions = ({
 
 	return (
 		<View style={styles.optionsWrapper}>
-			<FontAwesome
-				style={styles.optionsIcon}
-				name={isFavorite ? 'bookmark' : 'bookmark-o'}
-				size={18}
-				color={isFavorite ? Colors.red : Colors.gray}
-				onPress={modifyFavorite}
-			/>
+			{!isFavScreen && (
+				<FontAwesome
+					style={styles.optionsIcon}
+					name={isFavorite ? 'bookmark' : 'bookmark-o'}
+					size={18}
+					color={isFavorite ? Colors.red : Colors.gray}
+					onPress={modifyFavorite}
+				/>
+			)}
 			<SimpleLineIcons
 				style={styles.optionsIcon}
 				name='options-vertical'
