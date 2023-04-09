@@ -23,10 +23,10 @@ function FavoritesScreen() {
 	useFocusEffect(
 		useCallback(() => {
 			setIsFavScreen(true);
-			console.log('Favorites screen focused');
+			//console.log('Favorites screen focused');
 			return () => {
 				setIsFavScreen(false);
-				console.log('Favorites screen unfocused');
+			//	console.log('Favorites screen unfocused');
 			};
 		}, []),
 	);
@@ -80,6 +80,8 @@ function FavoritesScreen() {
 			</ScrollView>
 		);
 	}
+	//console.log("Fav Id:",Favorites[0]._id);
+	//console.log("Here:",Favorites[0].listing.user.firstname);
 	return (
 		<View style={styles.wrapper}>
 			<FlatList
@@ -109,9 +111,10 @@ function FavoritesScreen() {
 								timePosted: item.listing.createdAt,
 								moreD: item.listing.description,
 								prefPayment: item.listing.paymentMethod,
+								FavId:item._id
 							})
 						}
-						id={item._id}
+						id={item.listing._id}
 						title={item.listing.name}
 						location={item.listing.cityOfResidence}
 						rating={4}
@@ -127,6 +130,7 @@ function FavoritesScreen() {
 						moreD={item.listing.description}
 						prefPayment={item.listing.paymentMethod}
 						color={fav ? Colors.red : Colors.gray}
+						FavId={item._id}
 					/>
 				)}
 			/>

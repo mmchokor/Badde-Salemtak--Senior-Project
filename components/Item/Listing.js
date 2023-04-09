@@ -21,6 +21,7 @@ const Listing = ({
 	timePosted,
 	moreD,
 	prefPayment,
+	FavId,
 	onPress,
 }) => {
 	const hour = Math.abs(new Date().getHours() - timePosted.substring(11, 13));
@@ -61,6 +62,7 @@ const Listing = ({
 							timePosted={timePosted}
 							moreD={moreD}
 							prefPayment={prefPayment}
+							FavId={FavId}
 						/>
 					</View>
 					<View style={styles.bodyWrapper}>

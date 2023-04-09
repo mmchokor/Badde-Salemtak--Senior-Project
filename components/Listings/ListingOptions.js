@@ -27,6 +27,7 @@ const ListingOptions = ({
 	timePosted,
 	moreD,
 	prefPayment,
+	FavId,
 }) => {
 	const [fav, setFav] = useAtom(favorites);
 	const [isFavScreen] = useAtom(isFavScreenAtom);
@@ -80,7 +81,8 @@ const ListingOptions = ({
 		setTimeout(() => {
 			setModalVisible(false);
 		}, 1000);
-		//del.mutate('643134bb34a66a50ffc20484');
+		console.log("The fav id is:",FavId);
+		del.mutate(FavId);
 	};
 	const addToFavorites = async () => {
 		const user = await AsyncStorage.getItem('userID');
@@ -99,6 +101,7 @@ const ListingOptions = ({
 	const optionsHandler = () => {
 		console.log('Clicked 2:');
 	};
+	
 	function toggleModal() {
 		if (isFavScreen) {
 			return (
@@ -157,7 +160,7 @@ const ListingOptions = ({
 				name='options-vertical'
 				size={16}
 				color={Colors.gray}
-				onPress={() => console.log('clicked')}
+				onPress={optionsHandler}
 			/>
 		</View>
 	);
