@@ -1,13 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
-import { FlatList, Image, StyleSheet, Text, View, RefreshControl } from 'react-native';
+import {
+	FlatList,
+	Image,
+	StyleSheet,
+	Text,
+	View,
+	RefreshControl,
+} from 'react-native';
 import { useQuery } from 'react-query';
 import { getResidentListings } from '../../api/residentListingsAPI';
-
+//import { useState, useCallback } from 'react';
 import Listing from './Listing';
 
 const ListingList = () => {
 	const navigation = useNavigation();
-
+	//const [refresh, setRefresh] = useState(false);
 	// i want use React query to get data from my server
 	const {
 		status,
@@ -15,6 +22,7 @@ const ListingList = () => {
 		isError,
 		error,
 		isLoading,
+		refetch,
 	} = useQuery('traverlerLisitngs', getResidentListings);
 
 	if (isLoading) {
@@ -25,14 +33,20 @@ const ListingList = () => {
 			</View>
 		);
 	}
-
+	// let onRefresh = useCallback(() => {
+	// 	setRefresh(true);
+	// 	refetch().then(() => setRefresh(false));
+	// }, []);
 	if (isError) {
 		return <Text>{error.message}</Text>;
 	}
-
+	//console.log(residentListings[0].imageCover)
 	return (
 		<View style={styles.wrapper}>
 			<FlatList
+				// refreshControl={
+				// 	<RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+				// }
 				showsVerticalScrollIndicator={false}
 				data={residentListings}
 				keyExtractor={(item) => item._id}

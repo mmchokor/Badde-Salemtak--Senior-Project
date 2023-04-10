@@ -13,77 +13,58 @@ import { createFavorite, deleteFavorite } from '../../api/favoriteAPI';
 import { Colors } from '../../constants/colors';
 import { favorites, isFavScreenAtom } from '../../store/Favorites/favorites';
 
-const ListingOptions = ({
-	id,
-	title,
-	location,
-	rating,
-	type,
-	price,
-	quantity,
-	weight,
-	username,
-	imageSrc,
-	timePosted,
-	moreD,
-	prefPayment,
-	FavId,
-}) => {
+const ListingOptions = ({ id, FavId }) => {
 	const [fav, setFav] = useAtom(favorites);
-	const [isFavScreen] = useAtom(isFavScreenAtom);
-	const [isFavorite, setIsFavorite] = useState(fav.includes(id));
+	//const [isFavorite, setIsFavorite] = useState(fav.includes(id));
+
 	const [modalVisible, setModalVisible] = useState(false);
+	const [isFavScreen] = useAtom(isFavScreenAtom);
 
 	const { mutate, error } = useMutation(createFavorite);
 	const del = useMutation(deleteFavorite);
 
 	const modifyFavorite = async () => {
-		if (!isFavorite) {
+		if (!fav.includes(id)) {
 			addToFavorites();
-			setFav([
-				...fav,
-				{
-					id,
-					title,
-					location,
-					rating,
-					type,
-					price,
-					quantity,
-					weight,
-					username,
-					imageSrc,
-					timePosted,
-					moreD,
-					prefPayment,
-				},
-			]);
-			setIsFavorite(true);
+			setFav([...fav, id]);
+			//setIsFavorite(true);
+
+			//console.log(id);
 			setModalVisible(true);
 			setTimeout(() => {
 				setModalVisible(false);
 			}, 1000);
-		} else {
-			setFav(fav.filter((item) => item.id !== id));
-			//setIsFavorite(false);
-			//const listing = id.toString();
-
-			// must pass favorite id
-			// find from jotai state
-			// filter the jotai array get the item he pressed
-			// pass the favorite id.
-			//del.mutate('643134bb34a66a50ffc20484');
 		}
+		//else {
+		//setFav(fav.filter((item) => item.id !== id));
+		//console.log("whattttttttttt")
+		//const listing = id.toString();
+
+		// must pass favorite id
+		// find from jotai state
+		// filter the jotai array get the item he pressed
+		// pass the favorite id.
+		//del.mutate('643134bb34a66a50ffc20484');
+		//}
 	};
+	//console.log(isFavorite);
+
 	const deleteFav = async () => {
-		console.log('Deleted');
+		//console.log('Deleted');
+		const updatef = fav.filter((item) => item !== id);
+		setFav(updatef);
+		//setIsFavorite(false);
+		//console.log('Fav:', isFavorite);
+		//console.log(fav.includes(id));
+		//console.log(fav);
 		setModalVisible(true);
 		setTimeout(() => {
 			setModalVisible(false);
 		}, 1000);
-		console.log("The fav id is:",FavId);
+
 		del.mutate(FavId);
 	};
+
 	const addToFavorites = async () => {
 		const user = await AsyncStorage.getItem('userID');
 		const listing = id.toString();
@@ -101,7 +82,7 @@ const ListingOptions = ({
 	const optionsHandler = () => {
 		console.log('Clicked 2:');
 	};
-	
+
 	function toggleModal() {
 		if (isFavScreen) {
 			return (
@@ -119,24 +100,26 @@ const ListingOptions = ({
 			);
 		}
 	}
+
 	function theIconFav() {
 		if (isFavScreen) {
 			return (
 				<MaterialCommunityIcons
 					style={styles.optionsIcon}
-					name={isFavorite ? 'check' : 'delete'}
+					name={fav.includes(id) ? 'delete' : 'check'}
 					size={20}
-					color={isFavorite ? Colors.darkGreen : Colors.gray}
+					color={Colors.gray}
 					onPress={deleteFav}
 				/>
 			);
-		} else {
+		}
+		if (!isFavScreen) {
 			return (
 				<FontAwesome
 					style={styles.optionsIcon}
-					name={isFavorite ? 'check' : 'bookmark-o'}
+					name={fav.includes(id)? 'check' : 'bookmark-o'}
 					size={18}
-					color={isFavorite ? Colors.darkGreen : Colors.gray}
+					color={fav.includes(id) ? Colors.darkGreen : Colors.gray}
 					onPress={modifyFavorite}
 				/>
 			);

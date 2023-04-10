@@ -12,26 +12,24 @@ import { useQuery } from 'react-query';
 import Listing from '../components/Item/Listing';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants/colors';
-import { useState, useCallback } from 'react';
+import { useState, useCallback ,useEffect} from 'react';
 import { getFavoritesByUser } from '../api/favoriteAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
 function FavoritesScreen() {
-	const [isFavScreen, setIsFavScreen] = useAtom(isFavScreenAtom);
-
+	const [, setIsFavScreen] = useAtom(isFavScreenAtom);
+	const [favArray, setFavArray] = useAtom(favorites);
 	useFocusEffect(
 		useCallback(() => {
 			setIsFavScreen(true);
-			//console.log('Favorites screen focused');
 			return () => {
 				setIsFavScreen(false);
-			//	console.log('Favorites screen unfocused');
 			};
 		}, []),
 	);
 	const navigation = useNavigation();
-	const [fav, setFav] = useAtom(favorites);
+
 	const [refresh, setRefresh] = useState(false);
 	const {
 		status,
@@ -52,6 +50,18 @@ function FavoritesScreen() {
 	// global state --> setFavorites()
 	// in this array u also have favorite Id.
 
+	useEffect(() => {
+		if (Favorites) {
+			Favorites.forEach((item) => {
+				const index = favArray.findIndex((fav) => fav === item.listing._id);
+				if (index === -1) {
+					setFavArray((prev) => [...prev, item.listing._id]);
+				}
+			});
+		}
+	}, [Favorites, setFavArray]);
+
+//console.log("In the Favorite Array",favArray);
 	if (isLoading) {
 		return (
 			<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -82,6 +92,7 @@ function FavoritesScreen() {
 	}
 	//console.log("Fav Id:",Favorites[0]._id);
 	//console.log("Here:",Favorites[0].listing.user.firstname);
+	//console.log(Favorites[1].listing.imageCover)
 	return (
 		<View style={styles.wrapper}>
 			<FlatList
@@ -107,11 +118,11 @@ function FavoritesScreen() {
 									item.listing.user.firstname +
 									' ' +
 									item.listing.user.lastname,
-								imageSrc: item.listing.imageCover,
+								imageSrc: item.listing.images.uri,
 								timePosted: item.listing.createdAt,
 								moreD: item.listing.description,
 								prefPayment: item.listing.paymentMethod,
-								FavId:item._id
+								FavId: item._id,
 							})
 						}
 						id={item.listing._id}
@@ -129,7 +140,6 @@ function FavoritesScreen() {
 						timePosted={item.listing.createdAt}
 						moreD={item.listing.description}
 						prefPayment={item.listing.paymentMethod}
-						color={fav ? Colors.red : Colors.gray}
 						FavId={item._id}
 					/>
 				)}
