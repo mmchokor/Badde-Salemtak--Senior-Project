@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
 
-function BorderStyle({ children,style }) {
+function BorderStyle({ children,style}) {
 	return <View style={[styles.button,style]}>{children}</View>;
 }
 export default BorderStyle;

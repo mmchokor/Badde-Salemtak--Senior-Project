@@ -1,10 +1,10 @@
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Colors } from '../../constants/colors';
 
-function InputBorderStyle({ keyboardType, maxLength, onChangeText }) {
+function InputBorderStyle({ keyboardType, maxLength, onChangeText, style }) {
 	return (
 		<TextInput
-			style={styles.button}
+			style={[styles.button, style]}
 			keyboardType={keyboardType}
 			maxLength={maxLength}
 			onChangeText={onChangeText}
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 5,
 		padding: 4,
-		//elevation: 3,
 		backgroundColor: Colors.white,
+		marginVertical: 5
 	},
 });

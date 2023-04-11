@@ -19,7 +19,7 @@ function PreferredPayment(props) {
 		props.onSelectOption(name);
 	}
 	return (
-		<View style={styles.container}>
+		<View style={[styles.container, props.style]}>
 			{types.map((option, name) => (
 				<TouchableOpacity
 					key={name}
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		
 	},
 	selectedOptionContainer: {
 		opacity: 0.4,

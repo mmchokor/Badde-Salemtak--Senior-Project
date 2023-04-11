@@ -1,6 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import ButtonItemType from './ButtonItemType';
+import { Colors } from '../../constants/colors';
 function ItemType(props) {
 	const types = [
 		'Electronics',
@@ -39,7 +40,7 @@ function ItemType(props) {
 						{selectedOption === name && Alert.alert(`${selectedOption}`)}
 					</View> */}
 
-					<ButtonItemType text={option} />
+					<ButtonItemType text={option} checked={selectedOption === name} />
 				</TouchableOpacity>
 			))}
 		</View>
@@ -55,6 +56,8 @@ const styles = StyleSheet.create({
 	},
 
 	selectedOptionContainer: {
-		opacity: 0.4,
+		//opacity: 0.4,
+		// borderColor: Colors.darkGreen,
+		// borderWidth: 1
 	},
 });
