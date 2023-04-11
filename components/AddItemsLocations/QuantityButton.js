@@ -18,8 +18,9 @@ function QuantityButton(props) {
 		props.onUpdateQuantity(newNumber < 0 ? 0 : newNumber);
 	};
 
+	//style={props.flag && styles.error} 
 	return (
-		<BorderStyle>
+		<BorderStyle > 
 			<View style={styles.container}>
 				<AntDesign
 					name='caretdown'
@@ -27,7 +28,7 @@ function QuantityButton(props) {
 					size={15}
 					color={Colors.black}
 				/>
-				<Text style={styles.number}>x{number}</Text>
+				<Text style={[styles.number, props.flag && styles.error]}>x{number}</Text>
 				<AntDesign
 					name='caretup'
 					onPress={incrementNumber}
@@ -50,6 +51,9 @@ const styles = StyleSheet.create({
 		fontFamily: 'inter-regular',
 		color: Colors.black,
 	},
+	error: {
+		color: Colors.errorRedDark
+	}
 });
 
 export default QuantityButton;

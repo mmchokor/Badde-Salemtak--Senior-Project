@@ -3,7 +3,8 @@ import { Colors } from "../../constants/colors";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
+import { Entypo } from '@expo/vector-icons';
 
 import {
   launchCamera,
@@ -23,11 +24,12 @@ const options = {
   },
 };
 
-function ImageUpload({ onSelectImage }) {
+function ImageUpload({ onSelectImage, style }) {
   const [image, setImage] = useState("");
   const [imageForm, setImageForm] = useState([]);
 
-  let imagePreview = <Text style={styles.previewText}>Upload Image</Text>;
+  //let imagePreview = <Text style={styles.previewText}>Upload Image</Text>;
+  let imagePreview =<Entypo name="camera" size={24}style={[styles.previewText, {color: Colors.darkGreen}]} />;
 
   async function openGallery() {
     let image = await ImagePicker.launchImageLibraryAsync({
@@ -42,12 +44,16 @@ function ImageUpload({ onSelectImage }) {
       setImage(image);
       const form = {
         uri: image.assets[0].uri,
-        type: image.assets[0].type + "/" + image.assets[0].uri.substring(
-			image.assets[0].uri.lastIndexOf(".") + 1),
+        type:
+          image.assets[0].type +
+          "/" +
+          image.assets[0].uri.substring(
+            image.assets[0].uri.lastIndexOf(".") + 1
+          ),
         //type: "images",
         name: image.assets[0].uri.substring(
           image.assets[0].uri.lastIndexOf("/") + 1
-        )
+        ),
       };
 
       const fileInfo = await FileSystem.getInfoAsync(image.assets[0].uri);
@@ -55,12 +61,11 @@ function ImageUpload({ onSelectImage }) {
       const fileSize = fileInfo.size; // size of the file in bytes
       const lastModified = fileInfo.modificationTime; // date and time when the file was last modified
 
-	//   form.size = fileSize;
-	//   form.lastModified = lastModified
+      //   form.size = fileSize;
+      //   form.lastModified = lastModified
 
-    //   console.log(`File size: ${fileSize}`);
-    //   console.log(`Last modified: ${lastModified}`);
-
+      //   console.log(`File size: ${fileSize}`);
+      //   console.log(`Last modified: ${lastModified}`);
 
       onSelectImage(form);
     }
@@ -79,7 +84,7 @@ function ImageUpload({ onSelectImage }) {
           onPress={openGallery}
           style={({ pressed }) => (pressed ? [styles.pressed] : [])}
         >
-          <View style={styles.imagepreviewcontainer}>{imagePreview}</View>
+          <View style={[styles.imagepreviewcontainer, style]}>{imagePreview}</View>
         </Pressable>
       </View>
       <Pressable
@@ -90,8 +95,8 @@ function ImageUpload({ onSelectImage }) {
       >
         <MaterialCommunityIcons
           name="delete"
-          size={30}
-          color={Colors.darkGreen}
+          size={24}
+          color={Colors.errorRedDark}
         />
       </Pressable>
     </View>
@@ -106,10 +111,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 100, //may be 90
     width: 100,
-    borderRadius: 8,
-    backgroundColor: "#c7c7c7",
+    //backgroundColor: "#c7c7c7",
     marginVertical: 8,
     borderRadius: 10,
+    //backgroundColor: Colors.white,
+    backgroundColor: "#ecfef8",
+    borderWidth: 1,
+    borderColor: Colors.darkGreen
   },
   previewText: {
     color: Colors.white,
