@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import { API_URL } from '../constants/apiURL'
+import { useAtom } from 'jotai'
+import { isLoading } from '../store/AddItemLoading/AddItemLoading'
 
 // Get all resident listings
 const getResidentListings = async () => {
@@ -33,6 +35,7 @@ const getResidentListingById = async (token, id) => {
 
 // Create a new resident listing
 const createResidentListing = async (data) => {
+
    const token = await AsyncStorage.getItem('token')
    try {
       const response = await axios.post(`${API_URL}/resident`, data, {
@@ -40,8 +43,11 @@ const createResidentListing = async (data) => {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
          },
+         onUploadProgress: (progress) => {
+            const percentCompleted = Math.round((progress.loaded / progress.total) * 100);
+            //console.log(`Loading progress: ${percentCompleted}%`);
+          },
       })
-	  //console.log(response)
       return response
    } catch (error) {
       console.error(error)

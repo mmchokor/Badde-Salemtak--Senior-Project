@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, View, ActivityIndicator  } from "react-native";
 import { useMutation, useQuery } from "react-query";
 import { createResidentListing } from "../../api/residentListingsAPI";
 import BorderStyle from "../../components/AddItemsLocations/BorderStyle";
@@ -12,8 +12,12 @@ import QuantityButton from "../../components/AddItemsLocations/QuantityButton";
 import Button from "../../components/UI/Button";
 import { Colors } from "../../constants/colors";
 import ImageUpload from "./ImageUpload";
+import { useAtom } from "jotai";
+import { isLoading } from "../../store/AddItemLoading/AddItemLoading";
 function AddItemBody() {
-  const { mutate, error } = useMutation(createResidentListing);
+	const [loading, setLoading] = useAtom(isLoading)
+
+  const { mutate, error } = useMutation(createResidentListing, {onSuccess: () => setLoading(false)});
   const [itemName, setItemName] = useState("");
   const [itemPrice, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
@@ -38,8 +42,6 @@ function AddItemBody() {
   const [imageFlag, setImageFlag] = useState(false);
   const [typeFlag, setTypeFlag] = useState(false);
   const [preferredPaymentFlag, setPreferredPaymentFlag] = useState(false);
-
-
 
   function handleImageSelect(image) {
     setSelectedImage(image);
@@ -189,11 +191,14 @@ function AddItemBody() {
 
     if (allConditionsMet) {
 		addTheItem();
+
     }
     
   }
 
   const addTheItem = async () => {
+	
+	setLoading(true)
     const user = await AsyncStorage.getItem("userID");
     const name = itemName.toString();
     const price = parseInt(itemPrice);
@@ -216,8 +221,11 @@ function AddItemBody() {
     formData.append("quantity", quantity);
     formData.append("images", selectedImage);
     formData.append("paymentMethod", paymentMethod);
+	console.log("Loading in add item",loading)
     mutate(formData);
   };
+
+  
 
   return (
     <View style={{ paddingHorizontal: 20 }}>
@@ -369,7 +377,8 @@ function AddItemBody() {
       <PreferredPayment onSelectOption={handlePaymentMethod} style={ preferredPaymentFlag && styles.inputDetailsError} />
 
       <Button style={styles.button} onPress={handleAddItem}>
-        Add Item
+        {!loading && "Add Item"}
+		{loading && <ActivityIndicator size="small" color={Colors.lightGreen}/>}
       </Button>
     </View>
   );
