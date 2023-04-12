@@ -16,10 +16,31 @@ import ProceedToPayment from "./ProceedToPayment";
 import OrderConfirmation from "./OrderConfirmation";
 import TravelerAndResidentScreen from "./TravelerAndResidentScreen";
 import ProfileScreen from "./ProfileScreen";
+import Toast from "react-native-toast-message";
+import { useEffect } from "react";
 const Stack = createNativeStackNavigator();
 
-function HomeScreen() {
+function HomeScreen({route}) {
+
+  // useEffect(() => {
+  //   const load = route.params?.loading
+  //   {load &&
+  //     Toast.show({
+  //       type: "success",
+  //       text1: "Hello",
+  //       text2: "This is some something 👋",
+  //     })}
+  // }, [])
+
+  
+  
   const [search, setSearch] = useState("");
+
+  
+  
+
+    
+  
 
   function searchHandler(text) {
     console.log(search);
