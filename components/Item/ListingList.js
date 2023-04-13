@@ -23,7 +23,8 @@ const ListingList = () => {
 		error,
 		isLoading,
 		refetch,
-	} = useQuery('traverlerLisitngs', getResidentListings);
+		isFetching
+	} = useQuery('traverlerLisitngs', getResidentListings, {staleTime: 0});
 
 	if (isLoading) {
 		//return <Text>Loading...</Text>
@@ -47,6 +48,9 @@ const ListingList = () => {
 				// refreshControl={
 				// 	<RefreshControl refreshing={refresh} onRefresh={onRefresh} />
 				// }
+				refreshing={isFetching}
+				windowSize={10}
+      			onRefresh={() => refetch()}
 				showsVerticalScrollIndicator={false}
 				data={residentListings}
 				keyExtractor={(item) => item._id}
