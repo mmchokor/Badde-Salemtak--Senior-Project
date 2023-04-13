@@ -6,7 +6,7 @@ import AddLocationScreen from "./AddLocationScreen";
 const Stack = createNativeStackNavigator();
 function AddScreen() {
 	return (
-		<NavigationContainer independent={true}>
+		// <NavigationContainer independent={true}>
 			<Stack.Navigator screenOptions={{ animation: "none" }}>
 				<Stack.Screen
 					name='Item'
@@ -19,8 +19,8 @@ function AddScreen() {
 					options={{ headerShown: false }}
 				/>
 			</Stack.Navigator>
-		</NavigationContainer>
-	);
+		//{/* </NavigationContainer> */}//
+	)
 }
 export default AddScreen;
 

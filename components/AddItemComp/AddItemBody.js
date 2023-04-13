@@ -1,7 +1,14 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { useMutation, useQuery } from "react-query";
 import { createResidentListing } from "../../api/residentListingsAPI";
 import BorderStyle from "../../components/AddItemsLocations/BorderStyle";
@@ -12,8 +19,18 @@ import QuantityButton from "../../components/AddItemsLocations/QuantityButton";
 import Button from "../../components/UI/Button";
 import { Colors } from "../../constants/colors";
 import ImageUpload from "./ImageUpload";
+import { useAtom } from "jotai";
+import { isLoading } from "../../store/AddItemLoading/AddItemLoading";
+import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 function AddItemBody() {
-  const { mutate, error } = useMutation(createResidentListing);
+  const [loading, setLoading] = useAtom(isLoading);
+  const navigation = useNavigation();
+
+  const { mutate, error } = useMutation(createResidentListing, {
+    onSuccess: onSuccessHandler,
+    onError: onErrorHandler,
+  });
   const [itemName, setItemName] = useState("");
   const [itemPrice, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
@@ -39,7 +56,29 @@ function AddItemBody() {
   const [typeFlag, setTypeFlag] = useState(false);
   const [preferredPaymentFlag, setPreferredPaymentFlag] = useState(false);
 
+  function onSuccessHandler() {
+    setLoading(false);
 
+    const parent = navigation.getParent("bottomTab");
+
+    parent.navigate("Home", {
+      screen: "TravelerorResident",
+      params: { screen: "Traveler", params: { load: true } },
+    });
+
+    // parent.navigate("Home", {
+    // 	loading: true
+    // })
+  }
+  function onErrorHandler() {
+    setLoading(false);
+
+    Toast.show({
+      type: "error",
+      text1: "Unfortunately, Your listing has not been added.",
+      text2: "Please try to reduce the image size and/or resoultution",
+    });
+  }
 
   function handleImageSelect(image) {
     setSelectedImage(image);
@@ -56,7 +95,7 @@ function AddItemBody() {
 
   const updateQuantity = (newQuantity) => {
     setQuantity(newQuantity);
-	setQuantityFlag(false)
+    setQuantityFlag(false);
   };
 
   const handleInputWeight = (text) => {
@@ -65,7 +104,7 @@ function AddItemBody() {
   };
   const handleType = (option) => {
     setType(option);
-	setTypeFlag(false)
+    setTypeFlag(false);
   };
 
   const handleDetails = (text) => {
@@ -91,7 +130,7 @@ function AddItemBody() {
   };
   function handlePaymentMethod(option) {
     setSelectedOption(option);
-	setPreferredPaymentFlag(false)
+    setPreferredPaymentFlag(false);
   }
   let type = "";
 
@@ -134,7 +173,6 @@ function AddItemBody() {
       type = "Cash";
   }
 
-
   function handleAddItem() {
     let allConditionsMet = true;
 
@@ -174,26 +212,26 @@ function AddItemBody() {
       setImageFlag(true);
       allConditionsMet = false;
     }
-	if (itemType === '') {
-		setTypeFlag(true);
-		allConditionsMet = false;
-	}
-	if (selectedOption === '') {
-		setPreferredPaymentFlag(true)
-		allConditionsMet = false;
-	}
-	if (quantity === 0) {
-		setQuantityFlag(true);
-		allConditionsMet = false;
-	}
+    if (itemType === "") {
+      setTypeFlag(true);
+      allConditionsMet = false;
+    }
+    if (selectedOption === "") {
+      setPreferredPaymentFlag(true);
+      allConditionsMet = false;
+    }
+    if (quantity === 0) {
+      setQuantityFlag(true);
+      allConditionsMet = false;
+    }
 
     if (allConditionsMet) {
-		addTheItem();
+      addTheItem();
     }
-    
   }
 
   const addTheItem = async () => {
+    setLoading(true);
     const user = await AsyncStorage.getItem("userID");
     const name = itemName.toString();
     const price = parseInt(itemPrice);
@@ -205,7 +243,6 @@ function AddItemBody() {
       address + " " + streetName + " " + building + " " + floor;
     const paymentMethod = PreferredPaymentMethod;
 
-
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -216,6 +253,7 @@ function AddItemBody() {
     formData.append("quantity", quantity);
     formData.append("images", selectedImage);
     formData.append("paymentMethod", paymentMethod);
+    console.log("Loading in add item", loading);
     mutate(formData);
   };
 
@@ -276,7 +314,10 @@ function AddItemBody() {
         <View style={{ marginRight: 70 }}>
           <Text style={styles.textHead}>Quantity</Text>
           <View>
-            <QuantityButton flag = {quantityFlag} onUpdateQuantity={updateQuantity} />
+            <QuantityButton
+              flag={quantityFlag}
+              onUpdateQuantity={updateQuantity}
+            />
           </View>
         </View>
         <View>
@@ -317,7 +358,15 @@ function AddItemBody() {
 
       {/* Type */}
       <View style={{ marginTop: 20 }}>
-        <Text style={typeFlag == false ? [styles.textHead, { marginBottom: 6 }] : [styles.textHead, { marginBottom: 6, color: 'red' }]}>Type</Text>
+        <Text
+          style={
+            typeFlag == false
+              ? [styles.textHead, { marginBottom: 6 }]
+              : [styles.textHead, { marginBottom: 6, color: "red" }]
+          }
+        >
+          Type
+        </Text>
         <ItemType onSelect={handleType} />
       </View>
 
@@ -366,11 +415,38 @@ function AddItemBody() {
       </View>
       <Text style={styles.textHead}>Preferred Payment Method</Text>
 
-      <PreferredPayment onSelectOption={handlePaymentMethod} style={ preferredPaymentFlag && styles.inputDetailsError} />
+      <PreferredPayment
+        onSelectOption={handlePaymentMethod}
+        style={preferredPaymentFlag && styles.inputDetailsError}
+      />
 
-      <Button style={styles.button} onPress={handleAddItem}>
-        Add Item
-      </Button>
+      {/* <Button style={styles.button} onPress={handleAddItem}>
+        {!loading && "Add Item"}
+        {loading && (
+          <ActivityIndicator
+            size="small"
+            color={Colors.lightGreen}
+            style={{
+              //backgroundColor: "red",
+			  //marginLeft: 220
+			  //alignSelf: 'flex-end'
+            }}
+          />
+        )}
+      </Button> */}
+      {!loading && (
+        <Button style={styles.button} onPress={handleAddItem}>
+          Add Item
+        </Button>
+      )}
+      {loading && (
+        <Button style={styles.button}>
+          <ActivityIndicator
+            size="small"
+            color={Colors.lightGreen}
+          />
+        </Button>
+      )}
     </View>
   );
 }
@@ -390,8 +466,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.gray,
-	// borderWidth: 1,
-	// borderColor: Colors.gray
+    // borderWidth: 1,
+    // borderColor: Colors.gray
   },
   inputTError: {
     borderBottomWidth: 1.5,
@@ -399,7 +475,7 @@ const styles = StyleSheet.create({
   },
   inputDetailsError: {
     borderColor: Colors.errorRedDark,
-	borderWidth: 1
+    borderWidth: 1,
   },
   textL: {
     //color: Colors.darkGreen,

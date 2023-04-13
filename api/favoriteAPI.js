@@ -41,6 +41,7 @@ const createFavorite = async (formData) => {
  * @returns {data.data.favorite}: The user's favorite listings
  */
 const getFavoritesByUser = async (userId) => {
+	console.log(userId)
 	try {
 		const token = await AsyncStorage.getItem('token');
 
