@@ -5,15 +5,19 @@ import { useEffect } from "react";
 
 function TravelerScreen({ route }) {
   
-  
+  // Toast.show({
+  //   type: "success",
+  //   text1: "Success!",
+  //   text2: "Your listing has been added! 👋",
+  // })
 
   useEffect(() => {
     const loading = route.params?.load;
     {loading &&
       Toast.show({
         type: "success",
-        text1: "Hello",
-        text2: "This is some something 👋",
+        text1: "Success!",
+        text2: "Your listing has been added 👋"
       })}
   }, [route])
 

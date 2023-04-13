@@ -29,6 +29,7 @@ function AddItemBody() {
 
   const { mutate, error } = useMutation(createResidentListing, {
     onSuccess: onSuccessHandler,
+    onError: onErrorHandler,
   });
   const [itemName, setItemName] = useState("");
   const [itemPrice, setPrice] = useState("");
@@ -65,9 +66,18 @@ function AddItemBody() {
       params: { screen: "Traveler", params: { load: true } },
     });
 
-	// parent.navigate("Home", {
-	// 	loading: true
-	// })
+    // parent.navigate("Home", {
+    // 	loading: true
+    // })
+  }
+  function onErrorHandler() {
+    setLoading(false);
+
+    Toast.show({
+      type: "error",
+      text1: "Unfortunately, Your listing has not been added.",
+      text2: "Please try to reduce the image size and/or resoultution",
+    });
   }
 
   function handleImageSelect(image) {
@@ -410,12 +420,33 @@ function AddItemBody() {
         style={preferredPaymentFlag && styles.inputDetailsError}
       />
 
-      <Button style={styles.button} onPress={handleAddItem}>
+      {/* <Button style={styles.button} onPress={handleAddItem}>
         {!loading && "Add Item"}
         {loading && (
-          <ActivityIndicator size="small" color={Colors.lightGreen} />
+          <ActivityIndicator
+            size="small"
+            color={Colors.lightGreen}
+            style={{
+              //backgroundColor: "red",
+			  //marginLeft: 220
+			  //alignSelf: 'flex-end'
+            }}
+          />
         )}
-      </Button>
+      </Button> */}
+      {!loading && (
+        <Button style={styles.button} onPress={handleAddItem}>
+          Add Item
+        </Button>
+      )}
+      {loading && (
+        <Button style={styles.button}>
+          <ActivityIndicator
+            size="small"
+            color={Colors.lightGreen}
+          />
+        </Button>
+      )}
     </View>
   );
 }
