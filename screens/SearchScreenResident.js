@@ -20,6 +20,9 @@ function SearchScreenResident() {
 	const [search, setSearch] = useState('');
 	const debouncedSearchTerm = useDebounce(search, 200);
 
+	const [selectedButton, setSelectedButton] = useState(null);
+	const [placeHolder, setPlaceHolder] = useState('Search Item');
+	const [attribute, setAttribute] = useState('country');
 	const {
 		status,
 		data: travelerListings,
@@ -30,6 +33,26 @@ function SearchScreenResident() {
 		isFetching,
 	} = useQuery('residentListings', getTravelerListings);
 
+	const handlePress = (buttonNumber) => {
+		if (selectedButton === buttonNumber) {
+			setSelectedButton(null);
+
+			setPlaceHolder('Search Country');
+			setAttribute('country');
+		} else {
+			setSelectedButton(buttonNumber);
+			if (buttonNumber == 1) {
+				setPlaceHolder('Search Item by Country');
+				setAttribute('country');
+			} else if (buttonNumber == 2) {
+				setPlaceHolder('Search Item by Location');
+				setAttribute('Location');
+			} else if (buttonNumber == 3) {
+				setPlaceHolder('Search Item by Type');
+				setAttribute('countryr');
+			}
+		}
+	};
 	// const filteredListings = residentListings.filter((listing) =>
 	// 	listing.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
 	// );

@@ -40,7 +40,7 @@ const ResidentListingList = () => {
 						onPress={() =>
 							navigation.navigate('LocationDetails', {
 								id: item._id,
-								toLocation: item.residentCity,
+								toLocation: 'Lebanon',
 								fromLocation: item.country,
 								rating: 4,
 								maxWeight: item.extraWeight,
@@ -53,7 +53,7 @@ const ResidentListingList = () => {
 							})
 						}
 						id={item._id}
-						toLocation={item.residentCity}
+						toLocation={'Lebanon'}
 						fromLocation={item.country}
 						rating={4}
 						maxWeight={item.extraWeight}
