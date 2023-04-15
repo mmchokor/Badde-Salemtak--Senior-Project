@@ -6,20 +6,21 @@ import {
 	Pressable,
 	KeyboardAvoidingView,
 	FlatList,
-} from "react-native";
-import { Colors } from "../constants/colors";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
-import { useState } from "react";
-import { flags } from "../constants/flags";
-import BorderStyle from "../components/AddItemsLocations/BorderStyle";
-import ItemType from "../components/AddItemsLocations/ItemType";
-import InputBorderStyle from "../components/AddItemsLocations/InputBorderStyle";
-import PreferredPayment from "../components/AddItemsLocations/PreferredPayment";
-import DropDownPicker from "react-native-dropdown-picker";
+} from 'react-native';
+import { Colors } from '../constants/colors';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useState } from 'react';
+import { flags } from '../constants/flags';
+import BorderStyle from '../components/AddItemsLocations/BorderStyle';
+import ItemType from '../components/AddItemsLocations/ItemType';
+import InputBorderStyle from '../components/AddItemsLocations/InputBorderStyle';
+import PreferredPayment from '../components/AddItemsLocations/PreferredPayment';
+import DropDownPicker from 'react-native-dropdown-picker';
+import Button from '../components/UI/Button';
 function AddLocationScreen({ navigation }) {
 	function PressEventHandler() {
-		navigation.navigate("Item");
+		navigation.navigate('Item');
 	}
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(null);
@@ -29,7 +30,7 @@ function AddLocationScreen({ navigation }) {
 	const [valuet, setValuet] = useState(null);
 	const [itemst, setItemst] = useState([flags]);
 	return (
-		<View style={{ alignItems: "center", backgroundColor: Colors.white }}>
+		<View style={{ alignItems: 'center', backgroundColor: Colors.white }}>
 			<View style={styles.upperButton}>
 				<Pressable onPress={PressEventHandler}>
 					<View style={styles.item}>
@@ -66,7 +67,7 @@ function AddLocationScreen({ navigation }) {
 						style={{ zIndex: 1 }}
 						textStyle={{
 							fontSize: 16,
-							fontFamily: "inter-regular",
+							fontFamily: 'inter-regular',
 						}}
 						placeholder='Enter country'
 						labelStyle={{
@@ -78,7 +79,7 @@ function AddLocationScreen({ navigation }) {
 					/>
 				</View>
 
-				<Text style={styles.textHead}>Country Name From*</Text>
+				<Text style={styles.textHead}>Country Name To*</Text>
 				<View>
 					<DropDownPicker
 						open={opent}
@@ -94,7 +95,7 @@ function AddLocationScreen({ navigation }) {
 						style={{ zIndex: 0.9 }}
 						textStyle={{
 							fontSize: 16,
-							fontFamily: "inter-regular",
+							fontFamily: 'inter-regular',
 						}}
 						placeholder='Enter country'
 						labelStyle={{
@@ -107,33 +108,33 @@ function AddLocationScreen({ navigation }) {
 				</View>
 
 				<ScrollView>
-					<KeyboardAvoidingView behavior='position' enabled>
+					<KeyboardAvoidingView
+						behavior='padding'
+						enabled
+						style={{ height: 620 }}
+					>
 						<View>
-							<View>
-								<Text style={styles.textHead}>Preferred Weight</Text>
-								<View style={{ flexDirection: "row", alignItems: "center" }}>
-									<BorderStyle>
-										<View
-											style={{ flexDirection: "row", alignItems: "center" }}
+							<Text style={styles.textHead}>Preferred Weight</Text>
+							<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+								<BorderStyle>
+									<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+										<FontAwesome5 name='weight-hanging' size={15} />
+										<Text
+											style={{
+												fontSize: 12,
+												opacity: 0.7,
+												fontFamily: 'inter-light',
+											}}
 										>
-											<FontAwesome5 name='weight-hanging' size={15} />
-											<Text
-												style={{
-													fontSize: 12,
-													opacity: 0.7,
-													fontFamily: "inter-light",
-												}}
-											>
-												Kg
-											</Text>
-										</View>
-									</BorderStyle>
-									<TextInput
-										style={[styles.inputT, { marginLeft: 10, width: 50 }]}
-										keyboardType='number-pad'
-										maxLength={5}
-									/>
-								</View>
+											Kg
+										</Text>
+									</View>
+								</BorderStyle>
+								<TextInput
+									style={[styles.inputT, { marginLeft: 10, width: 50 }]}
+									keyboardType='number-pad'
+									maxLength={5}
+								/>
 							</View>
 						</View>
 
@@ -144,20 +145,26 @@ function AddLocationScreen({ navigation }) {
 							</Text>
 							<ItemType />
 						</View>
-
-						{/* More Details,Location */}
 						<View>
-							<Text style={styles.textHead}>More Details</Text>
-							<InputBorderStyle />
-							<Text style={styles.textHead}>Location</Text>
-							<Text style={styles.textL}>Address*</Text>
-							<InputBorderStyle />
+							<Text style={styles.textHead}>Ticket Number</Text>
+
+							<TextInput
+								style={[styles.inputT, { width: 100 }]}
+								keyboardType='default'
+								autoCapitalize='characters'
+								maxLength={5}
+							/>
 						</View>
+						{/* More Details,Location */}
+
+						<Text style={styles.textHead}>More Details</Text>
+						<InputBorderStyle />
 
 						<Text style={styles.textHead}>Preferred Payment Method</Text>
 
-						<View>
-							<PreferredPayment />
+						<PreferredPayment />
+						<View style={{ marginTop: -10 }}>
+							<Button>Add Location</Button>
 						</View>
 					</KeyboardAvoidingView>
 				</ScrollView>
@@ -177,10 +184,10 @@ const styles = StyleSheet.create({
 		height: 45,
 		backgroundColor: Colors.darkGreen,
 		borderRadius: 30,
-		alignItems: "center",
-		alignContent: "center",
-		flexDirection: "row",
-		justifyContent: "space-evenly",
+		alignItems: 'center',
+		alignContent: 'center',
+		flexDirection: 'row',
+		justifyContent: 'space-evenly',
 	},
 	item: {
 		padding: 5,
@@ -195,21 +202,21 @@ const styles = StyleSheet.create({
 		marginRight: 7,
 	},
 	texI: {
-		fontFamily: "inter-regular",
+		fontFamily: 'inter-regular',
 		color: Colors.white,
 	},
 	textLocation: {
 		color: Colors.black,
-		fontFamily: "inter-regular",
+		fontFamily: 'inter-regular',
 	},
 	textHead: {
 		color: Colors.darkGreen,
 		fontSize: 18,
-		fontFamily: "inter-regular",
+		fontFamily: 'inter-regular',
 		marginTop: 10,
 	},
 	inputT: {
-		fontFamily: "inter-regular",
+		fontFamily: 'inter-regular',
 		color: Colors.black,
 		fontSize: 16,
 		borderBottomWidth: 0.5,
@@ -217,6 +224,6 @@ const styles = StyleSheet.create({
 	},
 	textL: {
 		color: Colors.darkGreen,
-		fontFamily: "inter-light",
+		fontFamily: 'inter-light',
 	},
 });

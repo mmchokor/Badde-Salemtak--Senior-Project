@@ -5,6 +5,7 @@ import { DUMMY_DATA_RESIDENT } from '../../constants/DUMMY_DATA';
 import { useQuery } from 'react-query';
 import { getTravelerListings } from '../../api/travelerListingAPI';
 import ResidentListing from './ResidentListing';
+import LoadingIcon from '../Loading/LoadingIcon';
 const ResidentListingList = () => {
 	const {
 		status,
@@ -13,14 +14,24 @@ const ResidentListingList = () => {
 		error,
 		isLoading,
 		refetch,
+		isFetching
 	} = useQuery('residentListings', getTravelerListings);
 
 	const navigation = useNavigation();
+
+	if (isLoading) {
+		//return <Text>Loading...</Text>
+		return <LoadingIcon />;
+	}
+
 	return (
 		<View style={styles.wrapper}>
-		 {/* {console.log(travelerListings[0].user.firstname)}  */}
+			{/* {console.log(travelerListings[0].user.firstname)}  */}
 
 			<FlatList
+				refreshing={isFetching}
+				windowSize={10}
+				onRefresh={() => refetch()}
 				showsVerticalScrollIndicator={false}
 				data={travelerListings}
 				keyExtractor={(item) => item._id}
@@ -47,7 +58,7 @@ const ResidentListingList = () => {
 						rating={4}
 						maxWeight={item.extraWeight}
 						username={item.user.firstname + ' ' + item.user.lastname}
-                  		 //imageSrc={item.imageSrc}//should we remove it?
+						//imageSrc={item.imageSrc}//should we remove it?
 						timePosted={item.date}
 						userLocation={item.residentCity}
 						//prefPayment={item.prefPayment}//?

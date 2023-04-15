@@ -8,42 +8,48 @@ import {
 } from 'react-native';
 import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
-import { getResidentListings } from '../api/residentListingsAPI';
+import { getTravelerListings } from '../api/travelerListingAPI';
 import useDebounce from '../components/UI/useDebounce';
 import Listing from '../components/Item/Listing';
 import { Colors } from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
-function SearchScreen() {
+import LoadingIcon from '../components/Loading/LoadingIcon';
+import ResidentListing from '../components/Item/ResidentListing';
+function SearchScreenResident() {
 	const navigation = useNavigation();
 	const [search, setSearch] = useState('');
 	const debouncedSearchTerm = useDebounce(search, 200);
 
 	const {
 		status,
-		data: residentListings,
+		data: travelerListings,
 		isError,
 		error,
 		isLoading,
 		refetch,
 		isFetching,
-	} = useQuery('traverlerLisitngs', getResidentListings);
+	} = useQuery('residentListings', getTravelerListings);
 
 	// const filteredListings = residentListings.filter((listing) =>
 	// 	listing.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
 	// );
 	const filteredListings = debouncedSearchTerm
-		? residentListings.filter((listing) =>
-				listing.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
+		? travelerListings.filter((listing) =>
+				listing.country
+					.toLowerCase()
+					.includes(debouncedSearchTerm.toLowerCase()),
 		  )
 		: [];
-
+	if (isLoading) {
+		return <LoadingIcon />;
+	}
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<View>
 				<TextInput
 					style={styles.textInp}
 					value={search}
-					placeholder='Search Item'
+					placeholder='Search Country'
 					underlineColorAndroid='transparent'
 					onChangeText={(text) => setSearch(text)}
 				/>
@@ -56,37 +62,34 @@ function SearchScreen() {
 					data={filteredListings}
 					keyExtractor={(item) => item._id}
 					renderItem={({ item }) => (
-						<Listing
+						<ResidentListing
 							onPress={() =>
-								navigation.navigate('ItemDetails', {
+								navigation.navigate('LocationDetails', {
 									id: item._id,
-									title: item.name,
-									location: item.cityOfResidence,
+									toLocation: item.residentCity,
+									fromLocation: item.country,
 									rating: 4,
-									type: item.productType,
-									price: item.price,
-									quantity: item.quantity,
-									weight: item.approximateWeight,
-									username: item.user.firstname + ' ' + item.user.lastname,
-									imageSrc: item.imageCover,
-									timePosted: item.createdAt,
+									maxWeight: item.extraWeight,
+									username: item.user.firstname + ' ' + item.user.lastname, //imageSrc: item.imageSrc,//should we remove it?
+									timePosted: item.date,
+									userLocation: item.residentCity,
+									//prefPayment: item.prefPayment,//?
 									moreD: item.description,
-									prefPayment: item.paymentMethod,
+									//type: item.type,//??
 								})
 							}
 							id={item._id}
-							title={item.name}
-							location={item.cityOfResidence}
+							toLocation={item.residentCity}
+							fromLocation={item.country}
 							rating={4}
-							type={item.productType}
-							price={item.price}
-							quantity={item.quantity}
-							weight={item.approximateWeight}
+							maxWeight={item.extraWeight}
 							username={item.user.firstname + ' ' + item.user.lastname}
-							imageSrc={item.imageCover}
-							timePosted={item.createdAt}
+							//imageSrc={item.imageSrc}//should we remove it?
+							timePosted={item.date}
+							userLocation={item.residentCity}
+							//prefPayment={item.prefPayment}//?
 							moreD={item.description}
-							prefPayment={item.paymentMethod}
+							//type={item.type}//?
 						/>
 					)}
 				/>
@@ -95,7 +98,7 @@ function SearchScreen() {
 	);
 }
 
-export default SearchScreen;
+export default SearchScreenResident;
 
 const styles = StyleSheet.create({
 	itemStyle: {

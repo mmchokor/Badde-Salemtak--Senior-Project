@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
   button: {
     width: "80%",
     margin: 10,
-    marginTop: 0,
+    marginTop: -10,
   },
   imagepreviewcontainer: {
     alignItems: "center",

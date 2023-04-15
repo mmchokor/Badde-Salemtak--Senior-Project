@@ -13,11 +13,13 @@ import OrderConfirmation from './OrderConfirmation';
 import TravelerAndResidentScreen from './TravelerAndResidentScreen';
 import ProfileScreen from './ProfileScreen';
 import SearchScreen from './SearchScreen';
+import SearchScreenResident from './SearchScreenResident';
 import Toast from 'react-native-toast-message';
 import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { isTravScreenAtom } from '../store/TravResScreen/TravOrRes';
+import { useAtom } from 'jotai';
 const Stack = createNativeStackNavigator();
-import { useNavigation } from "@react-navigation/native";
-
 function HomeScreen({ route }) {
 	// useEffect(() => {
 	//   const load = route.params?.loading
@@ -28,10 +30,8 @@ function HomeScreen({ route }) {
 	//       text2: "This is some something 👋",
 	//     })}
 	// }, [])
-const navigation=useNavigation();
-	const [search, setSearch] = useState('');
-
-	
+	const navigation = useNavigation();
+	const [isTravScreen,] = useAtom(isTravScreenAtom);
 
 	return (
 		<Stack.Navigator screenOptions={{ animation: 'none' }} id='test'>
@@ -71,13 +71,30 @@ const navigation=useNavigation();
 						</View>
 					),
 					headerLeft: () => (
-						<View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-							<Ionicons name='ios-filter' size={35} color={Colors.darkGreen} style={{marginRight:10}}/>
+						<View
+							style={{
+								flexDirection: 'row',
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<Ionicons
+								name='ios-filter'
+								size={35}
+								color={Colors.darkGreen}
+								style={{ marginRight: 10 }}
+							/>
 							<Ionicons
 								name='search-outline'
 								size={35}
 								color={Colors.darkGreen}
-                onPress={()=>navigation.navigate('SearchScreen')}
+								onPress={() =>{ 
+									if(isTravScreen){navigation.navigate('SearchScreen')}else{
+
+										navigation.navigate('SearchScreenResident')
+									}
+									
+									}}
 							/>
 						</View>
 					),
@@ -173,9 +190,23 @@ const navigation=useNavigation();
 					headerStyle: { backgroundColor: Colors.white },
 				})}
 			/>
-      <Stack.Screen
+			<Stack.Screen
 				name='SearchScreen'
 				component={SearchScreen}
+				options={({ route }) => ({
+					headerShown: true,
+					headerShadowVisible: false,
+					title: 'Search',
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white },
+				})}
+			/>
+			<Stack.Screen
+				name='SearchScreenResident'
+				component={SearchScreenResident}
 				options={({ route }) => ({
 					headerShown: true,
 					headerShadowVisible: false,

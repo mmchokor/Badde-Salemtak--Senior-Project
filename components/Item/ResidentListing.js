@@ -1,5 +1,5 @@
 import { Image, Pressable, StyleSheet, View, Dimensions } from 'react-native';
-import {useState} from 'react';
+import { useState } from 'react';
 import { Colors } from '../../constants/colors';
 import MyText from '../UI/MyText.js';
 import ListingOptions from '../Listings/ListingOptions';
@@ -9,7 +9,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { DUMMY_DATA, DUMMY_DATA_RESIDENT } from '../../constants/DUMMY_DATA';
-import moment from "moment";
+import moment from 'moment';
 // iphone 14 HEIGHT 844
 // android simulator HEIGHT 683
 // my phone Height 755
@@ -32,29 +32,24 @@ const ResidentListing = ({
 
 	onPress,
 }) => {
-	const dateTimeString = timePosted;
-	const timeString = dateTimeString.split('T')[1].slice(0, -5);
-	const hours = timeString.slice(0, 5);
-	const hoursAndMinutes = `${hours}`;
-	///
 	const [startDate, setStartDate] = useState(moment(timePosted));
-  const [endDate, setEndDate] = useState(moment());
+	const [endDate, setEndDate] = useState(moment());
 
-  const diffInMilliseconds = endDate.diff(startDate); // difference in milliseconds
-  const diffInMinutes = Math.floor(diffInMilliseconds / 60000); // difference in minutes
-  const diffInHours = Math.floor(diffInMilliseconds / 3600000); // difference in hours
-  const diffInDays = Math.floor(diffInMilliseconds / 86400000); // difference in days
+	const diffInMilliseconds = endDate.diff(startDate); // difference in milliseconds
+	const diffInMinutes = Math.floor(diffInMilliseconds / 60000); // difference in minutes
+	const diffInHours = Math.floor(diffInMilliseconds / 3600000); // difference in hours
+	const diffInDays = Math.floor(diffInMilliseconds / 86400000); // difference in days
 
-  let diffText = "";
-  if (diffInDays > 0) {
-    diffText = `${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
-  } else if (diffInHours > 0) {
-    diffText = `${diffInHours} hour${diffInHours === 1 ? "" : "s"} ago`;
-  } else if (diffInMinutes > 0) {
-    diffText = `${diffInMinutes} minute${diffInMinutes === 1 ? "" : "s"} ago`;
-  } else {
-    diffText = "just now";
-  }
+	let diffText = '';
+	if (diffInDays > 0) {
+		diffText = `${diffInDays} day${diffInDays === 1 ? '' : 's'} ago`;
+	} else if (diffInHours > 0) {
+		diffText = `${diffInHours} hour${diffInHours === 1 ? '' : 's'} ago`;
+	} else if (diffInMinutes > 0) {
+		diffText = `${diffInMinutes} minute${diffInMinutes === 1 ? '' : 's'} ago`;
+	} else {
+		diffText = 'just now';
+	}
 	return (
 		<Pressable
 			style={({ pressed }) =>
@@ -64,11 +59,11 @@ const ResidentListing = ({
 		>
 			<View style={styles.contentWrapper}>
 				<View style={styles.imageWrapper}>
-          <Image
-            style={styles.image}
-            source={DUMMY_DATA_RESIDENT[0].imageSrc}
-          />
-        </View>
+					<Image
+						style={styles.image}
+						source={DUMMY_DATA_RESIDENT[0].imageSrc}
+					/>
+				</View>
 				<View style={styles.sectionWrapper}>
 					<View style={styles.headerWrapper}>
 						<View>
@@ -111,9 +106,7 @@ const ResidentListing = ({
 								<View style={styles.profileImg}></View>
 								<MyText style={styles.username}>{username}</MyText>
 							</View>
-							<MyText style={[styles.detail, styles.time]}>
-								{diffText}
-							</MyText>
+							<MyText style={[styles.detail, styles.time]}>{diffText}</MyText>
 						</View>
 					</View>
 				</View>
@@ -214,5 +207,4 @@ const styles = StyleSheet.create({
 	weight: {
 		marginLeft: 5,
 	},
-	
 });
