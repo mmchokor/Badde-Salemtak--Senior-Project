@@ -73,9 +73,11 @@ function BottomBar({ navigation }) {
 			<BottomTabs.Screen
 				name='Add'
 				component={AddScreen}
+			
 				options={{
+					
 					title: '',
-
+					headerShown:false,
 					tabBarIcon: ({ color, size }) => (
 						<Ionicons name='ios-add-circle' size={35} color={color} />
 					),
