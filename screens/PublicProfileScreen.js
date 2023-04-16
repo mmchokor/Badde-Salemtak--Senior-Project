@@ -1,5 +1,11 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import React, { useLayoutEffect, useRef, useMemo, useState, useCallback } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { Colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
@@ -8,14 +14,15 @@ import { Ionicons } from "@expo/vector-icons";
 import ListingList from "../components/Item/ListingList";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { getCurrentUser } from "../api/userAPI"
+import { getCurrentUser } from "../api/userAPI";
 import { useQuery } from "react-query";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
+
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import ProfileListingList from "../components/Profile/ProfileListingList";
 
 const PublicProfileScreen = ({ navigation }) => {
   const [darkBackDrop, setDarkBackDrop] = useState(false);
@@ -55,13 +62,18 @@ const PublicProfileScreen = ({ navigation }) => {
     });
   }, []);
 
-  const {data: userInfo, isFetching} = useQuery("userInfo", getCurrentUser)
+  
+
+  const { data: userInfo, isFetching } = useQuery("userInfo", getCurrentUser);
 
   if (isFetching) {
-    return <Text>Loading</Text>
+    return <Text>Loading</Text>;
   }
 
-  const profileImgText = userInfo.firstname.charAt(0).toUpperCase() + "." + userInfo.lastname.charAt(0).toUpperCase()
+  const profileImgText =
+    userInfo.firstname.charAt(0).toUpperCase() +
+    "." +
+    userInfo.lastname.charAt(0).toUpperCase();
 
   return (
     <BottomSheetModalProvider>
@@ -80,9 +92,11 @@ const PublicProfileScreen = ({ navigation }) => {
           </View>
         </View>
 
-          {/* The name is here and the user info are here */}
+        {/* The name is here and the user info are here */}
         <View>
-          <Text style={styles.name}>{userInfo.firstname + " " + userInfo.lastname}</Text>
+          <Text style={styles.name}>
+            {userInfo.firstname + " " + userInfo.lastname}
+          </Text>
         </View>
         <View style={styles.userInfoWrapper}>
           <Text style={styles.text}>
@@ -94,7 +108,7 @@ const PublicProfileScreen = ({ navigation }) => {
           </Text>
         </View>
 
-          {/* The three buttons to message the user etc */}
+        {/* The three buttons to message the user etc */}
         <View style={styles.infoWrapper}>
           <View style={styles.iconTextWrapper}>
             <EvilIcons name="star" size={20} color="black" />
@@ -115,7 +129,7 @@ const PublicProfileScreen = ({ navigation }) => {
         </View>
         <Text style={styles.subheader}>Listings</Text>
       </Pressable>
-      
+
       {/* Here is the bottom sheet Modal when the options is clicked */}
       <BottomSheetModal
         ref={bottomSheetModalRef}
@@ -161,7 +175,8 @@ const PublicProfileScreen = ({ navigation }) => {
 
       {/* This is where all the listings are rendered */}
       <View style={[{ flex: 1 }]}>
-        <ListingList />
+        {/* <ListingList listing = {listing} /> */}
+        <ProfileListingList />
       </View>
     </BottomSheetModalProvider>
   );
