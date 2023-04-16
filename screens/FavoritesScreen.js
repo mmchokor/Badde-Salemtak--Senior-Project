@@ -18,9 +18,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import LoadingIcon from "../components/Loading/LoadingIcon";
 
-
-
-
 function FavoritesScreen() {
   const [, setIsFavScreen] = useAtom(isFavScreenAtom);
   const [favArray, setFavArray] = useAtom(favorites);
@@ -42,11 +39,9 @@ function FavoritesScreen() {
     error,
     isLoading,
     refetch,
-  } = useQuery("Favorites", async () => getFavoritesByUser(await AsyncStorage.getItem("userID")));
-
- 
-
-
+  } = useQuery("Favorites", async () =>
+    getFavoritesByUser(await AsyncStorage.getItem("userID"))
+  );
 
   let onRefresh = useCallback(() => {
     setRefresh(true);
@@ -92,9 +87,7 @@ function FavoritesScreen() {
       </ScrollView>
     );
   }
-  //console.log("Fav Id:",Favorites[0]._id);
-  //console.log("Here:",Favorites[0].listing.user.firstname);
-  //console.log(Favorites[1].listing.imageCover)
+
   return (
     <View style={styles.wrapper}>
       <FlatList
@@ -104,47 +97,47 @@ function FavoritesScreen() {
         showsVerticalScrollIndicator={false}
         data={Favorites}
         keyExtractor={(item) => item._id}
-        renderItem={({ item }) =>
+        renderItem={({ item }) => (
           <Listing
-          	onPress={() =>
-          		navigation.navigate('ItemDetails', {
-          			id: item.listing._id,
-          			title: item.listing.name,
-          			location: item.listing.cityOfResidence,
-          			rating: 4,
-          			type: item.listing.productType,
-          			price: item.listing.price,
-          			quantity: item.listing.quantity,
-          			weight: item.listing.approximateWeight,
-          			username:
-          				item.listing.user.firstname +
-          				' ' +
-          				item.listing.user.lastname,
-          			imageSrc: item.listing.images.uri,
-          			timePosted: item.listing.createdAt,
-          			moreD: item.listing.description,
-          			prefPayment: item.listing.paymentMethod,
-          			FavId: item._id,
-          		})
-          	}
-          	id={item.listing._id}
-          	title={item.listing.name}
-          	location={item.listing.cityOfResidence}
-          	rating={4}
-          	type={item.listing.productType}
-          	price={item.listing.price}
-          	quantity={item.listing.quantity}
-          	weight={item.listing.approximateWeight}
-          	username={
-          		item.listing.user.firstname + ' ' + item.listing.user.lastname
-          	}
-          	imageSrc={item.listing.imageCover}
-          	timePosted={item.listing.createdAt}
-          	moreD={item.listing.description}
-          	prefPayment={item.listing.paymentMethod}
-          	FavId={item._id}
+            onPress={() =>
+              navigation.navigate("ItemDetails", {
+                id: item.listing._id,
+                title: item.listing.name,
+                location: item.listing.cityOfResidence,
+                rating: 4,
+                type: item.listing.productType,
+                price: item.listing.price,
+                quantity: item.listing.quantity,
+                weight: item.listing.approximateWeight,
+                username:
+                  item.listing.user.firstname +
+                  " " +
+                  item.listing.user.lastname,
+                imageSrc: item.listing.images.uri,
+                timePosted: item.listing.createdAt,
+                moreD: item.listing.description,
+                prefPayment: item.listing.paymentMethod,
+                FavId: item._id,
+              })
+            }
+            id={item.listing._id}
+            title={item.listing.name}
+            location={item.listing.cityOfResidence}
+            rating={4}
+            type={item.listing.productType}
+            price={item.listing.price}
+            quantity={item.listing.quantity}
+            weight={item.listing.approximateWeight}
+            username={
+              item.listing.user.firstname + " " + item.listing.user.lastname
+            }
+            imageSrc={item.listing.imageCover}
+            timePosted={item.listing.createdAt}
+            moreD={item.listing.description}
+            prefPayment={item.listing.paymentMethod}
+            FavId={item._id}
           />
-        }
+        )}
       />
     </View>
   );

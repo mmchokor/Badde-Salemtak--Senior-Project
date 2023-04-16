@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "react-query";
 import LoadingIcon from "../Loading/LoadingIcon";
 import { RefreshControl } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 
 async function getUserId() {
@@ -19,6 +20,7 @@ async function getUserId() {
 }
 
 const ProfileListingList = () => {
+    const navigation = useNavigation()
   let listing = [];
 
   const { data: userId } = useQuery("userId", getUserId);

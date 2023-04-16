@@ -62,8 +62,6 @@ const PublicProfileScreen = ({ navigation }) => {
     });
   }, []);
 
-  
-
   const { data: userInfo, isFetching } = useQuery("userInfo", getCurrentUser);
 
   if (isFetching) {

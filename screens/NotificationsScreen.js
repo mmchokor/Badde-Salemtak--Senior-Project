@@ -36,16 +36,10 @@ function NotificationsScreen({ navigation, route }) {
     error,
     isLoading,
     refetch,
-  } = useQuery("Notifications", getNotifications, {staleTime: 1});
+  } = useQuery("Notifications", getNotifications, { staleTime: 1 });
 
   const { data: userInfo } = useQuery("userIno", () => getCurrentUser);
   const { data: token } = useQuery("token", getToken);
-//   const { data: resListing } = useQuery(
-//     "resListing",
-//     () => getResidentListingById(token, "6437cc75c28edae69e00cec7"),
-//     { enabled: !!token }
-//   );
-  
 
   if (isLoading) {
     return (
@@ -59,38 +53,25 @@ function NotificationsScreen({ navigation, route }) {
     return <Text>{error.message}</Text>;
   }
 
-
   return (
     <View>
       <FlatList
         data={Notifications.data.userNotifications}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-
-			
-			
           <NotificationOrderReceived
             key={item._id}
-            //image={item.image}
-            //price={item.price}
-            //title={item.title}
-            //location={item.location}
             message={item.message}
             date={item.date}
-            //id={item.id}
-            //username={item.username}
-            //totalPrice={item.totalPrice}
-			orderId={item.order.id}
-			senderName={item.sender.firstname}
-			listingId={item.order.listing}
-			id={item._id}
+            orderId={item.order.id}
+            senderName={item.sender.firstname}
+            listingId={item.order.listing}
+            id={item._id}
           />
         )}
       />
     </View>
-    // <Text>Nothing</Text>
   );
-  //}
 }
 
 export default NotificationsScreen;
