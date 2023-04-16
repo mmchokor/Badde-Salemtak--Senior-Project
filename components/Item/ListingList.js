@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { useQuery } from 'react-query';
 import { getResidentListings } from '../../api/residentListingsAPI';
+import LoadingIcon from '../Loading/LoadingIcon';
 //import { useState, useCallback } from 'react';
 import Listing from './Listing';
 
@@ -23,16 +24,12 @@ const ListingList = () => {
 		error,
 		isLoading,
 		refetch,
-		isFetching
-	} = useQuery('traverlerLisitngs', getResidentListings, {staleTime: 0});
+		isFetching,
+	} = useQuery('traverlerLisitngs', getResidentListings, { staleTime: 0 });
 
 	if (isLoading) {
 		//return <Text>Loading...</Text>
-		return (
-			<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-				<Image source={require('../../assets/LoginImages/bsalemtak.gif')} />
-			</View>
-		);
+		return <LoadingIcon />;
 	}
 	// let onRefresh = useCallback(() => {
 	// 	setRefresh(true);
@@ -42,6 +39,7 @@ const ListingList = () => {
 		return <Text>{error.message}</Text>;
 	}
 	//console.log(residentListings[0].imageCover)
+	
 	return (
 		<View style={styles.wrapper}>
 			<FlatList
@@ -50,7 +48,7 @@ const ListingList = () => {
 				// }
 				refreshing={isFetching}
 				windowSize={10}
-      			onRefresh={() => refetch()}
+				onRefresh={() => refetch()}
 				showsVerticalScrollIndicator={false}
 				data={residentListings}
 				keyExtractor={(item) => item._id}

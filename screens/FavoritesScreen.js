@@ -12,10 +12,11 @@ import { useQuery } from 'react-query';
 import Listing from '../components/Item/Listing';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants/colors';
-import { useState, useCallback ,useEffect} from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { getFavoritesByUser } from '../api/favoriteAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import LoadingIcon from '../components/Loading/LoadingIcon';
 
 function FavoritesScreen() {
 	const [, setIsFavScreen] = useAtom(isFavScreenAtom);
@@ -61,13 +62,9 @@ function FavoritesScreen() {
 		}
 	}, [Favorites, setFavArray]);
 
-//console.log("In the Favorite Array",favArray);
+	//console.log("In the Favorite Array",favArray);
 	if (isLoading) {
-		return (
-			<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-				<Text>Loading</Text>
-			</View>
-		);
+		return <LoadingIcon />;
 	}
 
 	if (isError) {
