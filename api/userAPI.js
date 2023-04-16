@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { API_URL } from '../constants/apiURL'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // It is a sign up function that takes data as a parameter and returns the result
 // results contain all the user info in a form of an object
@@ -86,6 +87,35 @@ const updateUserPassword = async (data, token) => {
    }
 }
 
+const getCurrentUser = async () => {
+   try {
+   const token = await AsyncStorage.getItem('token')
+   
+     const config = {
+       headers: {
+         Authorization: `Bearer ${token}`,
+       }
+     }
+     const response = await axios.get(`${API_URL}/users/me`, config);
+     //console.log(response)
+     return response.data;
+   } catch (error) {
+     console.error(error);
+     throw new Error('Failed to get user information')
+   }
+ }
+
+ const  getToken = async () => {
+   try {
+     const token = await AsyncStorage.getItem("token");
+ 
+     return token;
+   } catch (err) {
+     console.log(err);
+   }
+ }
+
+
 // export all module
-export { forgetPassword, signIn, signUp, updateUserInfo, updateUserPassword }
+export { forgetPassword, signIn, signUp, updateUserInfo, updateUserPassword, getCurrentUser, getToken }
 

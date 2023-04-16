@@ -15,7 +15,10 @@ const getNotifications = async () => {
             Authorization: `Bearer ${token}`,
          },
       })
+      //console.log("Api" + response.data)
+      //console.log("In api " + response.data.data.userNotifications)
       return response.data
+      //return response.data.data.userNotifications
    } catch (error) {
       console.error(error)
       throw new Error('Failed to get notifications')

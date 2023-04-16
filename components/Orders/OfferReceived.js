@@ -13,6 +13,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../UI/Button';
 import OfferRecievedInfo from './OfferRecievedInfo';
 import OfferReceivedPriceSummary from './OfferReceivedPriceSummary';
+import { useQuery } from "react-query";
+import { getToken } from "../../api/userAPI"
+import { getResidentListingById } from "../../api/residentListingsAPI";
+import { getOrderById} from "../../api/orderAPI"
+import { formatDate } from '../../constants/FormatDate';
+import { useEffect } from 'react';
 
 const height = Dimensions.get('window').height;
 
@@ -22,11 +28,45 @@ const OfferReceived = ({ route, navigation }) => {
 		price,
 		title,
 		location,
-		date,
+		formattedDate,
 		message,
 		totalPrice,
-    username,
+    	username,
+		listingId,
+		orderId,
+		id
 	} = route.params;
+
+
+
+	const { data: token } = useQuery("token", getToken);
+	const { data: listing, isLoading: isListingLoading, isError, refetch: refetchResident, isFetching: isFetchingResident } = useQuery(
+		"listing", () =>
+		getResidentListingById(token, listingId),
+		{ enabled: !!token, staleTime: 1 }
+	  );
+
+	  const {data: order, isLoading: isOrderLoading, refetch: refetchOrder, isFetching: isFetchingOrder} = useQuery("order", () => getOrderById(orderId), {staleTime: 1})
+
+
+		useEffect(() => {
+			refetchResident()
+			refetchOrder()
+		}, [id])
+
+
+	  if (isFetchingResident || isFetchingOrder) {
+		return (
+		  <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+			<Text>Loading</Text>
+		  </View>
+		);
+	  }
+	
+	  if (isError) {
+		return <Text>Error Loading</Text>;
+	  }
+
 
 
 	return (
@@ -36,7 +76,7 @@ const OfferReceived = ({ route, navigation }) => {
 					style={styles.image}
 					//replace with image here
 					//source={image}
-					source={{ uri: image }}
+					source={{ uri: listing.images[0] }}
 				/>
 				<View style={styles.header}>
 					<View style={styles.linkContainer}>
@@ -44,7 +84,7 @@ const OfferReceived = ({ route, navigation }) => {
 							<Text style={styles.link}>Link to your item: </Text>
 							<Text style={styles.linkText}>
 								{/* Apple-MacBook-13-inch-Display-Dual-cores */}
-								{title}
+								{listing.name}
 							</Text>
 						</Text>
 						<Entypo name='link' size={16} color='black' />
@@ -52,7 +92,7 @@ const OfferReceived = ({ route, navigation }) => {
 					<View style={styles.linkContainer}>
 						<Text style={{ width: '95%' }}>
 							<Text style={styles.link}>Address: </Text>
-							<Text style={styles.linkText}>{location}</Text>
+							<Text style={styles.linkText}>{listing.cityOfResidence}</Text>
 						</Text>
 						<Entypo name='location' size={16} color='black' />
 					</View>
@@ -65,12 +105,12 @@ const OfferReceived = ({ route, navigation }) => {
 					/>
 
 					<Text style={styles.headerTwo}>Offer Received</Text>
-					<OfferRecievedInfo date={date} message={message} />
+					<OfferRecievedInfo extraFees={order.deliveryFee - 5} date={formatDate(order.date)} message={order.message} />
 					<OfferReceivedPriceSummary
 						travelerReward={10}
-						subTotal={price}
-						deliveryFee={20}
-						totalPrice={totalPrice}
+						subTotal={listing.price}
+						deliveryFee={order.deliveryFee}
+						totalPrice={listing.price + order.deliveryFee + 10 + 5}
 					/>
 
 					<View style={styles.buttonWrapper}>
