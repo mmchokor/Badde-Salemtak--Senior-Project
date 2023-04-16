@@ -9,6 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { Colors } from "../../constants/colors";
 import { Entypo } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
@@ -21,10 +22,11 @@ import Checkoutbtn from "../UI/Checkoutbtn";
 import StraightLine from "../UI/StraightLine";
 import { useAtom } from "jotai";
 import { notifications } from "../../store/Notifications/notification";
-
+import { createOrder } from '../../api/orderAPI'
 const height = Dimensions.get("window").height;
 
 const MakeOffer = ({ route, navigation }) => {
+  const listingId = route.params.listingId
   const image = route.params.image;
   const price = route.params.price;
   const title = route.params.title;
@@ -37,6 +39,11 @@ const MakeOffer = ({ route, navigation }) => {
   const [message, setMessage] = useState("");
   const [deliveryFee, setDeliveryFee] = useState("5");
   const [notification, setNotification] = useAtom(notifications);
+
+  const { mutate, error } = useMutation(createOrder, {
+    // onSuccess: onSuccessHandler,
+    // onError: onErrorHandler,
+  });
 
   const totalPrice = +price + 5 + +deliveryFee + 10;
 
@@ -83,6 +90,7 @@ const MakeOffer = ({ route, navigation }) => {
 
   const submitOfferHandler = () => {
     const orderSummary = {
+      listingId,
       id: Math.random() + new Date(),
       subTotal: price,
       deliveryFee,
@@ -100,9 +108,23 @@ const MakeOffer = ({ route, navigation }) => {
     if (selectedDate === "") {
       setSelectedDateIsEmpty(true);
     } else {
-      setNotification((prev) => [orderSummary, ...prev]);
-      const bottomBarNav = navigation.getParent("bottomTab");
-      bottomBarNav.navigate("Notifications", { image, price, title, location });
+
+     
+
+      const createOrderData = {
+        listing: listingId,
+        serviceFee: orderSummary.serviceFee,
+        deliveryFee: orderSummary.deliveryFee,
+        date: new Date(orderSummary.selectedDate).toISOString(),
+        message: orderSummary.message
+      }
+
+      console.log(createOrderData)
+
+      //setNotification((prev) => [orderSummary, ...prev]);
+      // const bottomBarNav = navigation.getParent("bottomTab");
+      // bottomBarNav.navigate("Notifications", { image, price, title, location });
+      mutate(createOrderData)
     }
   };
 

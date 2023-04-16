@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const OfferRecievedInfo = ({date, message}) => {
+const OfferRecievedInfo = ({date, message, extraFees}) => {
   return (
     <View>
       <View style={styles.textBlock}>
@@ -10,7 +10,7 @@ const OfferRecievedInfo = ({date, message}) => {
       </View>
       <View style={styles.textBlock}>
         <Text style={styles.blockLight}>Extra fees added by traveler:</Text>
-        <Text style={styles.blockDark}>$10</Text>
+        <Text style={styles.blockDark}>${extraFees}</Text>
       </View>
       <View style={styles.textBlock}>
         <Text style={styles.blockLight}>Message from traveler:</Text>

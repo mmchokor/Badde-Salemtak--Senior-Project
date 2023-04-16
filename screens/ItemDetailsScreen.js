@@ -21,6 +21,7 @@ function ItemDetailsScreen({ route }) {
   const price = route.params.price;
   const title = route.params.title;
   const location = route.params.location;
+  const listingId = route.params.id
 
   const navigation = useNavigation();
 
@@ -38,6 +39,7 @@ function ItemDetailsScreen({ route }) {
       price,
       title,
       location,
+      listingId
     });
   }
 
