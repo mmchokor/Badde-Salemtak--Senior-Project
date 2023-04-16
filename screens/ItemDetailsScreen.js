@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
     paddingTop: 15,
+    paddingBottom:15
   },
   itemPhoto: {
     width: 130,
