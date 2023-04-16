@@ -8,6 +8,8 @@ import { Ionicons } from "@expo/vector-icons";
 import ListingList from "../components/Item/ListingList";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { getCurrentUser } from "../api/userAPI"
+import { useQuery } from "react-query";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import {
   BottomSheetBackdrop,
@@ -53,6 +55,13 @@ const PublicProfileScreen = ({ navigation }) => {
     });
   }, []);
 
+  const {data: userInfo, isFetching} = useQuery("userInfo", getCurrentUser)
+
+  if (isFetching) {
+    return <Text>Loading</Text>
+  }
+
+  const profileImgText = userInfo.firstname.charAt(0).toUpperCase() + "." + userInfo.lastname.charAt(0).toUpperCase()
 
   return (
     <BottomSheetModalProvider>
@@ -67,18 +76,18 @@ const PublicProfileScreen = ({ navigation }) => {
           }}
         >
           <View style={styles.circle}>
-            <Text>R.S</Text>
+            <Text>{profileImgText}</Text>
           </View>
         </View>
 
           {/* The name is here and the user info are here */}
         <View>
-          <Text style={styles.name}>Rami El Skakini</Text>
+          <Text style={styles.name}>{userInfo.firstname + " " + userInfo.lastname}</Text>
         </View>
         <View style={styles.userInfoWrapper}>
           <Text style={styles.text}>
             <Feather name="flag" size={12} color="black" />
-            Lebanon
+            {userInfo.country}
           </Text>
           <Text style={[styles.text, styles.date]}>
             <Feather name="calendar" size={14} color="black" /> March 2023

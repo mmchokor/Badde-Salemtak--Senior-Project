@@ -9,6 +9,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useAtom } from "jotai";
 import { isLoggedIn, authToken } from "../../store/LoginStore/LoginStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "react-query";
+import { getCurrentUser } from "../../api/userAPI";
 
 function ProfileComponent() {
 	const [, setIsLoggedIn] = useAtom(isLoggedIn)
@@ -22,6 +24,13 @@ function ProfileComponent() {
 	}
 	const [checked, setChecked] = useState("National ID");
 
+	const {data: userInfo, isFetching} = useQuery("userInfo", getCurrentUser)
+
+
+	if (isFetching) {
+		return <Text>Loading</Text>
+	}
+
 	return (
 		<ScrollView style={styles.container}>
 			<View style={styles.profilePicContainer}>
@@ -33,17 +42,17 @@ function ProfileComponent() {
 						style={{ opacity: 0.6 }}
 					/>
 				</View>
-				<Text style={styles.profileName}>Karam Timani</Text>
+				<Text style={styles.profileName}>{userInfo.firstname + " " + userInfo.lastname}</Text>
 			</View>
 			<View style={{ paddingTop: 12 }}>
 				<Text style={styles.headerText}>Account Name</Text>
-				<Text style={styles.infoText}>Karam Timani</Text>
+				<Text style={styles.infoText}>{userInfo.firstname + " " + userInfo.lastname}</Text>
 				<Text style={styles.headerText}>First Name</Text>
-				<Text style={styles.infoText}>Karam</Text>
+				<Text style={styles.infoText}>{userInfo.firstname}</Text>
 				<Text style={styles.headerText}>Last Name</Text>
-				<Text style={styles.infoText}>Timani</Text>
+				<Text style={styles.infoText}>{userInfo.lastname}</Text>
 				<Text style={styles.headerText}>Email Address</Text>
-				<Text style={styles.infoText}>karamtimani9@gmial.com</Text>
+				<Text style={styles.infoText}>{userInfo.email}</Text>
 				<Text style={styles.headerText}>Identification</Text>
 			</View>
 			<View
