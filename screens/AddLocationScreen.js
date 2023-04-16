@@ -25,12 +25,35 @@ function AddLocationScreen({ navigation }) {
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(null);
 	const [items, setItems] = useState([flags]);
+	const [weight, setWeight] = useState('');// Preferred Weight
+	
+	
+	const searchValue = (flags, value) => {
+		for (const key in flags) {
+			if (flags[key] === value) {
+				return key;
+			}	
+		}	
+		return null;
+	};	
+	const setSelectedCountry = searchValue(flags, value);//Selected Country
+	
+	const handleInputWeight = (text) => {
+		setWeight(text);
+	};
+	
+	function handleAddLocation() {
+		console.log(setSelectedCountry);
+	}
 
-	const [opent, setOpent] = useState(false);
-	const [valuet, setValuet] = useState(null);
-	const [itemst, setItemst] = useState([flags]);
 	return (
-		<View style={{ alignItems: 'center', backgroundColor: Colors.white }}>
+		<View
+			style={{
+				alignItems: 'center',
+				backgroundColor: Colors.white,
+				marginTop: 30,
+			}}
+		>
 			<View style={styles.upperButton}>
 				<Pressable onPress={PressEventHandler}>
 					<View style={styles.item}>
@@ -49,7 +72,17 @@ function AddLocationScreen({ navigation }) {
 					style={{ height: 720 }}
 				>  */}
 			<View style={{ paddingHorizontal: 90 }}>
-				<Text style={styles.textHead}>Country Name From*</Text>
+				<Text
+					style={{
+						color: Colors.black,
+						fontSize: 18,
+						fontFamily: 'inter-regular',
+						marginTop: 15,
+						marginBottom: 10,
+					}}
+				>
+					Country Name From
+				</Text>
 				{/* <TextInput style={styles.inputT} /> */}
 
 				<View>
@@ -64,54 +97,44 @@ function AddLocationScreen({ navigation }) {
 						setValue={setValue}
 						setItems={setItems}
 						searchable={true}
-						style={{ zIndex: 1 }}
+						searchPlaceholder='Search country'
+						searchContainerStyle={{
+							borderWidth: 0,
+							borderColor: Colors.lightGray,
+							borderBottomColor: Colors.lightGray,
+						}}
+						searchTextInputStyle={{
+							borderWidth: 1,
+							borderColor: Colors.lightGray,
+							borderRadius: 15,
+						}}
+						style={{
+							zIndex: 1,
+							borderRadius: 15,
+							borderWidth: 1,
+							borderColor: Colors.lightGray,
+						}}
+						dropDownContainerStyle={{
+							borderWidth: 1,
+							borderColor: Colors.lightGray,
+							borderRadius: 15,
+						}}
 						textStyle={{
 							fontSize: 16,
-							fontFamily: 'inter-regular',
+							fontFamily: 'inter-light',
 						}}
-						placeholder='Enter country'
+						placeholder='Choose country'
 						labelStyle={{
 							color: Colors.darkGreen,
-						}}
-						onChangeValue={(value) => {
-							console.log(value);
 						}}
 					/>
 				</View>
 
-				<Text style={styles.textHead}>Country Name To*</Text>
-				<View>
-					<DropDownPicker
-						open={opent}
-						value={valuet}
-						items={Object.entries(itemst[0]).map(([label, value]) => ({
-							label,
-							value,
-						}))}
-						setOpen={setOpent}
-						setValue={setValuet}
-						setItems={setItemst}
-						searchable={true}
-						style={{ zIndex: 0.9 }}
-						textStyle={{
-							fontSize: 16,
-							fontFamily: 'inter-regular',
-						}}
-						placeholder='Enter country'
-						labelStyle={{
-							color: Colors.darkGreen,
-						}}
-						onChangeValue={(valuet) => {
-							console.log(valuet);
-						}}
-					/>
-				</View>
-
-				<ScrollView>
+				<ScrollView showsVerticalScrollIndicator={false}>
 					<KeyboardAvoidingView
 						behavior='padding'
 						enabled
-						style={{ height: 620 }}
+						style={{ height: 700 }}
 					>
 						<View>
 							<Text style={styles.textHead}>Preferred Weight</Text>
@@ -134,6 +157,8 @@ function AddLocationScreen({ navigation }) {
 									style={[styles.inputT, { marginLeft: 10, width: 50 }]}
 									keyboardType='number-pad'
 									maxLength={5}
+									onChangeText={handleInputWeight}
+									value={weight}
 								/>
 							</View>
 						</View>
@@ -145,11 +170,11 @@ function AddLocationScreen({ navigation }) {
 							</Text>
 							<ItemType />
 						</View>
-						<View>
-							<Text style={styles.textHead}>Ticket Number</Text>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Text style={styles.textHead}>Ticket Number:</Text>
 
 							<TextInput
-								style={[styles.inputT, { width: 100 }]}
+								style={[styles.inputT, { width: 100, marginLeft: 10 }]}
 								keyboardType='default'
 								autoCapitalize='characters'
 								maxLength={5}
@@ -158,13 +183,13 @@ function AddLocationScreen({ navigation }) {
 						{/* More Details,Location */}
 
 						<Text style={styles.textHead}>More Details</Text>
-						<InputBorderStyle />
+						<InputBorderStyle style={{ padding: 5 }} />
 
 						<Text style={styles.textHead}>Preferred Payment Method</Text>
 
 						<PreferredPayment />
 						<View style={{ marginTop: -10 }}>
-							<Button>Add Location</Button>
+							<Button onPress={() => handleAddLocation()}>Add Location</Button>
 						</View>
 					</KeyboardAvoidingView>
 				</ScrollView>
@@ -210,10 +235,11 @@ const styles = StyleSheet.create({
 		fontFamily: 'inter-regular',
 	},
 	textHead: {
-		color: Colors.darkGreen,
+		color: Colors.black,
 		fontSize: 18,
 		fontFamily: 'inter-regular',
-		marginTop: 10,
+		marginTop: 20,
+		marginBottom: 10,
 	},
 	inputT: {
 		fontFamily: 'inter-regular',

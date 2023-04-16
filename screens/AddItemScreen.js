@@ -14,7 +14,7 @@ function AddItemScreen({ navigation }) {
 		navigation.navigate('Location');
 	}
 	return (
-		<View style={{ backgroundColor: Colors.white }}>
+		<View style={{ backgroundColor: Colors.white, marginTop: 30 }}>
 			<View style={{ alignItems: 'center' }}>
 				<View style={styles.upperButton}>
 					<View style={styles.item}>
@@ -28,7 +28,7 @@ function AddItemScreen({ navigation }) {
 				</View>
 			</View>
 
-			<ScrollView>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				<KeyboardAvoidingView
 					behavior='padding'
 					enabled
@@ -76,5 +76,4 @@ const styles = StyleSheet.create({
 		color: Colors.white,
 		fontFamily: 'inter-regular',
 	},
-	
 });
