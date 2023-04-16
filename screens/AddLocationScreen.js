@@ -25,25 +25,81 @@ function AddLocationScreen({ navigation }) {
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(null);
 	const [items, setItems] = useState([flags]);
-	const [weight, setWeight] = useState('');// Preferred Weight
-	
-	
+	const [weight, setWeight] = useState(''); // Preferred Weight
+	const [itemType, setType] = useState('');
+	const [ticket, setTicket] = useState(''); // Ticket Number
+	const [detail, setDetail] = useState(''); // More Details
+	const [selectedOption, setSelectedOption] = useState('');
+
 	const searchValue = (flags, value) => {
 		for (const key in flags) {
 			if (flags[key] === value) {
 				return key;
-			}	
-		}	
+			}
+		}
 		return null;
-	};	
-	const setSelectedCountry = searchValue(flags, value);//Selected Country
-	
+	};
+	const setSelectedCountry = searchValue(flags, value); //Selected Country
+
 	const handleInputWeight = (text) => {
 		setWeight(text);
 	};
-	
+	const handleInputTicket = (text) => {
+		setTicket(text);
+	};
+	const handleInputDetail = (text) => {
+		setDetail(text);
+	};
+
+	const handleType = (option) => {
+		setType(option);
+		//setTypeFlag(false);
+	};
+	function handlePaymentMethod(option) {
+		setSelectedOption(option);
+	}
+	let type = ''; // Preferred Type
+	switch (itemType) {
+		case 0:
+			type = 'Electronics';
+			break;
+		case 1:
+			type = 'Food';
+			break;
+		case 2:
+			type = 'Clothes';
+			break;
+		case 3:
+			type = 'Medicine';
+			break;
+		case 4:
+			type = 'Accessories';
+			break;
+		case 5:
+			type = 'Others';
+			break;
+		default:
+			type = 'Others';
+	}
+	let PreferredPaymentMethod = ''; //Preferred payment Method
+
+	switch (selectedOption) {
+		case 0:
+			PreferredPaymentMethod = 'Cash';
+			break;
+		case 1:
+			PreferredPaymentMethod = 'MoneyTransfer';
+			break;
+		case 2:
+			PreferredPaymentMethod = 'BankTransfer';
+			break;
+
+		default:
+			PreferredPaymentMethod = 'Cash';
+	}
+	console.log(PreferredPaymentMethod);
 	function handleAddLocation() {
-		console.log(setSelectedCountry);
+		console.log(type);
 	}
 
 	return (
@@ -156,7 +212,7 @@ function AddLocationScreen({ navigation }) {
 								<TextInput
 									style={[styles.inputT, { marginLeft: 10, width: 50 }]}
 									keyboardType='number-pad'
-									maxLength={5}
+									maxLength={4}
 									onChangeText={handleInputWeight}
 									value={weight}
 								/>
@@ -168,26 +224,31 @@ function AddLocationScreen({ navigation }) {
 							<Text style={[styles.textHead, { marginBottom: 6 }]}>
 								Preferred Type
 							</Text>
-							<ItemType />
+							<ItemType onSelect={handleType} />
 						</View>
 						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 							<Text style={styles.textHead}>Ticket Number:</Text>
 
 							<TextInput
-								style={[styles.inputT, { width: 100, marginLeft: 10 }]}
+								style={[styles.inputT, { width: 140, marginLeft: 10 }]}
 								keyboardType='default'
 								autoCapitalize='characters'
-								maxLength={5}
+								maxLength={10}
+								value={ticket}
+								onChangeText={(text) => handleInputTicket(text)}
 							/>
 						</View>
 						{/* More Details,Location */}
 
 						<Text style={styles.textHead}>More Details</Text>
-						<InputBorderStyle style={{ padding: 5 }} />
+						<InputBorderStyle
+							style={{ padding: 5 }}
+							onChangeText={handleInputDetail}
+						/>
 
 						<Text style={styles.textHead}>Preferred Payment Method</Text>
 
-						<PreferredPayment />
+						<PreferredPayment onSelectOption={handlePaymentMethod} />
 						<View style={{ marginTop: -10 }}>
 							<Button onPress={() => handleAddLocation()}>Add Location</Button>
 						</View>
@@ -244,9 +305,11 @@ const styles = StyleSheet.create({
 	inputT: {
 		fontFamily: 'inter-regular',
 		color: Colors.black,
-		fontSize: 16,
+		fontSize: 18,
 		borderBottomWidth: 0.5,
 		borderBottomColor: Colors.gray,
+		color: Colors.darkGreen,
+		paddingBottom: 0,
 	},
 	textL: {
 		color: Colors.darkGreen,

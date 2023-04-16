@@ -170,7 +170,7 @@ function AddItemBody() {
       break;
 
     default:
-      type = "Cash";
+      PreferredPaymentMethod= "Cash";
   }
 
   function handleAddItem() {
