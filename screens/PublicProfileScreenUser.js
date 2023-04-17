@@ -1,11 +1,5 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import React, {
-  useLayoutEffect,
-  useRef,
-  useMemo,
-  useState,
-  useCallback,
-} from "react";
+import React, { useLayoutEffect } from "react";
 import { Colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
@@ -17,38 +11,16 @@ import { AntDesign } from "@expo/vector-icons";
 import { getCurrentUser } from "../api/userAPI";
 import { useQuery } from "react-query";
 
-import {
-  BottomSheetBackdrop,
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
 import ProfileListingList from "../components/Profile/ProfileListingList";
 
-const PublicProfileScreen = ({ navigation, route }) => {
-
-  const username = route.params?.username
-
-
-
-
-  const [darkBackDrop, setDarkBackDrop] = useState(false);
-  const bottomSheetModalRef = useRef(null);
-
-  const snapPoints = useMemo(() => ["50%", "70%"], []);
+const PublicProfileScreenUser = ({ navigation, route }) => {
+  const username = route.params?.username;
+  const userId = route.params?.userId;
 
   const optionsHandler = () => {
-    bottomSheetModalRef.current?.present();
-    setDarkBackDrop(true);
+    console.log("reported");
   };
 
-  const closeBottomSheet = () => {
-    bottomSheetModalRef.current?.close();
-    setDarkBackDrop(false);
-  };
-
-  const settingsHandler = () => {
-    navigation.navigate("Home", { screen: "Profile" });
-  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -68,22 +40,25 @@ const PublicProfileScreen = ({ navigation, route }) => {
     });
   }, []);
 
+  //need the api in order to get all the userInfo from the ID
   const { data: userInfo, isFetching } = useQuery("userInfo", getCurrentUser);
 
   if (isFetching) {
     return <Text>Loading</Text>;
   }
 
+//   const profileImgText =
+//     userInfo.firstname.charAt(0).toUpperCase() +
+//     "." +
+//     userInfo.lastname.charAt(0).toUpperCase();
   const profileImgText =
     userInfo.firstname.charAt(0).toUpperCase() +
     "." +
     userInfo.lastname.charAt(0).toUpperCase();
 
   return (
-    <BottomSheetModalProvider>
-      <Pressable
-        onPress={closeBottomSheet}
-        //style={darkBackDrop && animatedStyle}
+    <View style={{flex: 1}}>
+      <View
       >
         <View
           style={{
@@ -99,7 +74,8 @@ const PublicProfileScreen = ({ navigation, route }) => {
         {/* The name is here and the user info are here */}
         <View>
           <Text style={styles.name}>
-            {userInfo.firstname + " " + userInfo.lastname}
+            {/* {userInfo.firstname + " " + userInfo.lastname} */}
+            {username}
           </Text>
         </View>
         <View style={styles.userInfoWrapper}>
@@ -132,61 +108,17 @@ const PublicProfileScreen = ({ navigation, route }) => {
           </View>
         </View>
         <Text style={styles.subheader}>Listings</Text>
-      </Pressable>
-
-      {/* Here is the bottom sheet Modal when the options is clicked */}
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        index={1}
-        snapPoints={snapPoints}
-        onDismiss={() => setDarkBackDrop(false)}
-      >
-        <View style={{ flex: 1 }}>
-          <Pressable onPress={({ pressed }) => pressed && { opacity: 0.5 }}>
-            <AntDesign
-              onPress={closeBottomSheet}
-              name="close"
-              size={30}
-              color="black"
-              style={{ marginRight: 20, alignSelf: "flex-end" }}
-            />
-          </Pressable>
-          <View>
-            <Pressable
-              style={({ pressed }) =>
-                pressed
-                  ? [styles.bottomSheetCardWrapper, { opacity: 0.5 }]
-                  : styles.bottomSheetCardWrapper
-              }
-              onPress={settingsHandler}
-            >
-              <Ionicons name="settings-outline" size={24} color="black" />
-              <Text style={styles.bottomSheetText}> Profile Settings</Text>
-            </Pressable>
-            <Pressable
-              style={({ pressed }) =>
-                pressed
-                  ? [styles.bottomSheetCardWrapper, { opacity: 0.5 }]
-                  : styles.bottomSheetCardWrapper
-              }
-            >
-              <Ionicons name="airplane-outline" size={24} color="black" />
-              <Text style={styles.bottomSheetText}> My orders</Text>
-            </Pressable>
-          </View>
-        </View>
-      </BottomSheetModal>
+      </View>
 
       {/* This is where all the listings are rendered */}
       <View style={[{ flex: 1 }]}>
-        {/* <ListingList listing = {listing} /> */}
-        <ProfileListingList />
+        <ProfileListingList userIdProps = {userId} />
       </View>
-    </BottomSheetModalProvider>
+    </View>
   );
 };
 
-export default PublicProfileScreen;
+export default PublicProfileScreenUser;
 
 const styles = StyleSheet.create({
   circle: {

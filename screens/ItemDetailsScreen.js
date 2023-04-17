@@ -22,6 +22,8 @@ function ItemDetailsScreen({ route }) {
   const title = route.params.title;
   const location = route.params.location;
   const listingId = route.params.id
+  const userId = route.params.userId;
+
 
   const navigation = useNavigation();
 
@@ -119,6 +121,7 @@ function ItemDetailsScreen({ route }) {
                 location={route.params.location}
                 username={route.params.username}
                 payment={route.params.prefPayment}
+                userId={userId}
               />
               <View style={styles.btnWrapper}>
                 <Pressable

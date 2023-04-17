@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import Listing from "../Item/Listing";
 import { getResidentListings } from "../../api/residentListingsAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import LoadingIcon from "../Loading/LoadingIcon";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 
 
 async function getUserId() {
@@ -19,11 +20,25 @@ async function getUserId() {
   }
 }
 
-const ProfileListingList = () => {
+const ProfileListingList = ({userIdProps}) => {
+    const [userId, setUserId] = useState();
     const navigation = useNavigation()
   let listing = [];
 
-  const { data: userId } = useQuery("userId", getUserId);
+  const { data: userIdFetched } = useQuery("userId", getUserId);
+
+  useEffect(() => {
+    if (!!userIdProps == false) {
+        setUserId(userIdFetched)
+      }
+      else {
+        setUserId(userIdProps)
+      }
+  }, [])
+
+  
+console.log(userId)
+  
 
   const {
     data: residentListings,
@@ -44,6 +59,8 @@ const ProfileListingList = () => {
       return listing.user._id === userId;
     });
   }
+
+  //console.log(listing)
 
   if (isLoading) {
     return <LoadingIcon />;

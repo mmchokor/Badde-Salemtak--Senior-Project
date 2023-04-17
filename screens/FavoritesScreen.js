@@ -17,6 +17,7 @@ import { getFavoritesByUser } from "../api/favoriteAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import LoadingIcon from "../components/Loading/LoadingIcon";
+import { getResidentListingById } from "../api/residentListingsAPI";
 
 function FavoritesScreen() {
   const [, setIsFavScreen] = useAtom(isFavScreenAtom);
@@ -41,6 +42,16 @@ function FavoritesScreen() {
     refetch,
   } = useQuery("Favorites", async () =>
     getFavoritesByUser(await AsyncStorage.getItem("userID"))
+  );
+
+  const { data: resListing } = useQuery(
+    "resListing",
+    async () =>
+      getResidentListingById(
+        await AsyncStorage.getItem("token"),
+        Favorites[0].listing._id
+      ),
+    { enabled: !!Favorites }
   );
 
   let onRefresh = useCallback(() => {
@@ -70,6 +81,8 @@ function FavoritesScreen() {
   if (isError) {
     return <Text>{error.message}</Text>;
   }
+
+  //console.log(resListing.images[0]);
 
   if (Favorites[0] == null) {
     return (

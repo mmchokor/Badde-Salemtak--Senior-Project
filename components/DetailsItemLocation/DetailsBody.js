@@ -5,8 +5,17 @@ import BorderStyle from "../AddItemsLocations/BorderStyle";
 import { FontAwesome } from "@expo/vector-icons";
 import PreferredPayment from "./PreferredPayment";
 import { useNavigation } from "@react-navigation/native";
-function DetailsBody({ details, location, username, payment }) {
+function DetailsBody({ details, location, username, payment, userId }) {
   const navigation = useNavigation();
+
+  const userInfoHandler = () => {
+    navigation.navigate('ProfileUser', {
+      username,
+      userId
+    })
+    
+
+  }
 
   return (
     <View>
@@ -47,9 +56,9 @@ function DetailsBody({ details, location, username, payment }) {
         </BorderStyle>
         <Text style={styles.textHead}>User Info</Text>
         <BorderStyle>
-          <View>
-            <Text style={styles.textBody}>{username}</Text>
-          </View>
+          <Pressable onPress={userInfoHandler}>
+            <Text style={styles.textBody}>{username + " " + userId}</Text>
+          </Pressable>
         </BorderStyle>
         <Text style={styles.textHead}>Preferred Payment Method</Text>
         <BorderStyle style={styles.paymentContainer}>

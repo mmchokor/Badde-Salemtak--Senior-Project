@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { isTravScreenAtom } from '../store/TravResScreen/TravOrRes';
 import { useAtom } from 'jotai';
+import PublicProfileScreenUser from './PublicProfileScreenUser';
 const Stack = createNativeStackNavigator();
 function HomeScreen({ route }) {
 	// useEffect(() => {
@@ -132,6 +133,24 @@ function HomeScreen({ route }) {
 					headerTintColor: Colors.darkGreen,
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
+				}}
+			/>
+			<Stack.Screen
+				name='ProfileUser'
+				component={PublicProfileScreenUser}
+				options={{
+					title: '',
+					headerTitle: 'Profile',
+					headerShown: true,
+					headerShadowVisible: false,
+					headerTitleStyle: { fontSize: 24, color: Colors.white },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.darkGreen },
+					tabBarIcon: ({ color, size }) => (
+						<Ionicons name='person' size={size} color={color} />
+					),
 				}}
 			/>
 			<Stack.Screen

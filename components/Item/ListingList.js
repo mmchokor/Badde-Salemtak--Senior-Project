@@ -69,6 +69,7 @@ const ListingList = () => {
 								timePosted: item.createdAt,
 								moreD: item.description,
 								prefPayment: item.paymentMethod,
+								userId: item.user._id
 							})
 						}
 						id={item._id}
