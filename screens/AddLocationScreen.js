@@ -204,19 +204,19 @@ function AddLocationScreen({ navigation }) {
 	const addLocation = async () => {
 		setLoading(true);
 		const exWeight = parseInt(weight);
-		let dim = '57';
+		
 
 		const data = {
 			extraWeight: exWeight,
 			date: new Date(selectedDate).toISOString(),
-			dimension: dim,
+			dimension: "57",
 			ticketNumber: ticket,
 			residentCity: "Lebanon",
 			description: detail,
 			country: setSelectedCountry,
 		};
 		console.log(data);
-		mutate(data);
+		//mutate(data);
 	};
 
 	return (
