@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Listing from "../Item/Listing";
 import { getResidentListings } from "../../api/residentListingsAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "react-query";
 import LoadingIcon from "../Loading/LoadingIcon";
 import { RefreshControl } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useEffect } from "react";
-
+import { getResidentListingByUserId } from "../../api/residentListingsAPI";
 
 async function getUserId() {
   try {
@@ -20,47 +20,41 @@ async function getUserId() {
   }
 }
 
-const ProfileListingList = ({userIdProps}) => {
-    const [userId, setUserId] = useState();
-    const navigation = useNavigation()
-  let listing = [];
-
-  const { data: userIdFetched } = useQuery("userId", getUserId);
-
-  useEffect(() => {
-    if (!!userIdProps == false) {
-        setUserId(userIdFetched)
-      }
-      else {
-        setUserId(userIdProps)
-      }
-  }, [])
-
+const ProfileListingList = ({ userIdProps }) => {
+  //const [userId, setUserId] = useState();
+  const navigation = useNavigation();
   
-console.log(userId)
-  
+
+  const { data: userIdFetched, isFetching: isFetchingUserId, refetch: refetchUserId } = useQuery(
+    "userId",
+    getUserId, {
+      refetchOnMount: true
+    }
+  );
+
+  const userId = userIdProps ? userIdProps : userIdFetched
+
+  console.log(userId)
 
   const {
-    data: residentListings,
-    isFetching: fetchingResident,
-    isError,
-    error,
+    data: residentListingsbyUserID,
     isLoading,
-    refetch,
+    isError,
     isFetching,
-  } = useQuery("traverlerLisitngs", getResidentListings, {
-    staleTime: 0,
-    enabled: !!userId,
-  });
+    refetch,
+    error
+  } = useQuery(
+    ["residentListingByID", userId],
+    () => getResidentListingByUserId(userId),
+    { enabled: !!userId, staleTime: 0 }
+  );
 
-  if (!fetchingResident) {
-    //console.log(residentListings[0].user._id)
-    listing = residentListings.filter((listing) => {
-      return listing.user._id === userId;
-    });
-  }
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [userId])
+  );
 
-  //console.log(listing)
 
   if (isLoading) {
     return <LoadingIcon />;
@@ -70,15 +64,16 @@ console.log(userId)
     return <Text>{error.message}</Text>;
   }
 
+  
+
   return (
     <View style={styles.wrapper}>
       <FlatList
-        
         refreshing={isFetching}
         windowSize={10}
         onRefresh={() => refetch()}
         showsVerticalScrollIndicator={false}
-        data={listing}
+        data={residentListingsbyUserID}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <Listing
