@@ -23,7 +23,7 @@ function FavoritesScreen({ navigation }) {
 		<Tab.Navigator
 			screenOptions={{
 				tabBarLabelStyle: { fontSize: 15 },
-				tabBarStyle: { backgroundColor: Colors.inputGray },
+				//tabBarStyle: {  },
 				tabBarIndicatorStyle: { backgroundColor: Colors.darkGreen },
 				tabBarActiveTintColor: Colors.darkGreen, // add this line to set active tab color
 			}}
