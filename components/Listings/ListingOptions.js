@@ -12,10 +12,12 @@ import { useMutation, useQuery } from 'react-query';
 import { createFavorite, deleteFavorite } from '../../api/favoriteAPI';
 import { Colors } from '../../constants/colors';
 import { favorites, isFavScreenAtom } from '../../store/Favorites/favorites';
+import { isTravScreenAtom } from '../../store/TravResScreen/TravOrRes';
 
 const ListingOptions = ({ id, FavId }) => {
 	const [fav, setFav] = useAtom(favorites);
 	//const [isFavorite, setIsFavorite] = useState(fav.includes(id));
+	const [travS] = useAtom(isTravScreenAtom);
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [isFavScreen] = useAtom(isFavScreenAtom);
@@ -48,15 +50,11 @@ const ListingOptions = ({ id, FavId }) => {
 		//}
 	};
 	//console.log(isFavorite);
-
+	//console.log('The fav array:', fav);
 	const deleteFav = async () => {
-		//console.log('Deleted');
 		const updatef = fav.filter((item) => item !== id);
 		setFav(updatef);
-		//setIsFavorite(false);
-		//console.log('Fav:', isFavorite);
-		//console.log(fav.includes(id));
-		//console.log(fav);
+
 		setModalVisible(true);
 		setTimeout(() => {
 			setModalVisible(false);
@@ -66,17 +64,34 @@ const ListingOptions = ({ id, FavId }) => {
 	};
 
 	const addToFavorites = async () => {
-		const user = await AsyncStorage.getItem('userID');
-		const listing = id.toString();
-		const listingType = 'residentListing';
+		if (travS) {
+			console.log('trav screen');
+			const user = await AsyncStorage.getItem('userID');
+			const listing = id.toString();
+			const listingType = 'residentListing';
 
-		const data = {
-			user,
-			listing,
-			listingType,
-		};
+			const data = {
+				user,
+				listing,
+				listingType,
+			};
+			console.log(data);
 
-		mutate(data);
+			mutate(data);
+		} else {
+			console.log('res screen');
+			const user = await AsyncStorage.getItem('userID');
+			const listing = id.toString();
+			const listingType = 'traverlerListing';
+
+			const data = {
+				user,
+				listing,
+				listingType,
+			};
+			console.log(data);
+			mutate(data);
+		}
 	};
 
 	const optionsHandler = () => {
@@ -117,7 +132,7 @@ const ListingOptions = ({ id, FavId }) => {
 			return (
 				<FontAwesome
 					style={styles.optionsIcon}
-					name={fav.includes(id)? 'check' : 'bookmark-o'}
+					name={fav.includes(id) ? 'check' : 'bookmark-o'}
 					size={18}
 					color={fav.includes(id) ? Colors.darkGreen : Colors.gray}
 					onPress={modifyFavorite}

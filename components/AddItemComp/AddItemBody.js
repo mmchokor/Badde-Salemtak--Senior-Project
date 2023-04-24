@@ -170,7 +170,7 @@ function AddItemBody() {
       break;
 
     default:
-      type = "Cash";
+      PreferredPaymentMethod= "Cash";
   }
 
   function handleAddItem() {
@@ -232,7 +232,7 @@ function AddItemBody() {
 
   const addTheItem = async () => {
     setLoading(true);
-    const user = await AsyncStorage.getItem("userID");
+   // const user = await AsyncStorage.getItem("userID");
     const name = itemName.toString();
     const price = parseInt(itemPrice);
     //quantity

@@ -16,6 +16,8 @@ function InputBorderStyle({
 			onChangeText={onChangeText}
 			placeholder={placeholder}
 			placeholderTextColor={Colors.gray}
+			//multiline={true}
+			//numberOfLines={3}
 		/>
 	);
 }

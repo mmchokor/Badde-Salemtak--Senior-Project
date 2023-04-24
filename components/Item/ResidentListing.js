@@ -29,6 +29,7 @@ const ResidentListing = ({
 	username,
 	imageSrc,
 	timePosted,
+	FavId,
 
 	onPress,
 }) => {
@@ -86,7 +87,7 @@ const ResidentListing = ({
 								</MyText>
 							</View>
 						</View>
-						<ListingOptions id={id} />
+						<ListingOptions id={id} FavId={FavId} />
 					</View>
 					<View style={styles.bodyWrapper}>
 						<View style={styles.iconTextWrapper}>
