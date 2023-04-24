@@ -1,2 +1,2 @@
 import { atom } from "jotai";
-export const notifications = atom([]);
+export const notifications = atom();

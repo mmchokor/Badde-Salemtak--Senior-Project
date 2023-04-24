@@ -9,52 +9,31 @@ import moment from "moment";
 import { useQuery } from "react-query";
 import { getToken } from "../../api/userAPI";
 import { getResidentListingById } from "../../api/residentListingsAPI";
-import { getOrderById} from "../../api/orderAPI"
-import {deleteNotification} from '../../api/notificationAPI'
+import { getOrderById } from "../../api/orderAPI";
+import { deleteNotification } from "../../api/notificationAPI";
+import { useMutation } from "react-query";
 
 const NotificationOrderReceived = ({
-  image,
-  price,
-  title,
-  location,
   id,
   message,
   date,
   totalPrice,
   username,
   listingId,
-  orderId
+  orderId,
+  setNotification
 }) => {
-
-  console.log(id)
-
-//console.log(listingId)
-
   const { data: token } = useQuery("token", getToken);
+  //const [notification, setNotification] = useAtom(notifications)
 
-
-  
   const { data: listing } = useQuery(
-    "listing", () =>
-    getResidentListingById(token, listingId),
+    "listing",
+    () => getResidentListingById(token, listingId),
     { enabled: !!token }
   );
 
-  //console.log(listing)
 
-  const {data: order} = useQuery("order", () => getOrderById(orderId))
-
-  //console.log("order response", order.message)
-
-  //console.log(listing)
-
-  // i need the image, the price, the title,, the location from the listingID
-
-  const [notification, setNotification] = useAtom(notifications);
   const navigation = useNavigation();
-
-  const formattedDate = formatDate(date);
-
   const diffText = timeSincePost(date);
 
   const viewOfferHandler = () => {
@@ -65,26 +44,29 @@ const NotificationOrderReceived = ({
         price: listing.price,
         title: listing.name,
         location: listing.cityOfResidence,
-        // formattedDate: formatDate(order.date),
-        // message: order.message,
         totalPrice,
         username,
         orderId,
         listingId,
-        id
+        id,
       },
     });
   };
 
-  const declineHandler = async () => {
-    try {
-      const deleted = await deleteNotification(id)
-    }
-    catch (err) {
-      console.log(err);
-      throw new Error('failed to delete')
-    }
-    
+
+  const handleDelete = useMutation(itemId => deleteNotification(itemId), {
+    onSuccess: () => {
+      // Invalidate the query for the deleted item to remove it from the cache
+      //queryClient.invalidateQueries('items');
+      setNotification((prev) => {
+        return prev.filter((noti) => noti._id !== id);
+      });
+    },
+  });
+
+  const declineHandler = () => {
+    // Call the mutation function to delete the item
+    handleDelete.mutate(id);
   };
 
   return (

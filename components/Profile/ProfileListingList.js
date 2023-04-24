@@ -34,8 +34,6 @@ const ProfileListingList = ({ userIdProps }) => {
 
   const userId = userIdProps ? userIdProps : userIdFetched
 
-  console.log(userId)
-
   const {
     data: residentListingsbyUserID,
     isLoading,
@@ -49,11 +47,6 @@ const ProfileListingList = ({ userIdProps }) => {
     { enabled: !!userId, staleTime: 0 }
   );
 
-  useFocusEffect(
-    React.useCallback(() => {
-      refetch();
-    }, [userId])
-  );
 
 
   if (isLoading) {

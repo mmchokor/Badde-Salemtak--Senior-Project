@@ -15,6 +15,10 @@ import { getCurrentUser } from "../api/userAPI";
 import { useQuery } from "react-query";
 import { getResidentListingById } from "../api/residentListingsAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadingIcon from "../components/Loading/LoadingIcon";
+import { useState } from "react";
+import { set } from "react-native-reanimated";
+import { useEffect } from "react";
 
 async function getToken() {
   try {
@@ -27,36 +31,42 @@ async function getToken() {
 }
 
 function NotificationsScreen({ navigation, route }) {
-  const [notification, setNotification] = useAtom(notifications);
+  //const [notification, setNotification] = useAtom(notifications);
+  const [notification, setNotification] = useState([]);
 
   const {
-    status,
     data: Notifications,
     isError,
     error,
     isLoading,
+    isFetching,
     refetch,
-  } = useQuery("Notifications", getNotifications, { staleTime: 1 });
+  } = useQuery("Notifications", getNotifications, {
+    //staleTime: 1,
+    onSuccess: (data) => {
+      
+      //console.log(data.data.userNotifications)
+      setNotification(data.data.userNotifications);
+    },
+  });
 
-  const { data: userInfo } = useQuery("userIno", () => getCurrentUser);
-  const { data: token } = useQuery("token", getToken);
-
-  if (isLoading) {
-    return (
-      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Text>Loading</Text>
-      </View>
-    );
+  if (isFetching) {
+    return <LoadingIcon />;
   }
 
   if (isError) {
     return <Text>{error.message}</Text>;
   }
+  
+  
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <FlatList
-        data={Notifications.data.userNotifications}
+        refreshing={isFetching}
+        onRefresh={() => refetch()}
+        //data={Notifications.data.userNotifications}
+        data={notification}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <NotificationOrderReceived
@@ -67,6 +77,7 @@ function NotificationsScreen({ navigation, route }) {
             senderName={item.sender.firstname}
             listingId={item.order.listing}
             id={item._id}
+            setNotification={setNotification}
           />
         )}
       />
