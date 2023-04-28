@@ -116,7 +116,7 @@ function BottomBar({ navigation }) {
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
 					tabBarIcon: ({ color, size }) => (
-						<Ionicons name='notifications' size={30} color={color} />
+						<Ionicons name='notifications' size={30} color= 'black' style={{opacity: 0.7}}  />
 					),
 					headerTitleAlign: 'center',
 				}}
