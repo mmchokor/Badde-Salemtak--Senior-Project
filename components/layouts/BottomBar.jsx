@@ -127,7 +127,7 @@ function BottomBar({ navigation }) {
 				options={{
 					title: '',
 					headerTitle: 'Profile',
-					headerShown: true,
+					headerShown: false,
 					headerShadowVisible: false,
 					headerTitleStyle: { fontSize: 24, color: Colors.white },
 					headerBackTitle: '',

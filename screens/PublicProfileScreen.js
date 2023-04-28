@@ -23,13 +23,12 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import ProfileListingList from "../components/Profile/ProfileListingList";
+import LoadingIcon from "../components/Loading/LoadingIcon";
 
 const PublicProfileScreen = ({ navigation, route }) => {
+  //const [backFlag, setBackFlag] = useState(false)
 
-  const username = route.params?.username
-
-
-
+  const username = route.params?.username;
 
   const [darkBackDrop, setDarkBackDrop] = useState(false);
   const bottomSheetModalRef = useRef(null);
@@ -50,19 +49,34 @@ const PublicProfileScreen = ({ navigation, route }) => {
     navigation.navigate("Home", { screen: "Profile" });
   };
 
+  const renderBackdrop = useCallback(
+    (props) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        opacity={0.2}
+      />
+    ),
+    []
+  );
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <SimpleLineIcons
-            onPress={optionsHandler}
+          <Pressable
             style={({ pressed }) =>
-              pressed ? { opacity: 0.5, marginRight: 10 } : { marginRight: 10 }
+              pressed ? { opacity: 0.2, marginRight: 10 } : { marginRight: 10 }
             }
-            name="options-vertical"
-            size={24}
-            color={Colors.white}
-          />
+          >
+            <SimpleLineIcons
+              onPress={optionsHandler}
+              name="options-vertical"
+              size={24}
+              color={Colors.white}
+            />
+          </Pressable>
         );
       },
     });
@@ -71,7 +85,7 @@ const PublicProfileScreen = ({ navigation, route }) => {
   const { data: userInfo, isFetching } = useQuery("userInfo", getCurrentUser);
 
   if (isFetching) {
-    return <Text>Loading</Text>;
+    return <LoadingIcon />;
   }
 
   const profileImgText =
@@ -85,6 +99,32 @@ const PublicProfileScreen = ({ navigation, route }) => {
         onPress={closeBottomSheet}
         //style={darkBackDrop && animatedStyle}
       >
+        <View style={{ backgroundColor: Colors.darkGreen, paddingTop: 50}}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              fontFamily: "inter-regular",
+              color: Colors.white,
+              paddingBottom: 10,
+            }}
+          >
+            Profile
+          </Text>
+          <Pressable
+            style={({ pressed }) =>
+              pressed ? { opacity: 0.2, marginRight: 10 } : { marginRight: 0, position: 'absolute', top: 50, left: '90%'}
+            }
+          >
+            <SimpleLineIcons
+              onPress={optionsHandler}
+              name="options-vertical"
+              size={24}
+              color={Colors.white}
+              //style={{flex: 1}}
+            />
+          </Pressable>
+        </View>
         <View
           style={{
             backgroundColor: Colors.darkGreen,
@@ -137,9 +177,10 @@ const PublicProfileScreen = ({ navigation, route }) => {
       {/* Here is the bottom sheet Modal when the options is clicked */}
       <BottomSheetModal
         ref={bottomSheetModalRef}
-        index={1}
+        index={0}
         snapPoints={snapPoints}
         onDismiss={() => setDarkBackDrop(false)}
+        backdropComponent={renderBackdrop}
       >
         <View style={{ flex: 1 }}>
           <Pressable onPress={({ pressed }) => pressed && { opacity: 0.5 }}>
