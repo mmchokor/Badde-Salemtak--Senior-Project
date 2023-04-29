@@ -66,7 +66,6 @@ export const createTravelerListing = async (data) => {
 		const response = await axios.post(`${API_URL}/traveler`, data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
-				'Content-Type': 'multipart/form-data',
 			},
 		});
 		return response;

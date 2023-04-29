@@ -47,9 +47,9 @@ const ResidentListingList = () => {
 								username: item.user.firstname + ' ' + item.user.lastname, //imageSrc: item.imageSrc,//should we remove it?
 								timePosted: item.date,
 								userLocation: item.residentCity,
-								//prefPayment: item.prefPayment,//?
+								prefPayment: item.prefPayment,//?
 								moreD: item.description,
-								//type: item.type,//??
+								type: item.type,//??
 							})
 						}
 						id={item._id}
@@ -61,9 +61,9 @@ const ResidentListingList = () => {
 						//imageSrc={item.imageSrc}//should we remove it?
 						timePosted={item.date}
 						userLocation={item.residentCity}
-						//prefPayment={item.prefPayment}//?
+						prefPayment={item.prefPayment}//?
 						moreD={item.description}
-						//type={item.type}//?
+						type={item.type}//?
 					/>
 				)}
 			/>

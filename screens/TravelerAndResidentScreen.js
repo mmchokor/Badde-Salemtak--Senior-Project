@@ -13,8 +13,8 @@ const TravelerAndResidentScreen = ({ navigation }) => {
 				return <CustomTapBar navigation={navigation} state={state} />;
 			}}
 		>
-			<Tab.Screen name='Travelerr' component={TravelerScreen} />
-			<Tab.Screen name='Residentt' component={ResidentScreen} />
+			<Tab.Screen name='Traveler' component={TravelerScreen} />
+			<Tab.Screen name='Resident' component={ResidentScreen} />
 		</Tab.Navigator>
 	);
 };

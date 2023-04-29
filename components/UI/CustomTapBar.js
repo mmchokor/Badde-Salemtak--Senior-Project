@@ -4,10 +4,10 @@ import { Colors } from "../../constants/colors";
 
 const CustomTapBar = ({ state, navigation }) => {
   const residentScreenHandler = () => {
-    navigation.navigate("Residentt");
+    navigation.navigate("Resident");
   };
   const travelerScreenHandler = () => {
-    navigation.navigate("Travelerr");
+    navigation.navigate("Traveler");
   };
 
   return (

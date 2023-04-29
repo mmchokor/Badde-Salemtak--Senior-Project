@@ -39,6 +39,9 @@ function AddLocationScreen({ navigation }) {
 	const [weight, setWeight] = useState(''); // Preferred Weight
 	const [itemType, setType] = useState('');
 	const [ticket, setTicket] = useState(''); // Ticket Number
+	const [dimensionX, setDimensionX] = useState(''); // DimensionsX
+	const [dimensionY, setDimensionY] = useState(''); // DimensionsY
+	const [dimensionZ, setDimensionZ] = useState(''); // DimensionsZ
 	const [detail, setDetail] = useState(''); // More Details
 	const [selectedOption, setSelectedOption] = useState('');
 	const [countryFlag, setCountryFlag] = useState(false);
@@ -90,6 +93,15 @@ function AddLocationScreen({ navigation }) {
 	const handleInputTicket = (text) => {
 		setTicket(text);
 		setTicketFlag(false);
+	};
+	const handleInputDimensionX = (text) => {
+		setDimensionX(text);
+	};
+	const handleInputDimensionY = (text) => {
+		setDimensionY(text);
+	};
+	const handleInputDimensionZ = (text) => {
+		setDimensionZ(text);
 	};
 	const handleInputDetail = (text) => {
 		setDetail(text);
@@ -203,20 +215,21 @@ function AddLocationScreen({ navigation }) {
 	}
 	const addLocation = async () => {
 		setLoading(true);
-		const exWeight = parseInt(weight);
-		
-
+		let exWeight = parseInt(weight);
+		let dim = dimensionX + ',' + dimensionY + ',' +dimensionZ;
 		const data = {
 			extraWeight: exWeight,
-			date: new Date(selectedDate).toISOString(),
-			dimension: "57",
+			date: selectedDate,
+			dimension: dim,
 			ticketNumber: ticket,
-			residentCity: "Lebanon",
+			residentCity: 'Lebanon',
 			description: detail,
+			paymentMethod: PreferredPaymentMethod,
+			productType: type,
 			country: setSelectedCountry,
 		};
 		console.log(data);
-		//mutate(data);
+		mutate(data);
 	};
 
 	return (
@@ -319,7 +332,7 @@ function AddLocationScreen({ navigation }) {
 					<KeyboardAvoidingView
 						behavior='padding'
 						enabled
-						style={{ height: 750 }}
+						style={{ height: 840 }}
 					>
 						<View>
 							<Text style={styles.textHead}>Preferred Weight</Text>
@@ -418,6 +431,43 @@ function AddLocationScreen({ navigation }) {
 							/>
 						</View>
 
+						<View style={{ flexDirection: 'column' }}>
+							<Text style={styles.textHead}>
+								Dimensions:
+								<Text style={{ color: Colors.gray, fontSize: 14 }}>
+									(optional)
+								</Text>
+							</Text>
+							<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+								<Text style={{ color: Colors.gray, fontSize: 18 }}>X:</Text>
+								<TextInput
+									style={styles.inputD}
+									keyboardType='number-pad'
+									maxLength={4}
+									value={dimensionX}
+									onChangeText={(text) => handleInputDimensionX(text)}
+									placeholder='cm'
+								/>
+								<Text style={{ color: Colors.gray, fontSize: 18 }}>Y:</Text>
+								<TextInput
+									style={styles.inputD}
+									keyboardType='number-pad'
+									maxLength={4}
+									value={dimensionY}
+									onChangeText={(text) => handleInputDimensionY(text)}
+									placeholder='cm'
+								/>
+								<Text style={{ color: Colors.gray, fontSize: 18 }}>Z:</Text>
+								<TextInput
+									style={styles.inputD}
+									keyboardType='number-pad'
+									maxLength={4}
+									value={dimensionZ}
+									onChangeText={(text) => handleInputDimensionZ(text)}
+									placeholder='cm'
+								/>
+							</View>
+						</View>
 						{/* More Details,Location */}
 
 						<Text style={styles.textHead}>More Details</Text>
@@ -535,5 +585,16 @@ const styles = StyleSheet.create({
 	},
 	datePickerText: {
 		textAlign: 'center',
+	},
+	inputD: {
+		fontFamily: 'inter-regular',
+		color: Colors.black,
+		fontSize: 18,
+		borderBottomWidth: 0.5,
+		borderBottomColor: Colors.gray,
+		color: Colors.darkGreen,
+		paddingBottom: 0,
+		marginHorizontal: 15,
+		width: 80,
 	},
 });

@@ -28,8 +28,8 @@ function FavoritesScreen({ navigation }) {
 				tabBarActiveTintColor: Colors.darkGreen, // add this line to set active tab color
 			}}
 		>
-			<Tab.Screen name='Traveler' component={TravelerFavScreen} />
-			<Tab.Screen name='Resident' component={ResidentFavScreen} />
+			<Tab.Screen name='Travelerr' component={TravelerFavScreen} />
+			<Tab.Screen name='Residentt' component={ResidentFavScreen} />
 		</Tab.Navigator>
 	);
 }
