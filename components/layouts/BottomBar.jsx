@@ -115,9 +115,12 @@ function BottomBar({ navigation }) {
 					headerTintColor: Colors.darkGreen,
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
-					tabBarIcon: ({ color, size }) => (
-						<Ionicons name='notifications' size={30} color= 'black' style={{opacity: 0.7}}  />
-					),
+					tabBarIcon: ({ color, size }) => {
+						console.log("The color is:", color);
+						return (
+						  <Ionicons name='notifications' size={30} color={!!color ? color : Colors.black} />
+						);
+					  },
 					headerTitleAlign: 'center',
 				}}
 			/>

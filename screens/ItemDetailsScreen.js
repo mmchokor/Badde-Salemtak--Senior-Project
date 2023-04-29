@@ -25,6 +25,7 @@ function ItemDetailsScreen({ route }) {
   const userId = route.params.userId;
 
 
+
   const navigation = useNavigation();
 
   function chatHandler() {
