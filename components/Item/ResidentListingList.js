@@ -47,9 +47,9 @@ const ResidentListingList = () => {
 								username: item.user.firstname + ' ' + item.user.lastname, //imageSrc: item.imageSrc,//should we remove it?
 								timePosted: item.date,
 								userLocation: item.residentCity,
-								prefPayment: item.prefPayment,//?
+								prefPayment: item.paymentMethod,
 								moreD: item.description,
-								type: item.type,//??
+								type: item.productType,
 							})
 						}
 						id={item._id}
@@ -61,9 +61,9 @@ const ResidentListingList = () => {
 						//imageSrc={item.imageSrc}//should we remove it?
 						timePosted={item.date}
 						userLocation={item.residentCity}
-						prefPayment={item.prefPayment}//?
+						prefPayment={item.paymentMethod}
 						moreD={item.description}
-						type={item.type}//?
+						type={item.productType}
 					/>
 				)}
 			/>
@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
 	wrapper: {
 		flex: 1,
 		marginHorizontal: 4, //15,
-		marginTop: 20
+		marginTop: 5
 	},
 });

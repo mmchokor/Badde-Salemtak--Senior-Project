@@ -9,20 +9,17 @@ const Tab = createMaterialTopTabNavigator();
 
 const TravelerAndResidentScreen = ({navigation}) => {
   return (
-    <Tab.Navigator
-      // tabBar={({ state }) => {
-      //   return <CustomTapBar navigation={navigation} state={state} />;
-      // }}
-      screenOptions={{
-        tabBarLabelStyle: { fontSize: 18, textTransform: 'none' },
-        tabBarIndicatorStyle: {
-          backgroundColor: Colors.darkGreen,
-          width: 80,
-          left: (Dimensions.get("window").width / 2 - 80) / 2, 
-        },
-      }}
-      
-    >
+	<Tab.Navigator
+	screenOptions={{
+	  tabBarLabelStyle: { fontSize: 15 },
+	  tabBarIndicatorStyle: {
+		backgroundColor: Colors.darkGreen,
+		width: 80,
+		left: (Dimensions.get("window").width / 2 - 80) / 2,
+	  },
+	  tabBarActiveTintColor: Colors.darkGreen, // add this line to set active tab color
+	}}
+  >
       <Tab.Screen name="Traveler" component={TravelerScreen} options={{ tabBarLabel: 'Traveler' }} />
       <Tab.Screen name="Resident" component={ResidentScreen} options={{ tabBarLabel: 'Resident' }} />
     </Tab.Navigator>

@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
 	wrapper: {
 		flex: 1,
 		marginHorizontal: 4, //15
-		marginTop: 20
+		marginTop: 5
 	},
 });

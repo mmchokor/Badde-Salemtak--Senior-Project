@@ -52,6 +52,7 @@ function AddLocationScreen({ navigation }) {
 	const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 	const [selectedDate, setSelectedDate] = useState('');
 	const [selectedDateIsEmpty, setSelectedDateIsEmpty] = useState(false);
+	const [detailFlag, setDetailFlag] = useState(false);
 	const { mutate, error } = useMutation(createTravelerListing, {
 		onSuccess: onSuccessHandler,
 		onError: onErrorHandler,
@@ -105,6 +106,7 @@ function AddLocationScreen({ navigation }) {
 	};
 	const handleInputDetail = (text) => {
 		setDetail(text);
+		setDetailFlag(false);
 	};
 
 	const handleType = (option) => {
@@ -209,6 +211,10 @@ function AddLocationScreen({ navigation }) {
 			setSelectedDateIsEmpty(true);
 			allConditionsMet = false;
 		}
+		if (detail === '') {
+			setDetailFlag(true);
+			allConditionsMet = false;
+		}
 		if (allConditionsMet) {
 			addLocation();
 		}
@@ -216,7 +222,7 @@ function AddLocationScreen({ navigation }) {
 	const addLocation = async () => {
 		setLoading(true);
 		let exWeight = parseInt(weight);
-		let dim = dimensionX + ',' + dimensionY + ',' +dimensionZ;
+		let dim = dimensionX + ',' + dimensionY + ',' + dimensionZ;
 		const data = {
 			extraWeight: exWeight,
 			date: selectedDate,
@@ -472,7 +478,16 @@ function AddLocationScreen({ navigation }) {
 
 						<Text style={styles.textHead}>More Details</Text>
 						<InputBorderStyle
-							style={{ padding: 5 }}
+							style={
+								detailFlag === false
+									? [{ padding: 5 }]
+									: [
+											[{ padding: 5 }],
+											{
+												borderColor: Colors.errorRedDark,
+											},
+									  ]
+							}
 							onChangeText={handleInputDetail}
 						/>
 

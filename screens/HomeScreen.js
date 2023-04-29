@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { isTravScreenAtom } from '../store/TravResScreen/TravOrRes';
 import { useAtom } from 'jotai';
 import PublicProfileScreenUser from './PublicProfileScreenUser';
+import MyOrderScreen from './MyOrderScreen';
 const Stack = createNativeStackNavigator();
 function HomeScreen({ route }) {
 	// useEffect(() => {
@@ -32,7 +33,7 @@ function HomeScreen({ route }) {
 	//     })}
 	// }, [])
 	const navigation = useNavigation();
-	const [isTravScreen,] = useAtom(isTravScreenAtom);
+	const [isTravScreen] = useAtom(isTravScreenAtom);
 
 	return (
 		<Stack.Navigator screenOptions={{ animation: 'none' }} id='test'>
@@ -62,13 +63,7 @@ function HomeScreen({ route }) {
 									//paddingLeft: 3,
 									//width: 110,
 								}}
-							>
-								{/* <Ionicons
-                  name="search-outline"
-                  size={35}
-                  color={Colors.darkGreen}
-                /> */}
-							</View>
+							></View>
 						</View>
 					),
 					headerLeft: () => (
@@ -89,13 +84,13 @@ function HomeScreen({ route }) {
 								name='search-outline'
 								size={35}
 								color={Colors.darkGreen}
-								onPress={() =>{ 
-									if(isTravScreen){navigation.navigate('SearchScreen')}else{
-
-										navigation.navigate('SearchScreenResident')
+								onPress={() => {
+									if (isTravScreen) {
+										navigation.navigate('SearchScreen');
+									} else {
+										navigation.navigate('SearchScreenResident');
 									}
-									
-									}}
+								}}
 							/>
 						</View>
 					),
@@ -235,6 +230,38 @@ function HomeScreen({ route }) {
 					headerTintColor: Colors.darkGreen,
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
+				})}
+			/>
+			<Stack.Screen
+				name='MyOrderScreen'
+				component={MyOrderScreen}
+				options={({ route }) => ({
+					headerShown: true,
+					headerShadowVisible: false,
+					title: 'My Orders',
+					headerTitleStyle: { fontSize: 24, color: Colors.black },
+					headerBackTitle: '',
+					headerTintColor: Colors.darkGreen,
+					headerTitleAlign: 'center',
+					headerStyle: { backgroundColor: Colors.white },
+					
+					headerLeft: () => (
+						<View
+							style={{
+								flexDirection: 'row',
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<Ionicons
+								name='arrow-back'
+								size={35}
+								color={Colors.darkGreen}
+								style={{ marginRight: 10 }}
+								onPress={() => navigation.navigate('ProfileUser')}
+							/>
+						</View>
+					),
 				})}
 			/>
 		</Stack.Navigator>

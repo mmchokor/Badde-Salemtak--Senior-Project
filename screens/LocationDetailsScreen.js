@@ -171,6 +171,8 @@ function LocationDetailsScreen({ route }) {
 							username={route.params.username}
 							payment={route.params.prefPayment}
 						/>
+											
+
 					</View>
 				</KeyboardAvoidingView>
 			</ScrollView>

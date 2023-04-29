@@ -99,7 +99,7 @@ function ResidentFavScreen() {
 									fromLocation: item.listing.country,
 									rating: 4,
 									maxWeight: item.listing.extraWeight,
-									username: item.user.firstname + ' ' + item.user.lastname, //imageSrc: item.imageSrc,//should we remove it?
+									username: item.listing.user.firstname + ' ' + item.listing.user.lastname, //imageSrc: item.imageSrc,//should we remove it?
 									timePosted: item.listing.date,
 									userLocation: item.listing.residentCity,
 									//prefPayment: item.prefPayment,//?
@@ -113,7 +113,7 @@ function ResidentFavScreen() {
 							fromLocation={item.listing.country}
 							rating={4}
 							maxWeight={item.listing.extraWeight}
-							username={item.user.firstname + ' ' + item.user.lastname}
+							username={item.listing.user.firstname + ' ' + item.listing.user.lastname}
 							//imageSrc={item.imageSrc}//should we remove it?
 							timePosted={item.listing.date}
 							userLocation={item.listing.residentCity}
