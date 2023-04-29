@@ -43,7 +43,7 @@ function HomeScreen({ route }) {
 					title: '',
 
 					headerShown: true,
-
+					headerShadowVisible: false,
 					headerRight: () => (
 						<View style={{ flexDirection: 'row-reverse' }}>
 							<Feather

@@ -115,9 +115,11 @@ function BottomBar({ navigation }) {
 					headerTintColor: Colors.darkGreen,
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
-					tabBarIcon: ({ color, size }) => (
-						<Ionicons name='notifications' size={30} color={color} />
-					),
+					tabBarIcon: ({ color, size }) => {
+						return (
+						  <Ionicons name='notifications' size={30} color={!!color ? color : Colors.black} />
+						);
+					  },
 					headerTitleAlign: 'center',
 				}}
 			/>
@@ -127,7 +129,7 @@ function BottomBar({ navigation }) {
 				options={{
 					title: '',
 					headerTitle: 'Profile',
-					headerShown: true,
+					headerShown: false,
 					headerShadowVisible: false,
 					headerTitleStyle: { fontSize: 24, color: Colors.white },
 					headerBackTitle: '',

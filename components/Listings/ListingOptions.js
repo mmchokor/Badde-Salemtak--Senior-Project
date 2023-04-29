@@ -22,6 +22,10 @@ const ListingOptions = ({ id, FavId }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [isFavScreen] = useAtom(isFavScreenAtom);
 
+
+
+
+
 	const { mutate, error } = useMutation(createFavorite);
 	const del = useMutation(deleteFavorite);
 
@@ -65,7 +69,7 @@ const ListingOptions = ({ id, FavId }) => {
 
 	const addToFavorites = async () => {
 		if (travS) {
-			console.log('trav screen');
+			//console.log('trav screen');
 			const user = await AsyncStorage.getItem('userID');
 			const listing = id.toString();
 			const listingType = 'residentListing';
@@ -75,11 +79,11 @@ const ListingOptions = ({ id, FavId }) => {
 				listing,
 				listingType,
 			};
-			console.log(data);
+			//console.log(data);
 
 			mutate(data);
 		} else {
-			console.log('res screen');
+			//console.log('res screen');
 			const user = await AsyncStorage.getItem('userID');
 			const listing = id.toString();
 			const listingType = 'traverlerListing';
@@ -89,7 +93,7 @@ const ListingOptions = ({ id, FavId }) => {
 				listing,
 				listingType,
 			};
-			console.log(data);
+			//console.log(data);
 			mutate(data);
 		}
 	};
