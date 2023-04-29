@@ -11,6 +11,7 @@ import NotificationsScreen from '../../screens/NotificationsScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import PublicProfileScreen from '../../screens/PublicProfileScreen';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import AddItemAndLocationScreen from '../../screens/AddItemAndLocationScreen';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -72,7 +73,7 @@ function BottomBar({ navigation }) {
 			/>
 			<BottomTabs.Screen
 				name='Add'
-				component={AddScreen}
+				component={AddItemAndLocationScreen}
 			
 				options={{
 					

@@ -243,10 +243,10 @@ function AddLocationScreen({ navigation }) {
 			style={{
 				alignItems: 'center',
 				backgroundColor: Colors.white,
-				marginTop: 30,
+				marginTop: 3,
 			}}
 		>
-			<View style={styles.upperButton}>
+			{/* <View style={styles.upperButton}>
 				<Pressable onPress={PressEventHandler}>
 					<View style={styles.item}>
 						<Text style={styles.texI}>Add Item</Text>
@@ -255,7 +255,7 @@ function AddLocationScreen({ navigation }) {
 				<View style={styles.location}>
 					<Text style={styles.textLocation}>Add Location</Text>
 				</View>
-			</View>
+			</View> */}
 
 			{/* <ScrollView>
 				<KeyboardAvoidingView
@@ -338,7 +338,7 @@ function AddLocationScreen({ navigation }) {
 					<KeyboardAvoidingView
 						behavior='padding'
 						enabled
-						style={{ height: 840 }}
+						style={{ height: 720 }}
 					>
 						<View>
 							<Text style={styles.textHead}>Preferred Weight</Text>

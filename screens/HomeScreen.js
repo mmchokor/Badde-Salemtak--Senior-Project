@@ -21,6 +21,7 @@ import { isTravScreenAtom } from '../store/TravResScreen/TravOrRes';
 import { useAtom } from 'jotai';
 import PublicProfileScreenUser from './PublicProfileScreenUser';
 import MyOrderScreen from './MyOrderScreen';
+import AddItemAndLocationScreen from './AddItemAndLocationScreen';
 const Stack = createNativeStackNavigator();
 function HomeScreen({ route }) {
 	// useEffect(() => {
@@ -244,7 +245,7 @@ function HomeScreen({ route }) {
 					headerTintColor: Colors.darkGreen,
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
-					
+
 					headerLeft: () => (
 						<View
 							style={{
@@ -262,6 +263,14 @@ function HomeScreen({ route }) {
 							/>
 						</View>
 					),
+				})}
+			/>
+
+			<Stack.Screen
+				name='AddItemAndLocationScreen'
+				component={AddItemAndLocationScreen}
+				options={({ route }) => ({
+					headerShown: false,
 				})}
 			/>
 		</Stack.Navigator>

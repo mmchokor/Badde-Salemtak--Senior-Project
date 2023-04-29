@@ -14,8 +14,8 @@ function AddItemScreen({ navigation }) {
 		navigation.navigate('Location');
 	}
 	return (
-		<View style={{ backgroundColor: Colors.white, marginTop: 30 }}>
-			<View style={{ alignItems: 'center' }}>
+		<View style={{ backgroundColor: Colors.white, marginTop: 3 }}>
+			{/* <View style={{ alignItems: 'center' }}>
 				<View style={styles.upperButton}>
 					<View style={styles.item}>
 						<Text style={styles.textI}>Add Item</Text>
@@ -26,13 +26,13 @@ function AddItemScreen({ navigation }) {
 						</View>
 					</Pressable>
 				</View>
-			</View>
+			</View> */}
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<KeyboardAvoidingView
 					behavior='padding'
 					enabled
-					style={{ height: 900 }}
+					style={{ height: 850 }}
 				>
 					<AddItemBody />
 				</KeyboardAvoidingView>
