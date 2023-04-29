@@ -251,9 +251,13 @@ function AddItemBody() {
     formData.append("productType", productType);
     formData.append("price", price);
     formData.append("quantity", quantity);
-    formData.append("images", selectedImage);
     formData.append("paymentMethod", paymentMethod);
-    console.log("Loading in add item", loading);
+
+    for (let i = 0; i < selectedImage.length; i++) {
+      formData.append("images", selectedImage[i])
+    }
+
+    //console.log("Loading in add item", loading);
     mutate(formData);
   };
 

@@ -27,6 +27,7 @@ const options = {
 function ImageUpload({ onSelectImage, style }) {
   const [image, setImage] = useState("");
   const [imageForm, setImageForm] = useState([]);
+  const [formArray, setFormArray] = useState([]);
 
   //let imagePreview = <Text style={styles.previewText}>Upload Image</Text>;
   let imagePreview =<Entypo name="camera" size={24}style={[styles.previewText, {color: Colors.darkGreen}]} />;
@@ -34,40 +35,35 @@ function ImageUpload({ onSelectImage, style }) {
   async function openGallery() {
     let image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      //allowsEditing: true,
+      allowsMultipleSelection: true,
       aspect: [4, 4],
       quality: 1,
     });
 
     if (!image.canceled) {
-      //onSelectImage(image);
       setImage(image);
-      const form = {
-        uri: image.assets[0].uri,
-        type:
-          image.assets[0].type +
-          "/" +
-          image.assets[0].uri.substring(
-            image.assets[0].uri.lastIndexOf(".") + 1
-          ),
-        //type: "images",
-        name: image.assets[0].uri.substring(
-          image.assets[0].uri.lastIndexOf("/") + 1
-        ),
-      };
+      const newFormArray = image.assets.map(asset => {
+        const form = {
+          uri: asset.uri,
+          type: asset.type + '/' + asset.uri.substring(asset.uri.lastIndexOf('.') + 1),
+          name: asset.uri.substring(asset.uri.lastIndexOf('/') + 1),
+        }
+
+        return form
+  
+      });
+
+      
+      setFormArray((prev) => [...prev, ...newFormArray]);
 
       const fileInfo = await FileSystem.getInfoAsync(image.assets[0].uri);
 
       const fileSize = fileInfo.size; // size of the file in bytes
       const lastModified = fileInfo.modificationTime; // date and time when the file was last modified
 
-      //   form.size = fileSize;
-      //   form.lastModified = lastModified
-
-      //   console.log(`File size: ${fileSize}`);
-      //   console.log(`Last modified: ${lastModified}`);
-
-      onSelectImage(form);
+      //onSelectImage(formArray);
+      onSelectImage([...formArray, ...newFormArray]);
     }
   }
   if (image) {

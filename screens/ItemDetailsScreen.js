@@ -5,6 +5,8 @@ import {
   KeyboardAvoidingView,
   Image,
   Pressable,
+  Modal,
+  TouchableOpacity,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Colors } from "../constants/colors";
@@ -14,19 +16,36 @@ import MyText from "../components/UI/MyText";
 import DetailsBody from "../components/DetailsItemLocation/DetailsBody";
 import Weight from "../components/DetailsItemLocation/Weight";
 import { useNavigation } from "@react-navigation/native";
+import { useQuery } from "react-query";
+import { getResidentListingById } from "../api/residentListingsAPI";
+import LoadingIcon from "../components/Loading/LoadingIcon";
+import { useState } from "react";
+
+
 
 function ItemDetailsScreen({ route }) {
+  const navigation = useNavigation();
   const username = route.params.username;
-  const image = route.params.imageSrc;
+  //const image = route.params.imageSrc;
   const price = route.params.price;
   const title = route.params.title;
   const location = route.params.location;
-  const listingId = route.params.id
+  const listingId = route.params.id;
   const userId = route.params.userId;
 
+  const { data: ResidentListing, isLoading } = useQuery("Resident", () =>
+    getResidentListingById(listingId)
+  );
 
+  if (isLoading) {
+    return <LoadingIcon />;
+  }
+  const image = ResidentListing.images[1];
 
-  const navigation = useNavigation();
+  const handleImagePress = (image) => {
+    setSelectedImage(image);
+    setModalVisible(true);
+  };
 
   function chatHandler() {
     navigation.navigate("chat", { username });
@@ -42,14 +61,13 @@ function ItemDetailsScreen({ route }) {
       price,
       title,
       location,
-      listingId
+      listingId,
     });
   }
 
+ 
   return (
     <View>
-      {/* <Text>Item Details Screen:{route.params.id}  {route.params.title}</Text> */}
-
       <ScrollView showsVerticalScrollIndicator={false}>
         <KeyboardAvoidingView behavior="padding">
           <View style={styles.container}>
@@ -66,6 +84,8 @@ function ItemDetailsScreen({ route }) {
                     source={{ uri: image}}
                     style={styles.itemPhoto}
                   />
+                 
+
                   <View style={{ marginTop: 10 }}>
                     <ButtonItemType text={route.params.type} />
                   </View>
@@ -160,7 +180,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
     paddingTop: 15,
-    paddingBottom:15
+    paddingBottom: 15,
   },
   itemPhoto: {
     width: 130,

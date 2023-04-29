@@ -20,8 +20,10 @@ const getResidentListings = async () => {
 };
 
 // Get a single resident listing by ID
-const getResidentListingById = async (token, id) => {
+const getResidentListingById = async (id) => {
+  const token = await AsyncStorage.getItem("token");
   try {
+    
     const response = await axios.get(`${API_URL}/resident/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
