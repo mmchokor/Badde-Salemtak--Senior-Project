@@ -23,8 +23,8 @@ const TravelerAndResidentScreen = ({navigation}) => {
       }}
       
     >
-      <Tab.Screen name="Traveler" component={TravelerScreen} options={{ tabBarLabel: 'Traveler' }} />
-      <Tab.Screen name="Resident" component={ResidentScreen} options={{ tabBarLabel: 'Resident' }} />
+      <Tab.Screen name="Travelerr" component={TravelerScreen} options={{ tabBarLabel: 'Traveler' }} />
+      <Tab.Screen name="Residentt" component={ResidentScreen} options={{ tabBarLabel: 'Resident' }} />
     </Tab.Navigator>
   );
 };
