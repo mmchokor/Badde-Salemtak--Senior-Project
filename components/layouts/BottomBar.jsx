@@ -116,7 +116,6 @@ function BottomBar({ navigation }) {
 					headerTitleAlign: 'center',
 					headerStyle: { backgroundColor: Colors.white },
 					tabBarIcon: ({ color, size }) => {
-						console.log("The color is:", color);
 						return (
 						  <Ionicons name='notifications' size={30} color={!!color ? color : Colors.black} />
 						);
