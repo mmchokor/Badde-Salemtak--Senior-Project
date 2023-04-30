@@ -22,7 +22,7 @@ function FavoritesScreen({ navigation, route }) {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 15 },
+        tabBarLabelStyle: { fontSize: 20, textTransform: 'none', fontFamily: 'inter-regular', color: Colors.black },
         tabBarIndicatorStyle: {
           backgroundColor: Colors.darkGreen,
           width: 80,
@@ -31,8 +31,8 @@ function FavoritesScreen({ navigation, route }) {
         tabBarActiveTintColor: Colors.darkGreen, // add this line to set active tab color
       }}
     >
-      <Tab.Screen name="Traveler" component={TravelerFavScreen} />
-      <Tab.Screen name="Resident" component={ResidentFavScreen} />
+      <Tab.Screen name="Traveler" component={TravelerFavScreen} options={{ tabBarLabel: 'Traveler' }} />
+      <Tab.Screen name="Resident" component={ResidentFavScreen} options={{ tabBarLabel: 'Resident' }} />
     </Tab.Navigator>
   );
 }

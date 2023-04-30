@@ -35,6 +35,7 @@ function ItemDetailsScreen({ route }) {
   const listingId = route.params.id;
   const userId = route.params.userId;
 
+
   const { data: ResidentListing, isLoading } = useQuery(
     ["Resident", listingId],
     () => getResidentListingById(listingId)

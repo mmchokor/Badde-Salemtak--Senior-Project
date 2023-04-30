@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions} from "react-native";
+import { StyleSheet, Dimensions, View, Text} from "react-native";
 import React from "react";
 import TravelerScreen from "./TravelerScreen";
 import ResidentScreen from "./ResidentScreen";
@@ -14,12 +14,13 @@ const TravelerAndResidentScreen = ({navigation}) => {
       //   return <CustomTapBar navigation={navigation} state={state} />;
       // }}
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 18, textTransform: 'none' },
+        tabBarLabelStyle: { fontSize: 20, textTransform: 'none', fontFamily: 'inter-regular' },
         tabBarIndicatorStyle: {
           backgroundColor: Colors.darkGreen,
           width: 80,
           left: (Dimensions.get("window").width / 2 - 80) / 2, 
         },
+        //tabBarStyle: {paddingTop: 30}
       }}
       
     >

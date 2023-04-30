@@ -57,7 +57,7 @@ function DetailsBody({ details, location, username, payment, userId }) {
         <Text style={styles.textHead}>User Info</Text>
         <BorderStyle>
           <Pressable onPress={userInfoHandler}>
-            <Text style={styles.textBody}>{username + " " + userId}</Text>
+            <Text style={styles.textBody}>{username}</Text>
           </Pressable>
         </BorderStyle>
         <Text style={styles.textHead}>Preferred Payment Method</Text>
