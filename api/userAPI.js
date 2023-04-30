@@ -123,7 +123,7 @@ const getUserInfoById = async (userId) => {
 
     const response = await axios.get(`${API_URL}/users/${userId}`, config);
 
-    return response.data
+    return response.data.data
   } catch (err) {
     console.log(err);
     throw new Error(err);

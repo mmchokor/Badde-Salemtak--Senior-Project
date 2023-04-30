@@ -12,10 +12,14 @@ import { getCurrentUser } from "../api/userAPI";
 import { useQuery } from "react-query";
 
 import ProfileListingList from "../components/Profile/ProfileListingList";
+import LoadingIcon from "../components/Loading/LoadingIcon";
+import { getUserInfoById } from "../api/userAPI";
+import { formatDate } from "../constants/FormatDate";
 
 const PublicProfileScreenUser = ({ navigation, route }) => {
   const username = route.params?.username;
   const userId = route.params?.userId;
+
 
   const optionsHandler = () => {
     console.log("reported");
@@ -40,21 +44,19 @@ const PublicProfileScreenUser = ({ navigation, route }) => {
     });
   }, []);
 
-  //need the api in order to get all the userInfo from the ID
-  const { data: userInfo, isFetching } = useQuery("userInfo", getCurrentUser);
+  const { data: userInfo, isFetching } = useQuery("userInfo", () => getUserInfoById(userId));
 
   if (isFetching) {
-    return <Text>Loading</Text>;
+    return <LoadingIcon />;
   }
 
-//   const profileImgText =
-//     userInfo.firstname.charAt(0).toUpperCase() +
-//     "." +
-//     userInfo.lastname.charAt(0).toUpperCase();
+
   const profileImgText =
-    userInfo.firstname.charAt(0).toUpperCase() +
+  userInfo.firstname.charAt(0).toUpperCase() +
     "." +
     userInfo.lastname.charAt(0).toUpperCase();
+
+  //const profileImgText = "H"
 
   return (
     <View style={{flex: 1}}>
@@ -84,7 +86,7 @@ const PublicProfileScreenUser = ({ navigation, route }) => {
             {userInfo.country}
           </Text>
           <Text style={[styles.text, styles.date]}>
-            <Feather name="calendar" size={14} color="black" /> March 2023
+            <Feather name="calendar" size={14} color="black" /> {formatDate(userInfo.createdAt)}
           </Text>
         </View>
 

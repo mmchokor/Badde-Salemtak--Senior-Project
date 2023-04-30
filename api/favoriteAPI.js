@@ -51,9 +51,6 @@ const getFavoritesByUser = async (userId) => {
 			},
 		});
 		//got all the favorites
-		//console.log(data.data.favorite[0])
-		//console.log(data.data.favorite)
-		//return data.Favorites;
 		return data.data.favorite
 	} catch (error) {
 		console.error(error);
