@@ -20,7 +20,7 @@ const getNotifications = async () => {
       return response.data
       //return response.data.data.userNotifications
    } catch (error) {
-      console.error(error)
+      console.log(error)
       throw new Error('Failed to get notifications')
    }
 }
@@ -43,7 +43,7 @@ const deleteNotification = async (notificationId) => {
       )
       return response.data.success
    } catch (error) {
-      console.error(error)
+      console.log(error)
       throw new Error('Failed to delete notification')
    }
 }

@@ -69,7 +69,7 @@ const createResidentListing = async (data) => {
     });
     return response;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw new Error("Failed to add resident listing" + error);
   }
 };

@@ -96,7 +96,7 @@ const getCurrentUser = async () => {
     //console.log(response)
     return response.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw new Error("Failed to get user information");
   }
 };
