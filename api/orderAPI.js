@@ -12,10 +12,9 @@ const createOrder = async (data) => {
             Authorization: `Bearer ${token}`,
          },
       })
-      console.log(response.data)
       return response.data
    } catch (error) {
-      console.error(error)
+      console.log(error)
       throw new Error('Failed to create order')
    }
 }
@@ -33,7 +32,7 @@ const getOrdersByListing = async (listingId) => {
       )
       return response.data
    } catch (error) {
-      console.error(error)
+      console.log(error)
       throw new Error('Failed to get orders')
    }
 }

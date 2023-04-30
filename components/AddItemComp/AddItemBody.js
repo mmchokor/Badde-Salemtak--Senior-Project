@@ -63,7 +63,7 @@ function AddItemBody() {
 
     parent.navigate("Home", {
       screen: "TravelerorResident",
-      params: { screen: "Traveler", params: { load: true } },
+      params: { screen: "Travelerr", params: { load: true } },
     });
 
     // parent.navigate("Home", {

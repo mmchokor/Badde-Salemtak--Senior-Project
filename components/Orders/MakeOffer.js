@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
   Pressable,
+  ActivityIndicator
 } from "react-native";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
@@ -23,6 +24,7 @@ import StraightLine from "../UI/StraightLine";
 import { useAtom } from "jotai";
 import { notifications } from "../../store/Notifications/notification";
 import { createOrder } from '../../api/orderAPI'
+import { isLoading } from "../../store/AddOfferLoading/AddOfferLoading"
 const height = Dimensions.get("window").height;
 
 const MakeOffer = ({ route, navigation }) => {
@@ -39,11 +41,33 @@ const MakeOffer = ({ route, navigation }) => {
   const [message, setMessage] = useState("");
   const [deliveryFee, setDeliveryFee] = useState("5");
   const [notification, setNotification] = useAtom(notifications);
+  const [loading, setLoading] = useAtom(isLoading);
 
   const { mutate, error } = useMutation(createOrder, {
-    // onSuccess: onSuccessHandler,
-    // onError: onErrorHandler,
+     onSuccess: onSuccessHandler,
+     onError: onErrorHandler,
   });
+
+  function onSuccessHandler() {
+    setLoading(false);
+
+    const parent = navigation.getParent("bottomTab");
+
+    parent.navigate("Home", {
+      screen: "TravelerorResident",
+      params: { screen: "Travelerr", params: { load: true, isOffer: true } },
+    });
+
+  }
+  function onErrorHandler() {
+    setLoading(false);
+
+    Toast.show({
+      type: "error",
+      text1: "Unfortunately, We were unable to make an offer.",
+      text2: "Please try again later",
+    });
+  }
 
   const totalPrice = +price + 5 + +deliveryFee + 10;
 
@@ -89,6 +113,7 @@ const MakeOffer = ({ route, navigation }) => {
   };
 
   const submitOfferHandler = () => {
+   
     const orderSummary = {
       listingId,
       id: Math.random() + new Date(),
@@ -109,8 +134,7 @@ const MakeOffer = ({ route, navigation }) => {
       setSelectedDateIsEmpty(true);
     } else {
 
-     
-
+      setLoading(true)
       const createOrderData = {
         listing: listingId,
         serviceFee: orderSummary.serviceFee,
@@ -118,8 +142,6 @@ const MakeOffer = ({ route, navigation }) => {
         date: new Date(orderSummary.selectedDate).toISOString(),
         message: orderSummary.message
       }
-
-      console.log(createOrderData)
 
       //setNotification((prev) => [orderSummary, ...prev]);
       // const bottomBarNav = navigation.getParent("bottomTab");
@@ -205,14 +227,24 @@ const MakeOffer = ({ route, navigation }) => {
         />
 
         <View style={styles.buttonWrapper}>
-          <Button
+          {!loading && <Button
             textStyle={{ fontSize: 14 }}
             styleWrapper={styles.buttonWrapper}
             style={styles.button}
             onPress={submitOfferHandler}
           >
             Submit Offer
-          </Button>
+          </Button>}
+          {loading && <Button
+            textStyle={{ fontSize: 14 }}
+            styleWrapper={styles.buttonWrapper}
+            style={styles.button}
+          ><ActivityIndicator
+          size="small"
+          color={Colors.lightGreen}
+        /></Button>}
+          
+          
         </View>
       </View>
     </ScrollView>

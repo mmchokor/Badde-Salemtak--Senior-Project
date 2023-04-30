@@ -20,6 +20,7 @@ function TravelerScreen({ route }) {
 
 	useEffect(() => {
 		const loading = route.params?.load;
+		const isOffer = route.params?.isOffer;
 		{
 			loading &&
 				Toast.show({
@@ -28,11 +29,19 @@ function TravelerScreen({ route }) {
 					text2: 'Your listing has been added 👋',
 				});
 		}
+		{
+			isOffer &&
+				Toast.show({
+					type: 'success',
+					text1: 'Success!',
+					text2: 'Your Offer has been sent 👋',
+				});
+		}
 	}, [route]);
 
 	return (
 		<View style={styles.container}>
-			{/* {loading &&
+			{/* {
         Toast.show({
           type: "success",
           text1: "Hello",

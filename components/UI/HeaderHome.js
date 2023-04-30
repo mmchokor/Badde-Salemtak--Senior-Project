@@ -14,9 +14,8 @@ const HeaderHome = () => {
       style={{
         flexDirection: "row",
         flex: 1,
-        //justifyContent: "space-around",
-        //marginHorizontal: 10,
         alignItems: "center",
+        marginTop: 10
       }}
     >
       <Pressable
@@ -28,7 +27,7 @@ const HeaderHome = () => {
           borderWidth: 1,
           borderColor: "#C3C3C3",
           flex: 1,
-          paddingVertical: 5,
+          paddingVertical: 8,
           paddingLeft: 5
         }}
         onPress={() => {

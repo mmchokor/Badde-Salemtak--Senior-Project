@@ -11,6 +11,7 @@ import { isLoggedIn, authToken } from "../../store/LoginStore/LoginStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "react-query";
 import { getCurrentUser } from "../../api/userAPI";
+import LoadingIcon from "../Loading/LoadingIcon";
 
 function ProfileComponent() {
 	const [, setIsLoggedIn] = useAtom(isLoggedIn)
@@ -28,7 +29,7 @@ function ProfileComponent() {
 
 
 	if (isFetching) {
-		return <Text>Loading</Text>
+		return <LoadingIcon />
 	}
 
 	return (
