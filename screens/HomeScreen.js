@@ -257,7 +257,7 @@ function HomeScreen({ route }) {
 								size={35}
 								color={Colors.darkGreen}
 								style={{ marginRight: 10 }}
-								onPress={() => navigation.navigate('ProfileUser')}
+								onPress={() => navigation.goBack()}
 							/>
 						</View>
 					),
