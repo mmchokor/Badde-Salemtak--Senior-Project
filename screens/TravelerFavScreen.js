@@ -62,6 +62,7 @@ function TravelerFavScreen() {
     return <Text>{error.message}</Text>;
   }
 
+
   if (Favorites[0] === null) {
     return (
       <ScrollView
