@@ -7,21 +7,21 @@ function PreferredPayment({ text }) {
 		3: require('../../assets/PaymentsLogos/Artboard10.jpg'),
 	};
 	const payment = () => {
-		if (text === 'cod') {
+		if (text === 'Cash') {
 			return (
 				<Image
 					source={Object.values(types)[0]}
 					style={{ width: 80, height: 40 }}
 				/>
 			);
-		} else if (text === 'cre') {
+		} else if (text === 'BankTransfer') {
 			return (
 				<Image
 					source={Object.values(types)[2]}
 					style={{ width: 80, height: 40 }}
 				/>
 			);
-		} else if (text === 'wes') {
+		} else if (text === 'MoneyTransfer') {
 			return (
 				<Image
 					source={Object.values(types)[1]}

@@ -63,6 +63,7 @@ function DetailsBody({ details, location, username, payment, userId }) {
         <Text style={styles.textHead}>Preferred Payment Method</Text>
         <BorderStyle style={styles.paymentContainer}>
           <PreferredPayment text={payment} />
+          {console.log(payment)}
         </BorderStyle>
       </View>
     </View>

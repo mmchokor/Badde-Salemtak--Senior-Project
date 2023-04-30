@@ -39,6 +39,9 @@ function AddLocationScreen({ navigation }) {
 	const [weight, setWeight] = useState(''); // Preferred Weight
 	const [itemType, setType] = useState('');
 	const [ticket, setTicket] = useState(''); // Ticket Number
+	const [dimensionX, setDimensionX] = useState(''); // DimensionsX
+	const [dimensionY, setDimensionY] = useState(''); // DimensionsY
+	const [dimensionZ, setDimensionZ] = useState(''); // DimensionsZ
 	const [detail, setDetail] = useState(''); // More Details
 	const [selectedOption, setSelectedOption] = useState('');
 	const [countryFlag, setCountryFlag] = useState(false);
@@ -49,6 +52,7 @@ function AddLocationScreen({ navigation }) {
 	const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 	const [selectedDate, setSelectedDate] = useState('');
 	const [selectedDateIsEmpty, setSelectedDateIsEmpty] = useState(false);
+	const [detailFlag, setDetailFlag] = useState(false);
 	const { mutate, error } = useMutation(createTravelerListing, {
 		onSuccess: onSuccessHandler,
 		onError: onErrorHandler,
@@ -91,8 +95,18 @@ function AddLocationScreen({ navigation }) {
 		setTicket(text);
 		setTicketFlag(false);
 	};
+	const handleInputDimensionX = (text) => {
+		setDimensionX(text);
+	};
+	const handleInputDimensionY = (text) => {
+		setDimensionY(text);
+	};
+	const handleInputDimensionZ = (text) => {
+		setDimensionZ(text);
+	};
 	const handleInputDetail = (text) => {
 		setDetail(text);
+		setDetailFlag(false);
 	};
 
 	const handleType = (option) => {
@@ -197,26 +211,31 @@ function AddLocationScreen({ navigation }) {
 			setSelectedDateIsEmpty(true);
 			allConditionsMet = false;
 		}
+		if (detail === '') {
+			setDetailFlag(true);
+			allConditionsMet = false;
+		}
 		if (allConditionsMet) {
 			addLocation();
 		}
 	}
 	const addLocation = async () => {
 		setLoading(true);
-		const exWeight = parseInt(weight);
-		
-
+		let exWeight = parseInt(weight);
+		let dim = dimensionX + ',' + dimensionY + ',' + dimensionZ;
 		const data = {
 			extraWeight: exWeight,
-			date: new Date(selectedDate).toISOString(),
-			dimension: "57",
+			date: selectedDate,
+			dimension: dim,
 			ticketNumber: ticket,
-			residentCity: "Lebanon",
+			residentCity: 'Lebanon',
 			description: detail,
+			paymentMethod: PreferredPaymentMethod,
+			productType: type,
 			country: setSelectedCountry,
 		};
 		console.log(data);
-		//mutate(data);
+		mutate(data);
 	};
 
 	return (
@@ -224,10 +243,10 @@ function AddLocationScreen({ navigation }) {
 			style={{
 				alignItems: 'center',
 				backgroundColor: Colors.white,
-				marginTop: 30,
+				marginTop: 3,
 			}}
 		>
-			<View style={styles.upperButton}>
+			{/* <View style={styles.upperButton}>
 				<Pressable onPress={PressEventHandler}>
 					<View style={styles.item}>
 						<Text style={styles.texI}>Add Item</Text>
@@ -236,7 +255,7 @@ function AddLocationScreen({ navigation }) {
 				<View style={styles.location}>
 					<Text style={styles.textLocation}>Add Location</Text>
 				</View>
-			</View>
+			</View> */}
 
 			{/* <ScrollView>
 				<KeyboardAvoidingView
@@ -319,7 +338,7 @@ function AddLocationScreen({ navigation }) {
 					<KeyboardAvoidingView
 						behavior='padding'
 						enabled
-						style={{ height: 750 }}
+						style={{ height: 720 }}
 					>
 						<View>
 							<Text style={styles.textHead}>Preferred Weight</Text>
@@ -418,11 +437,57 @@ function AddLocationScreen({ navigation }) {
 							/>
 						</View>
 
+						<View style={{ flexDirection: 'column' }}>
+							<Text style={styles.textHead}>
+								Dimensions:
+								<Text style={{ color: Colors.gray, fontSize: 14 }}>
+									(optional)
+								</Text>
+							</Text>
+							<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+								<Text style={{ color: Colors.gray, fontSize: 18 }}>X:</Text>
+								<TextInput
+									style={styles.inputD}
+									keyboardType='number-pad'
+									maxLength={4}
+									value={dimensionX}
+									onChangeText={(text) => handleInputDimensionX(text)}
+									placeholder='cm'
+								/>
+								<Text style={{ color: Colors.gray, fontSize: 18 }}>Y:</Text>
+								<TextInput
+									style={styles.inputD}
+									keyboardType='number-pad'
+									maxLength={4}
+									value={dimensionY}
+									onChangeText={(text) => handleInputDimensionY(text)}
+									placeholder='cm'
+								/>
+								<Text style={{ color: Colors.gray, fontSize: 18 }}>Z:</Text>
+								<TextInput
+									style={styles.inputD}
+									keyboardType='number-pad'
+									maxLength={4}
+									value={dimensionZ}
+									onChangeText={(text) => handleInputDimensionZ(text)}
+									placeholder='cm'
+								/>
+							</View>
+						</View>
 						{/* More Details,Location */}
 
 						<Text style={styles.textHead}>More Details</Text>
 						<InputBorderStyle
-							style={{ padding: 5 }}
+							style={
+								detailFlag === false
+									? [{ padding: 5 }]
+									: [
+											[{ padding: 5 }],
+											{
+												borderColor: Colors.errorRedDark,
+											},
+									  ]
+							}
 							onChangeText={handleInputDetail}
 						/>
 
@@ -535,5 +600,16 @@ const styles = StyleSheet.create({
 	},
 	datePickerText: {
 		textAlign: 'center',
+	},
+	inputD: {
+		fontFamily: 'inter-regular',
+		color: Colors.black,
+		fontSize: 18,
+		borderBottomWidth: 0.5,
+		borderBottomColor: Colors.gray,
+		color: Colors.darkGreen,
+		paddingBottom: 0,
+		marginHorizontal: 15,
+		width: 80,
 	},
 });
