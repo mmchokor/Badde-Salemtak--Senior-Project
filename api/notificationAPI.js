@@ -20,7 +20,7 @@ const getNotifications = async () => {
       return response.data
       //return response.data.data.userNotifications
    } catch (error) {
-      console.log(error)
+      //console.log(error)
       throw new Error('Failed to get notifications')
    }
 }

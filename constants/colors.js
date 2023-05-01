@@ -10,7 +10,7 @@ export const Colors = {
     lightGray: '#C8C8C8',
     inputGray: '#E3DEDE',
     profileImgColor: '#cff1ec',
-    blackIcons: '#4d4d4d'
+    bottomBarIcons: '#868993'
 }
 
 // iphone 14 HEIGHT 844
