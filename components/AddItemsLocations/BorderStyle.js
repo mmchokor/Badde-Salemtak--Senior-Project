@@ -8,11 +8,13 @@ export default BorderStyle;
 
 const styles = StyleSheet.create({
 	button: {
-		borderColor: Colors.gray,
+		borderColor: '#e3e4e7',
+		//borderColor: 'white',
 		borderRadius: 5,
 		padding: 4,
-		elevation: 3,
+		elevation: 1,
 		backgroundColor: Colors.white,
-		
+		borderWidth: 1,
+
 	},
 });

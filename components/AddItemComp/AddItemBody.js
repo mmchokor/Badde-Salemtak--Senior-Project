@@ -23,6 +23,8 @@ import { useAtom } from "jotai";
 import { isLoading } from "../../store/AddItemLoading/AddItemLoading";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { ScrollView } from "react-native-gesture-handler";
+import Slider from "@react-native-community/slider";
 function AddItemBody() {
   const [loading, setLoading] = useAtom(isLoading);
   const navigation = useNavigation();
@@ -170,7 +172,7 @@ function AddItemBody() {
       break;
 
     default:
-      PreferredPaymentMethod= "Cash";
+      PreferredPaymentMethod = "Cash";
   }
 
   function handleAddItem() {
@@ -232,7 +234,7 @@ function AddItemBody() {
 
   const addTheItem = async () => {
     setLoading(true);
-   // const user = await AsyncStorage.getItem("userID");
+    // const user = await AsyncStorage.getItem("userID");
     const name = itemName.toString();
     const price = parseInt(itemPrice);
     //quantity
@@ -254,7 +256,7 @@ function AddItemBody() {
     formData.append("paymentMethod", paymentMethod);
 
     for (let i = 0; i < selectedImage.length; i++) {
-      formData.append("images", selectedImage[i])
+      formData.append("images", selectedImage[i]);
     }
 
     //console.log("Loading in add item", loading);
@@ -262,8 +264,8 @@ function AddItemBody() {
   };
 
   return (
-    <View style={{ paddingHorizontal: 20 }}>
-      <Text style={styles.textHead}>Item Name</Text>
+    <View style={{ paddingHorizontal: 20, flex: 1 }}>
+      <Text style={styles.textHead}>Product Name</Text>
       <TextInput
         style={
           itemNameFlag == false
@@ -274,11 +276,18 @@ function AddItemBody() {
         value={itemName}
         maxLength={70}
       />
+      <Text style={styles.textHead}>Product image</Text>
+      <View style={styles.imageS}>
+        <ImageUpload
+          onSelectImage={handleImageSelect}
+          style={imageFlag && [styles.inputDetailsError, { borderWidth: 1 }]}
+        />
+      </View>
       {/* Price View */}
       <Text style={[styles.textHead, { marginTop: 20 }]}>Price</Text>
 
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <BorderStyle>
+      {/* <View style={{ flexDirection: "row", alignItems: "center" }}> */}
+      {/* <BorderStyle>
           <Text
             style={{
               fontSize: 12,
@@ -288,77 +297,91 @@ function AddItemBody() {
           >
             USD
           </Text>
-        </BorderStyle>
+        </BorderStyle> */}
 
-        <TextInput
-          style={
-            priceFlag == false
-              ? [styles.inputT, { marginLeft: 10, width: 50 }]
-              : [
-                  styles.inputT,
-                  { marginLeft: 10, width: 50 },
-                  styles.inputTError,
-                ]
-          }
-          keyboardType="number-pad"
-          maxLength={5}
-          onChangeText={handleInputPrice}
-          value={itemPrice}
-        />
-      </View>
-      <View style={styles.imageS}>
+      <TextInput
+        style={
+          priceFlag == false
+            ? styles.inputT
+            : [styles.inputT, styles.inputTError]
+        }
+        keyboardType="number-pad"
+        maxLength={5}
+        onChangeText={handleInputPrice}
+        value={itemPrice}
+      />
+      {/* </View> */}
+      {/* <View style={styles.imageS}>
         <ImageUpload
           onSelectImage={handleImageSelect}
           style={imageFlag && [styles.inputDetailsError, { borderWidth: 1 }]}
         />
-      </View>
+      </View> */}
 
       {/* Quantity and Weight View */}
-      <View style={{ flexDirection: "row", marginTop: 20 }}>
-        <View style={{ marginRight: 70 }}>
-          <Text style={styles.textHead}>Quantity</Text>
-          <View>
+      {/* <View style={{ flexDirection: "row", marginTop: 20 }}> */}
+      <View >
+        <Text style={styles.textHead}>Quantity</Text>
+        {/* <View>
             <QuantityButton
               flag={quantityFlag}
               onUpdateQuantity={updateQuantity}
             />
-          </View>
-        </View>
-        <View>
-          <Text style={styles.textHead}>Weight</Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <BorderStyle>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <FontAwesome5 name="weight-hanging" size={14} />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    opacity: 0.7,
-                    fontFamily: "inter-light",
-                  }}
-                >
-                  Kg
-                </Text>
-              </View>
-            </BorderStyle>
-            <TextInput
-              style={
-                weightFlag == false
-                  ? [styles.inputT, { marginLeft: 10, width: 50 }]
-                  : [
-                      styles.inputT,
-                      { marginLeft: 10, width: 50 },
-                      styles.inputTError,
-                    ]
-              }
-              keyboardType="number-pad"
-              maxLength={5}
-              onChangeText={handleInputWeight}
-              value={itemWeight}
-            />
-          </View>
-        </View>
+          </View> */}
+        <TextInput
+        style={
+          quantityFlag == false
+            ? styles.inputT
+            : [styles.inputT, styles.inputTError]
+        }
+        keyboardType="number-pad"
+        maxLength={5}
+        onChangeText={updateQuantity}
+        value={quantity}
+      />
+        {/* <Slider
+          //style={{ height: 40 }}
+          minimumValue={1}
+          maximumValue={20}
+          minimumTrackTintColor={Colors.darkGreen}
+          maximumTrackTintColor="#000000"
+          onSlidingComplete={updateQuantity}
+          step={1}
+          thumbTintColor="black"
+          value={1}
+        /> */}
       </View>
+      <View>
+        <Text style={styles.textHead}>Weight</Text>
+        {/* <View style={{ flexDirection: "row", alignItems: "center" }}> */}
+          {/* <BorderStyle>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <FontAwesome5 name="weight-hanging" size={14} />
+              <Text
+                style={{
+                  fontSize: 14,
+                  opacity: 0.7,
+                  fontFamily: "inter-light",
+                }}
+              >
+                Kg
+              </Text>
+            </View>
+          </BorderStyle> */}
+          <TextInput
+            style={
+              weightFlag == false
+                ? styles.inputT
+                : [styles.inputT, styles.inputTError]
+            }
+            keyboardType="number-pad"
+            maxLength={5}
+            onChangeText={handleInputWeight}
+            value={itemWeight}
+          />
+        {/* </View> */}
+      </View>
+      {/* </View> */}
 
       {/* Type */}
       <View style={{ marginTop: 20 }}>
@@ -376,18 +399,18 @@ function AddItemBody() {
 
       {/* More Details,Location */}
       <View style={{ marginTop: 20 }}>
-        <Text style={styles.textHead}>More Details</Text>
+        <Text style={styles.textHead}>Product Description</Text>
         <InputBorderStyle
           onChangeText={handleDetails}
           style={descriptionFlag && styles.inputDetailsError}
         />
         {/* <Text style={styles.textHead}>Location</Text> */}
-        <Text style={styles.textL}>Address*</Text>
+        <Text style={styles.textHead}>City</Text>
         <InputBorderStyle
           onChangeText={handleAddress}
           style={addressFlag && styles.inputDetailsError}
         />
-        <Text style={styles.textL}>Street Name*</Text>
+        <Text style={styles.textHead}>Street Name</Text>
         <InputBorderStyle
           onChangeText={handleStreetName}
           style={streetFlag && styles.inputDetailsError}
@@ -400,14 +423,14 @@ function AddItemBody() {
           }}
         >
           <View>
-            <Text style={[styles.textL, { width: 250 }]}>Building*</Text>
+            <Text style={[styles.textHead, { width: 250 }]}>Building</Text>
             <InputBorderStyle
               onChangeText={handleBuilding}
               style={buildingFlag && styles.inputDetailsError}
             />
           </View>
           <View style={{}}>
-            <Text style={[styles.textL, { width: 60 }]}>Floor</Text>
+            <Text style={[styles.textHead, { width: 60 }]}>Floor</Text>
             <InputBorderStyle
               keyboardType="number-pad"
               maxLength={4}
@@ -424,20 +447,6 @@ function AddItemBody() {
         style={preferredPaymentFlag && styles.inputDetailsError}
       />
 
-      {/* <Button style={styles.button} onPress={handleAddItem}>
-        {!loading && "Add Item"}
-        {loading && (
-          <ActivityIndicator
-            size="small"
-            color={Colors.lightGreen}
-            style={{
-              //backgroundColor: "red",
-			  //marginLeft: 220
-			  //alignSelf: 'flex-end'
-            }}
-          />
-        )}
-      </Button> */}
       {!loading && (
         <Button style={styles.button} onPress={handleAddItem}>
           Add Item
@@ -445,10 +454,7 @@ function AddItemBody() {
       )}
       {loading && (
         <Button style={styles.button}>
-          <ActivityIndicator
-            size="small"
-            color={Colors.lightGreen}
-          />
+          <ActivityIndicator size="small" color={Colors.lightGreen} />
         </Button>
       )}
     </View>
@@ -468,14 +474,21 @@ const styles = StyleSheet.create({
     fontFamily: "inter-regular",
     color: Colors.black,
     fontSize: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.gray,
-    // borderWidth: 1,
-    // borderColor: Colors.gray
+    // borderBottomWidth: 1,
+    // borderBottomColor: Colors.gray,
+    borderWidth: 1,
+    //borderColor: "#E6E6E6",
+    //paddingVertical: 6,
+    borderRadius: 5,
+    //paddingHorizontal: 4,
+    padding: 4,
+    marginVertical: 5,
+    borderColor: Colors.lightGray,
+    
   },
   inputTError: {
-    borderBottomWidth: 1.5,
-    borderBottomColor: Colors.errorRedDark,
+    borderWidth: 1.5,
+    borderColor: Colors.errorRedDark,
   },
   inputDetailsError: {
     borderColor: Colors.errorRedDark,
@@ -502,10 +515,10 @@ const styles = StyleSheet.create({
   previewText: {
     color: "#592454",
   },
-  imageS: {
-    position: "absolute",
-    right: 100,
-    top: 70,
-    right: 20,
-  },
+  // imageS: {
+  //   position: "absolute",
+  //   right: 100,
+  //   top: 70,
+  //   right: 20,
+  // },
 });

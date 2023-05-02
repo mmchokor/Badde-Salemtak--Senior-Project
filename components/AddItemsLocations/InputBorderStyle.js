@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 		padding: 4,
 		backgroundColor: Colors.white,
 		marginVertical: 5,
-		paddingHorizontal: 10,
+		//paddingHorizontal: 10,
 		fontFamily: 'inter-regular',
 	},
 });

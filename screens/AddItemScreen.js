@@ -29,13 +29,13 @@ function AddItemScreen({ navigation }) {
 			</View> */}
 
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<KeyboardAvoidingView
+				{/* <KeyboardAvoidingView
 					behavior='padding'
 					enabled
-					style={{ height: 850 }}
-				>
+					//style={{ height: 850 }}
+				> */}
 					<AddItemBody />
-				</KeyboardAvoidingView>
+				{/* </KeyboardAvoidingView> */}
 			</ScrollView>
 		</View>
 	);
