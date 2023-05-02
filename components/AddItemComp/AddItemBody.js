@@ -24,7 +24,6 @@ import { isLoading } from "../../store/AddItemLoading/AddItemLoading";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { ScrollView } from "react-native-gesture-handler";
-import Slider from "@react-native-community/slider";
 function AddItemBody() {
   const [loading, setLoading] = useAtom(isLoading);
   const navigation = useNavigation();
