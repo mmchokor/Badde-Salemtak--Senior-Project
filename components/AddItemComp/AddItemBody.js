@@ -274,6 +274,7 @@ function AddItemBody() {
         onChangeText={handleInputName}
         value={itemName}
         maxLength={70}
+        placeholder="Enter product name"
       />
       <Text style={styles.textHead}>Product image</Text>
       <View style={styles.imageS}>
@@ -295,6 +296,7 @@ function AddItemBody() {
         maxLength={5}
         onChangeText={handleInputPrice}
         value={itemPrice}
+        placeholder="Enter product price"
       />
       <View>
         <Text style={styles.textHead}>Quantity</Text>
@@ -308,6 +310,7 @@ function AddItemBody() {
           maxLength={5}
           onChangeText={updateQuantity}
           value={quantity}
+          placeholder="Enter product quantity"
         />
       </View>
       <View>
@@ -322,6 +325,8 @@ function AddItemBody() {
           maxLength={5}
           onChangeText={handleInputWeight}
           value={itemWeight}
+          placeholder="Enter product weight"
+        
         />
         {/* </View> */}
       </View>
@@ -347,17 +352,20 @@ function AddItemBody() {
         <InputBorderStyle
           onChangeText={handleDetails}
           style={descriptionFlag && styles.inputDetailsError}
+          placeholder="Enter product details like size and color"
         />
         {/* <Text style={styles.textHead}>Location</Text> */}
         <Text style={styles.textHead}>City</Text>
         <InputBorderStyle
           onChangeText={handleAddress}
           style={addressFlag && styles.inputDetailsError}
+          placeholder="Beirut"
         />
         <Text style={styles.textHead}>Street Name</Text>
         <InputBorderStyle
           onChangeText={handleStreetName}
           style={streetFlag && styles.inputDetailsError}
+          placeholder="Hamra"
         />
         <View
           style={{
@@ -371,6 +379,7 @@ function AddItemBody() {
             <InputBorderStyle
               onChangeText={handleBuilding}
               style={buildingFlag && styles.inputDetailsError}
+              placeholder="Nakouzi"
             />
           </View>
           <View style={{}}>
@@ -380,6 +389,7 @@ function AddItemBody() {
               maxLength={4}
               onChangeText={handleFloor}
               style={floorFlag && styles.inputDetailsError}
+              placeholder="4"
             />
           </View>
         </View>
