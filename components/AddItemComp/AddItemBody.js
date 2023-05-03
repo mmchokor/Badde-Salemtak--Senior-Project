@@ -285,19 +285,6 @@ function AddItemBody() {
       {/* Price View */}
       <Text style={[styles.textHead, { marginTop: 20 }]}>Price</Text>
 
-      {/* <View style={{ flexDirection: "row", alignItems: "center" }}> */}
-      {/* <BorderStyle>
-          <Text
-            style={{
-              fontSize: 12,
-              opacity: 0.7,
-              fontFamily: "inter-light",
-            }}
-          >
-            USD
-          </Text>
-        </BorderStyle> */}
-
       <TextInput
         style={
           priceFlag == false
@@ -309,75 +296,33 @@ function AddItemBody() {
         onChangeText={handleInputPrice}
         value={itemPrice}
       />
-      {/* </View> */}
-      {/* <View style={styles.imageS}>
-        <ImageUpload
-          onSelectImage={handleImageSelect}
-          style={imageFlag && [styles.inputDetailsError, { borderWidth: 1 }]}
-        />
-      </View> */}
-
-      {/* Quantity and Weight View */}
-      {/* <View style={{ flexDirection: "row", marginTop: 20 }}> */}
-      <View >
+      <View>
         <Text style={styles.textHead}>Quantity</Text>
-        {/* <View>
-            <QuantityButton
-              flag={quantityFlag}
-              onUpdateQuantity={updateQuantity}
-            />
-          </View> */}
         <TextInput
-        style={
-          quantityFlag == false
-            ? styles.inputT
-            : [styles.inputT, styles.inputTError]
-        }
-        keyboardType="number-pad"
-        maxLength={5}
-        onChangeText={updateQuantity}
-        value={quantity}
-      />
-        {/* <Slider
-          //style={{ height: 40 }}
-          minimumValue={1}
-          maximumValue={20}
-          minimumTrackTintColor={Colors.darkGreen}
-          maximumTrackTintColor="#000000"
-          onSlidingComplete={updateQuantity}
-          step={1}
-          thumbTintColor="black"
-          value={1}
-        /> */}
+          style={
+            quantityFlag == false
+              ? styles.inputT
+              : [styles.inputT, styles.inputTError]
+          }
+          keyboardType="number-pad"
+          maxLength={5}
+          onChangeText={updateQuantity}
+          value={quantity}
+        />
       </View>
       <View>
         <Text style={styles.textHead}>Weight</Text>
-        {/* <View style={{ flexDirection: "row", alignItems: "center" }}> */}
-          {/* <BorderStyle>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <FontAwesome5 name="weight-hanging" size={14} />
-              <Text
-                style={{
-                  fontSize: 14,
-                  opacity: 0.7,
-                  fontFamily: "inter-light",
-                }}
-              >
-                Kg
-              </Text>
-            </View>
-          </BorderStyle> */}
-          <TextInput
-            style={
-              weightFlag == false
-                ? styles.inputT
-                : [styles.inputT, styles.inputTError]
-            }
-            keyboardType="number-pad"
-            maxLength={5}
-            onChangeText={handleInputWeight}
-            value={itemWeight}
-          />
+        <TextInput
+          style={
+            weightFlag == false
+              ? styles.inputT
+              : [styles.inputT, styles.inputTError]
+          }
+          keyboardType="number-pad"
+          maxLength={5}
+          onChangeText={handleInputWeight}
+          value={itemWeight}
+        />
         {/* </View> */}
       </View>
       {/* </View> */}
@@ -483,7 +428,6 @@ const styles = StyleSheet.create({
     padding: 4,
     marginVertical: 5,
     borderColor: Colors.lightGray,
-    
   },
   inputTError: {
     borderWidth: 1.5,

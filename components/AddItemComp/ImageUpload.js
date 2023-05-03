@@ -1,4 +1,11 @@
-import { Pressable, StyleSheet, Text, View, Image } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { Colors } from "../../constants/colors";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
@@ -25,7 +32,7 @@ const options = {
 };
 
 function ImageUpload({ onSelectImage, style }) {
-  const [image, setImage] = useState("");
+  const [images, setImage] = useState("");
   const [imageForm, setImageForm] = useState([]);
   const [formArray, setFormArray] = useState([]);
   const [imageSelected, setImageSelected] = useState(false);
@@ -46,11 +53,13 @@ function ImageUpload({ onSelectImage, style }) {
       allowsMultipleSelection: true,
       aspect: [4, 4],
       quality: 1,
+      maxHeight: 200,
+      maxWidth: 200,
     });
 
     if (!image.canceled) {
       setImageSelected(true);
-      setImage(image);
+      setImage((prev) => [...prev, ...image.assets]);
       const newFormArray = image.assets.map((asset) => {
         const form = {
           uri: asset.uri,
@@ -75,17 +84,47 @@ function ImageUpload({ onSelectImage, style }) {
       onSelectImage([...formArray, ...newFormArray]);
     }
   }
-  if (image) {
-    //console.log(image)
-    // imagePreview = (
-    //   // <Image source={{ uri: image.assets[0].uri }} style={styles.imageStyle} />
-      
-    // );
-   // {image.assets.map((image) => <Image source={{ uri: image.uri }} style={styles.imageStyle} />)}
-   return (
-    <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-      {image.assets.map((image) => <Image key={Math.random()} source={{ uri: image.uri }} style={styles.imageStyle} />)}
-      <Pressable
+  // const deleteImage = (index) => {
+  //   const newImages = [...image];
+  //   newImages.splice(index, 1);
+  //   setImage(newImages);
+  // };
+  const deleteImage = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImage(newImages);
+
+    // Update formArray
+    const newFormArray = newImages.map((asset) => {
+      const form = {
+        uri: asset.uri,
+        type:
+          asset.type +
+          "/" +
+          asset.uri.substring(asset.uri.lastIndexOf(".") + 1),
+        name: asset.uri.substring(asset.uri.lastIndexOf("/") + 1),
+      };
+
+      return form;
+    });
+    setFormArray(newFormArray);
+
+    // Call onSelectImage with updated formArray
+    onSelectImage(newFormArray);
+  };
+  if (images) {
+    return (
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        {images.map((image, index) => (
+          <TouchableOpacity onPress={() => deleteImage(index)} key={index}>
+            <Image
+              key={Math.random()}
+              source={{ uri: image.uri }}
+              style={styles.imageStyle}
+            />
+          </TouchableOpacity>
+        ))}
+        <Pressable
           onPress={openGallery}
           style={({ pressed }) => (pressed ? [styles.pressed] : [])}
         >
@@ -94,12 +133,11 @@ function ImageUpload({ onSelectImage, style }) {
             <Text style={styles.uploadImgText}>Upload Image</Text>
           </View>
         </Pressable>
-    </View>
-   )
+      </View>
+    );
   }
 
   return (
-    
     <View>
       <View>
         <Pressable
@@ -135,15 +173,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 200, //may be 90
-    //width: 150,
-    //backgroundColor: "#c7c7c7",
     marginVertical: 8,
     borderRadius: 10,
-    //backgroundColor: Colors.white,
-    //backgroundColor: "#ecfef8",
     borderWidth: 1,
-    //borderColor: Colors.darkGreen
-    //borderColor: "#E6E6E6",
     borderColor: Colors.lightGray,
   },
   imagepreviewcontainerBlock: {
@@ -154,7 +186,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.lightGray,
     height: 100,
     flex: 1,
-    width: 100
+    width: 100,
   },
   previewText: {
     color: Colors.white,
@@ -165,7 +197,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderRadius: 10,
     marginRight: 3,
-    marginBottom: 5
+    marginBottom: 5,
   },
   deleteI: {
     opacity: 1,
