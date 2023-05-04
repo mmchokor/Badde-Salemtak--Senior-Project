@@ -11,13 +11,13 @@ const AddItemAndLocationScreen = ({ navigation }) => {
 		<SafeAreaView style={{ flex: 1, paddingTop: 30,backgroundColor:Colors.white }}>
 			<Tab.Navigator
 				screenOptions={{
-					tabBarLabelStyle: { fontSize: 15 },
+					tabBarLabelStyle: { fontSize: 18, textTransform: 'none', fontFamily: 'inter-regular' },
 					tabBarIndicatorStyle: {
 						backgroundColor: Colors.darkGreen,
 						width: 80,
 						left: (Dimensions.get('window').width / 2 - 80) / 2,
 					},
-					tabBarActiveTintColor: Colors.darkGreen, // add this line to set active tab color
+					//tabBarActiveTintColor: Colors.darkGreen, // add this line to set active tab color
 				}}
 			>
 				<Tab.Screen

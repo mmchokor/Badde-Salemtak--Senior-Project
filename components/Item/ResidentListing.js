@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { DUMMY_DATA, DUMMY_DATA_RESIDENT } from '../../constants/DUMMY_DATA';
 import moment from 'moment';
+import { formatDate, timeSincePost } from '../../constants/FormatDate';
 // iphone 14 HEIGHT 844
 // android simulator HEIGHT 683
 // my phone Height 755
@@ -33,24 +34,8 @@ const ResidentListing = ({
 
 	onPress,
 }) => {
-	const [startDate, setStartDate] = useState(moment(timePosted));
-	const [endDate, setEndDate] = useState(moment());
 
-	const diffInMilliseconds = endDate.diff(startDate); // difference in milliseconds
-	const diffInMinutes = Math.floor(diffInMilliseconds / 60000); // difference in minutes
-	const diffInHours = Math.floor(diffInMilliseconds / 3600000); // difference in hours
-	const diffInDays = Math.floor(diffInMilliseconds / 86400000); // difference in days
-
-	let diffText = '';
-	if (diffInDays > 0) {
-		diffText = `${diffInDays} day${diffInDays === 1 ? '' : 's'} ago`;
-	} else if (diffInHours > 0) {
-		diffText = `${diffInHours} hour${diffInHours === 1 ? '' : 's'} ago`;
-	} else if (diffInMinutes > 0) {
-		diffText = `${diffInMinutes} minute${diffInMinutes === 1 ? '' : 's'} ago`;
-	} else {
-		diffText = 'just now';
-	}
+	const diffText = timeSincePost(timePosted)
 	return (
 		<Pressable
 			style={({ pressed }) =>

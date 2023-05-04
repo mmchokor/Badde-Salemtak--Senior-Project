@@ -24,6 +24,7 @@ const ResidentListingList = () => {
 		return <LoadingIcon />;
 	}
 
+
 	return (
 		<View style={styles.wrapper}>
 			{/* {console.log(travelerListings[0].user.firstname)}  */}
@@ -59,7 +60,7 @@ const ResidentListingList = () => {
 						maxWeight={item.extraWeight}
 						username={item.user.firstname + ' ' + item.user.lastname}
 						//imageSrc={item.imageSrc}//should we remove it?
-						timePosted={item.date}
+						timePosted={item.createdAt}
 						userLocation={item.residentCity}
 						prefPayment={item.paymentMethod}
 						moreD={item.description}

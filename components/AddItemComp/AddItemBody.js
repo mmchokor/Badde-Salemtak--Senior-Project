@@ -276,7 +276,7 @@ function AddItemBody() {
         maxLength={70}
         placeholder="Enter product name"
       />
-      <Text style={styles.textHead}>Product image</Text>
+      <Text style={styles.textHead}>Product Image</Text>
       <View style={styles.imageS}>
         <ImageUpload
           onSelectImage={handleImageSelect}
@@ -428,19 +428,14 @@ const styles = StyleSheet.create({
     fontFamily: "inter-regular",
     color: Colors.black,
     fontSize: 16,
-    // borderBottomWidth: 1,
-    // borderBottomColor: Colors.gray,
     borderWidth: 1,
-    //borderColor: "#E6E6E6",
-    //paddingVertical: 6,
     borderRadius: 5,
-    //paddingHorizontal: 4,
     padding: 4,
     marginVertical: 5,
     borderColor: Colors.lightGray,
   },
   inputTError: {
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: Colors.errorRedDark,
   },
   inputDetailsError: {
