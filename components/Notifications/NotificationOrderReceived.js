@@ -12,6 +12,7 @@ import { getResidentListingById } from "../../api/residentListingsAPI";
 import { getOrderById } from "../../api/orderAPI";
 import { deleteNotification } from "../../api/notificationAPI";
 import { useMutation } from "react-query";
+import LoadingIcon from "../Loading/LoadingIcon";
 
 const NotificationOrderReceived = ({
   id,
@@ -21,20 +22,46 @@ const NotificationOrderReceived = ({
   username,
   listingId,
   orderId,
-  setNotification
+  setNotification,
+  senderName,
+  lastName,
 }) => {
-  const { data: token } = useQuery("token", getToken);
-  //const [notification, setNotification] = useAtom(notifications)
-
-  const { data: listing } = useQuery(
-    "listing",
-    () => getResidentListingById(token, listingId),
-    { enabled: !!token }
-  );
-
+  const listingIndex = message.indexOf("listing");
+  const listingName =
+    listingIndex !== -1 ? message.slice(listingIndex + "listing".length) : "";
 
   const navigation = useNavigation();
   const diffText = timeSincePost(date);
+
+  const { data: token } = useQuery("token", getToken);
+  //const [notification, setNotification] = useAtom(notifications)
+
+  const { data: listing, isFetching } = useQuery(
+    "listing",
+    () => getResidentListingById(listingId),
+    { enabled: !!token }
+  );
+
+  const handleDelete = useMutation((itemId) => deleteNotification(itemId), {
+    onSuccess: () => {
+      // Invalidate the query for the deleted item to remove it from the cache
+      //queryClient.invalidateQueries('items');
+      setNotification((prev) => {
+        return prev.filter((noti) => noti._id !== id);
+      });
+    },
+  });
+
+  const declineHandler = () => {
+    // Call the mutation function to delete the item
+    handleDelete.mutate(id);
+  };
+
+  // if (isFetching) {
+  //   return <LoadingIcon />;
+  // }
+
+  // console.log(listingId)
 
   const viewOfferHandler = () => {
     navigation.navigate("Home", {
@@ -53,42 +80,32 @@ const NotificationOrderReceived = ({
     });
   };
 
-
-  const handleDelete = useMutation(itemId => deleteNotification(itemId), {
-    onSuccess: () => {
-      // Invalidate the query for the deleted item to remove it from the cache
-      //queryClient.invalidateQueries('items');
-      setNotification((prev) => {
-        return prev.filter((noti) => noti._id !== id);
-      });
-    },
-  });
-
-  const declineHandler = () => {
-    // Call the mutation function to delete the item
-    handleDelete.mutate(id);
-  };
-
   return (
     <View>
       <View style={styles.cardWrapper}>
-        <View style={styles.profileImg}></View>
         <View style={styles.contentWrapper}>
-          <Text style={styles.text}>
-            {message}
-            <Text style={styles.username}> Rami ElSkakini!</Text>
+          <Text style={styles.header}>
+            You received an offer on your listing!
           </Text>
-          <Text style={styles.timeReceived}>{diffText}</Text>
-          <View style={styles.buttonWrapper}>
-            <Pressable
-              style={[styles.button, styles.buttonAccept]}
-              onPress={viewOfferHandler}
-            >
-              <Text style={[styles.text, styles.textAccept]}>View Offer</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={declineHandler}>
-              <Text style={styles.text}>Decline</Text>
-            </Pressable>
+          <Text style={styles.textMessage}>
+            The sender
+            <Text style={styles.username}> {senderName + " " + lastName} </Text>
+            has sent you an order for the listing
+            <Text style={styles.username}>{listingName}</Text>
+          </Text>
+          <View style={styles.buttonDateWrapper}>
+            <View style={styles.buttonWrapper}>
+              <Pressable
+                style={[styles.button, styles.buttonAccept]}
+                onPress={viewOfferHandler}
+              >
+                <Text style={[styles.text, styles.textAccept]}>View Offer</Text>
+              </Pressable>
+              <Pressable style={styles.button} onPress={declineHandler}>
+                <Text style={styles.text}>Decline</Text>
+              </Pressable>
+            </View>
+            <Text style={styles.timeReceived}>{diffText}</Text>
           </View>
         </View>
       </View>
@@ -102,30 +119,30 @@ const styles = StyleSheet.create({
   cardWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginTop: 20,
+    padding: 10,
+    backgroundColor: "white",
+    borderRadius: 5,
   },
-  contentWrapper: {
-    marginLeft: 10,
+  header: {
+    fontFamily: "inter-medium",
+    fontSize: 17,
   },
-  profileImg: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.lightGreen,
-    marginRight: 2,
-  },
+
   timeReceived: {
     fontSize: 12,
     color: Colors.lightGray,
+    alignSelf: "flex-end",
   },
   username: {
-    fontFamily: "inter-bold",
+    fontFamily: "inter-medium",
     color: Colors.darkGreen,
+    opacity: 0,
   },
   buttonWrapper: {
     flexDirection: "row",
-    marginTop: 10,
+    marginTop: 5,
   },
   button: {
     padding: 8,
@@ -142,5 +159,17 @@ const styles = StyleSheet.create({
   },
   textAccept: {
     color: Colors.white,
+  },
+  textMessage: {
+    //width: '40%',
+    fontFamily: "inter-regular",
+    fontSize: 13,
+    marginVertical: 5,
+    color: Colors.gray,
+  },
+  buttonDateWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

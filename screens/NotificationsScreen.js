@@ -48,6 +48,9 @@ function NotificationsScreen({ navigation, route }) {
       //console.log(data.data.userNotifications)
       setNotification(data.data.userNotifications);
     },
+    onError: (error) => {
+      console.log(error)
+    }
   });
 
   if (isFetching) {
@@ -57,8 +60,6 @@ function NotificationsScreen({ navigation, route }) {
   if (isError) {
     return <Text>{error.message}</Text>;
   }
-  
-  
 
   return (
     <View style={{ flex: 1 }}>
@@ -78,6 +79,7 @@ function NotificationsScreen({ navigation, route }) {
             listingId={item.order.listing}
             id={item._id}
             setNotification={setNotification}
+            lastName={item.sender.lastname}
           />
         )}
       />

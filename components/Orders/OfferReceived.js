@@ -19,6 +19,7 @@ import { getResidentListingById } from "../../api/residentListingsAPI";
 import { getOrderById} from "../../api/orderAPI"
 import { formatDate } from '../../constants/FormatDate';
 import { useEffect } from 'react';
+import LoadingIcon from '../Loading/LoadingIcon';
 
 const height = Dimensions.get('window').height;
 
@@ -42,8 +43,8 @@ const OfferReceived = ({ route, navigation }) => {
 	const { data: token } = useQuery("token", getToken);
 	const { data: listing, isLoading: isListingLoading, isError, refetch: refetchResident, isFetching: isFetchingResident } = useQuery(
 		"listing", () =>
-		getResidentListingById(token, listingId),
-		{ enabled: !!token, staleTime: 1 }
+		getResidentListingById(listingId),
+		{staleTime: 1 }
 	  );
 
 	  const {data: order, isLoading: isOrderLoading, refetch: refetchOrder, isFetching: isFetchingOrder} = useQuery("order", () => getOrderById(orderId), {staleTime: 1})
@@ -57,9 +58,7 @@ const OfferReceived = ({ route, navigation }) => {
 
 	  if (isFetchingResident || isFetchingOrder) {
 		return (
-		  <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-			<Text>Loading</Text>
-		  </View>
+		  <LoadingIcon />
 		);
 	  }
 	

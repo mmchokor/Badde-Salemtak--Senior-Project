@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import ListingList from '../components/Item/ListingList';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import { getCurrentUser } from '../api/userAPI';
+import { getCurrentUser, getUserInfoById } from '../api/userAPI';
 import { useQuery } from 'react-query';
 
 import {
@@ -24,6 +24,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import ProfileListingList from '../components/Profile/ProfileListingList';
 import LoadingIcon from '../components/Loading/LoadingIcon';
+import { formatDate } from '../constants/FormatDate';
 
 const PublicProfileScreen = ({ navigation, route }) => {
 	//const [backFlag, setBackFlag] = useState(false)
@@ -85,10 +86,13 @@ const PublicProfileScreen = ({ navigation, route }) => {
 	}, []);
 
 	const { data: userInfo, isFetching } = useQuery('userInfo', getCurrentUser);
+	const { data: publicuserInfo, isFetching: fetchinguserInfo } = useQuery('userInfoid', () => getUserInfoById(userInfo.id), {enabled: !!userInfo});
 
-	if (isFetching) {
+	if (isFetching || fetchinguserInfo) {
 		return <LoadingIcon />;
 	}
+
+	
 
 	const profileImgText =
 		userInfo.firstname.charAt(0).toUpperCase() +
@@ -152,7 +156,7 @@ const PublicProfileScreen = ({ navigation, route }) => {
 						{userInfo.country}
 					</Text>
 					<Text style={[styles.text, styles.date]}>
-						<Feather name='calendar' size={14} color='black' /> March 2023
+						<Feather name='calendar' size={14} color='black' /> {formatDate(publicuserInfo.createdAt)}
 					</Text>
 				</View>
 
