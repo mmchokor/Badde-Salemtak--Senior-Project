@@ -53,7 +53,7 @@ function NotificationsScreen({ navigation, route }) {
     }
   });
 
-  if (isFetching) {
+  if (isFetching || isLoading) {
     return <LoadingIcon />;
   }
 

@@ -26,6 +26,7 @@ const NotificationOrderReceived = ({
   senderName,
   lastName,
 }) => {
+  //console.log(message)
   const listingIndex = message.indexOf("listing");
   const listingName =
     listingIndex !== -1 ? message.slice(listingIndex + "listing".length) : "";
@@ -80,12 +81,14 @@ const NotificationOrderReceived = ({
     });
   };
 
+
   return (
     <View>
       <View style={styles.cardWrapper}>
         <View style={styles.contentWrapper}>
           <Text style={styles.header}>
-            You received an offer on your listing!
+            {/* You received an offer on your listing! */}
+            {message}
           </Text>
           <Text style={styles.textMessage}>
             The sender
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 10,
-    marginTop: 20,
+    marginTop: 10,
     padding: 10,
     backgroundColor: "white",
     borderRadius: 5,

@@ -21,8 +21,10 @@ import { isTravScreenAtom } from "../store/TravResScreen/TravOrRes";
 import { useAtom } from "jotai";
 import PublicProfileScreenUser from "./PublicProfileScreenUser";
 import HeaderHome from "../components/UI/HeaderHome";
-import MyOrderScreen from './MyOrderScreen';
-import AddItemAndLocationScreen from './AddItemAndLocationScreen';
+import MyOrderScreen from "./MyOrderScreen";
+import AddItemAndLocationScreen from "./AddItemAndLocationScreen";
+import MyDeliveriesScreen from "./MyDeliveriesScreen";
+import RenderOrderDetails from "../components/Orders/RenderOrderDetails";
 const Stack = createNativeStackNavigator();
 function HomeScreen({ route }) {
   // useEffect(() => {
@@ -44,7 +46,7 @@ function HomeScreen({ route }) {
         component={TravelerAndResidentScreen}
         options={{
           //header: HeaderHome,
-		  headerTitle: () =>  <HeaderHome />,
+          headerTitle: () => <HeaderHome />,
           headerShown: true,
           headerShadowVisible: false,
           //   headerRight: () => (
@@ -96,183 +98,248 @@ function HomeScreen({ route }) {
         }}
       />
 
-			<Stack.Screen
-				name='ItemDetails'
-				component={ItemDetailsScreen}
-				options={{ headerShown: true }}
-			/>
-			<Stack.Screen
-				name='LocationDetails'
-				component={LocationDetailsScreen}
-				options={{ headerShown: true }}
-			/>
-			<Stack.Screen
-				name='chat'
-				component={ChatScreen}
-				options={({ route }) => ({
-					headerShown: true,
-					tapBarVisibility: false,
-				})}
-			/>
-			<Stack.Screen
-				name='Profile'
-				component={ProfileScreen}
-				options={{
-					title: '',
-					headerTitle: 'Profile',
-					headerShown: true,
-					headerShadowVisible: false,
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white },
-				}}
-			/>
-			<Stack.Screen
-				name='ProfileUser'
-				component={PublicProfileScreenUser}
-				options={{
-					title: '',
-					headerTitle: 'Profile',
-					headerShown: true,
-					headerShadowVisible: false,
-					headerTitleStyle: { fontSize: 24, color: Colors.white },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.darkGreen },
-					tabBarIcon: ({ color, size }) => (
-						<Ionicons name='person' size={size} color={color} />
-					),
-				}}
-			/>
-			<Stack.Screen
-				name='offerRecieved'
-				component={OfferReceived}
-				options={({ route }) => ({
-					headerShown: true,
-					headerTransparent: false,
-					title: 'Offer Received',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.grayBackground },
-				})}
-			/>
-			<Stack.Screen
-				name='makeOffer'
-				component={MakeOffer}
-				options={({ route }) => ({
-					headerShown: true,
-					headerShadowVisible: false,
-					title: 'Your Offer',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.grayBackground },
-				})}
-			/>
-			<Stack.Screen
-				name='ProceedToPayment'
-				component={ProceedToPayment}
-				options={({ route }) => ({
-					headerShown: true,
-					headerShadowVisible: false,
-					title: 'Payment',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white },
-				})}
-			/>
-			<Stack.Screen
-				name='OrderConfirmation'
-				component={OrderConfirmation}
-				options={({ route }) => ({
-					headerShown: true,
-					headerShadowVisible: false,
-					title: 'Order Confirmation',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white },
-				})}
-			/>
-			<Stack.Screen
-				name='SearchScreen'
-				component={SearchScreen}
-				options={({ route }) => ({
-					headerShown: true,
-					headerShadowVisible: false,
-					title: 'Search',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white },
-				})}
-			/>
-			<Stack.Screen
-				name='SearchScreenResident'
-				component={SearchScreenResident}
-				options={({ route }) => ({
-					headerShown: true,
-					headerShadowVisible: false,
-					title: 'Search',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white },
-				})}
-			/>
-			<Stack.Screen
-				name='MyOrderScreen'
-				component={MyOrderScreen}
-				options={({ route }) => ({
-					headerShown: true,
-					headerShadowVisible: false,
-					title: 'My Orders',
-					headerTitleStyle: { fontSize: 24, color: Colors.black },
-					headerBackTitle: '',
-					headerTintColor: Colors.darkGreen,
-					headerTitleAlign: 'center',
-					headerStyle: { backgroundColor: Colors.white },
+      <Stack.Screen
+        name="ItemDetails"
+        component={ItemDetailsScreen}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="LocationDetails"
+        component={LocationDetailsScreen}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="chat"
+        component={ChatScreen}
+        options={({ route }) => ({
+          headerShown: true,
+          tapBarVisibility: false,
+        })}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: "",
+          headerTitle: "Profile",
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
+        }}
+      />
+      <Stack.Screen
+        name="ProfileUser"
+        component={PublicProfileScreenUser}
+        options={{
+          title: "",
+          headerTitle: "Profile",
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitleStyle: { fontSize: 24, color: Colors.white },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.darkGreen },
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size} color={color} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="offerRecieved"
+        component={OfferReceived}
+        options={({ route }) => ({
+          headerShown: true,
+          headerTransparent: false,
+          title: "Offer Received",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.grayBackground },
+        })}
+      />
+      <Stack.Screen
+        name="makeOffer"
+        component={MakeOffer}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "Your Offer",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.grayBackground },
+        })}
+      />
+      <Stack.Screen
+        name="ProceedToPayment"
+        component={ProceedToPayment}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "Payment",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
+        })}
+      />
+      <Stack.Screen
+        name="OrderConfirmation"
+        component={OrderConfirmation}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "Order Confirmation",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
+        })}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "Search",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
+        })}
+      />
+      <Stack.Screen
+        name="SearchScreenResident"
+        component={SearchScreenResident}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "Search",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
+        })}
+      />
+      <Stack.Screen
+        name="MyOrderScreen"
+        component={MyOrderScreen}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "My Orders",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
 
-					headerLeft: () => (
-						<View
-							style={{
-								flexDirection: 'row',
-								justifyContent: 'center',
-								alignItems: 'center',
-							}}
-						>
-							<Ionicons
-								name='arrow-back'
-								size={35}
-								color={Colors.darkGreen}
-								style={{ marginRight: 10 }}
-								onPress={() => navigation.goBack()}
-							/>
-						</View>
-					),
-				})}
-			/>
+          headerLeft: () => (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons
+                name="arrow-back"
+                size={35}
+                color={Colors.darkGreen}
+                style={{ marginRight: 10 }}
+                onPress={() => navigation.navigate("TravelerorResident")}
+              />
+            </View>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="MyDeliveriesScreen"
+        component={MyDeliveriesScreen}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "My Deliveries",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
 
-			<Stack.Screen
-				name='AddItemAndLocationScreen'
-				component={AddItemAndLocationScreen}
-				options={({ route }) => ({
-					headerShown: false,
-				})}
-			/>
-		</Stack.Navigator>
-	);
+          headerLeft: () => (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons
+                name="arrow-back"
+                size={35}
+                color={Colors.darkGreen}
+                style={{ marginRight: 10 }}
+                onPress={() => navigation.navigate("TravelerorResident")}
+              />
+            </View>
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="renderOrderDetails"
+        component={RenderOrderDetails}
+        options={({ route }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          title: "Render Order",
+          headerTitleStyle: { fontSize: 24, color: Colors.black },
+          headerBackTitle: "",
+          headerTintColor: Colors.darkGreen,
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: Colors.white },
+
+          headerLeft: () => (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons
+                name="arrow-back"
+                size={35}
+                color={Colors.darkGreen}
+                style={{ marginRight: 10 }}
+                onPress={() => navigation.goBack()}
+              />
+            </View>
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="AddItemAndLocationScreen"
+        component={AddItemAndLocationScreen}
+        options={({ route }) => ({
+          headerShown: false,
+        })}
+      />
+    </Stack.Navigator>
+  );
 }
 export default HomeScreen;
 

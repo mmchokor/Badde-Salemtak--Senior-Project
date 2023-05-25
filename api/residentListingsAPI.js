@@ -7,6 +7,7 @@ import { isLoading } from "../store/AddItemLoading/AddItemLoading";
 // Get all resident listings
 const getResidentListings = async () => {
   const token = await AsyncStorage.getItem("token");
+  console.log(token)
   try {
     const response = await axios.get(`${API_URL}/resident`, {
       headers: {

@@ -7,7 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import StraightLine from '../components/UI/StraightLine';
 
 function OrderConfirmation({ route, navigation }) {
-	const { price, title, totalPrice, username } = route.params;
+	const { price, title, totalPrice, username, deliveryFee } = route.params;
+
 
 	return (
 		<View style={styles.body}>
@@ -25,27 +26,31 @@ function OrderConfirmation({ route, navigation }) {
 			<View style={{ paddingVertical: 30 }}>
 				<View style={styles.summaryContainer}>
 					<Text style={styles.summaryHeader}>Item Price:</Text>
-					<Text style={styles.summaryPrice}>$999</Text>
+					<Text style={styles.summaryPrice}>${price}</Text>
 				</View>
 				<View style={styles.summaryContainer}>
 					<Text style={styles.summaryHeader}>Service fee:</Text>
-					<Text style={styles.summaryPrice}>$10</Text>
+					<Text style={styles.summaryPrice}>$5</Text>
 				</View>
 				<View style={styles.summaryContainer}>
 					<Text style={styles.summaryHeader}>Traveler reward:</Text>
 					<Text style={styles.summaryPrice}>$10</Text>
 				</View>
+				<View style={styles.summaryContainer}>
+					<Text style={styles.summaryHeader}>Delivery Fee:</Text>
+					<Text style={styles.summaryPrice}>${deliveryFee}</Text>
+				</View>
 			</View>
 			<StraightLine />
-			<View style={{ flexDirection: 'row' }}>
+			<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 				<Text style={styles.total}>Total:</Text>
-				<Text style={[styles.total, { color: '#31af91', paddingLeft: 250 }]}>
+				<Text style={[styles.total, { color: '#31af91'}]}>
 					${totalPrice}
 				</Text>
 			</View>
 			<Button
 				onPress={() => {
-					navigation.navigate('ItemDetails', {
+					navigation.navigate('TravelerorResident', {
 						price: price,
 						title: title,
 						totalPrice: totalPrice,

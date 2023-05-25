@@ -52,6 +52,9 @@ const PublicProfileScreen = ({ navigation, route }) => {
 	const handleOnPress = () => {
 		navigation.navigate('MyOrderScreen');
 	};
+	const handleOnPressDelivery = () => {
+		navigation.navigate('MyDeliveriesScreen');
+	};
 	const renderBackdrop = useCallback(
 		(props) => (
 			<BottomSheetBackdrop
@@ -221,7 +224,19 @@ const PublicProfileScreen = ({ navigation, route }) => {
 							onPress={handleOnPress}
 						>
 							<Ionicons name='airplane-outline' size={24} color='black' />
-							<Text style={styles.bottomSheetText}> My orders</Text>
+							<Text style={styles.bottomSheetText}> My Orders</Text>
+						</Pressable>
+						<Pressable
+							style={({ pressed }) =>
+								pressed
+									? [styles.bottomSheetCardWrapper, { opacity: 0.5 }]
+									: styles.bottomSheetCardWrapper
+							}
+							onPress={handleOnPressDelivery}
+						>
+							{/* <Ionicons name='airplane-outline' size={24} color='black' /> */}
+							<Feather name="box" size={24} color="black" />
+							<Text style={styles.bottomSheetText}> My Deliveries</Text>
 						</Pressable>
 					</View>
 				</View>
