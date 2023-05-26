@@ -33,6 +33,9 @@ const NotificationOrderReceived = ({
 
   const navigation = useNavigation();
   const diffText = timeSincePost(date);
+  let messageHeader = "";
+
+  let btnOption = false;
 
   const { data: token } = useQuery("token", getToken);
   //const [notification, setNotification] = useAtom(notifications)
@@ -81,6 +84,15 @@ const NotificationOrderReceived = ({
     });
   };
 
+  if (message.includes("money")) {
+    messageHeader = "Order has been delivered!";
+  } else if (message.includes("payed")) {
+    messageHeader = "Time to deliver!";
+  } else if (message.includes("listing")) {
+    messageHeader = "You have received an offer!";
+    //setBtnOption(true);
+    btnOption = true
+  }
 
   return (
     <View>
@@ -88,26 +100,45 @@ const NotificationOrderReceived = ({
         <View style={styles.contentWrapper}>
           <Text style={styles.header}>
             {/* You received an offer on your listing! */}
-            {message}
+            {/* {message} */}
+            {messageHeader}
           </Text>
-          {/* <Text style={styles.textMessage}>
-            The sender
+          <Text style={styles.textMessage}>
+            {/* The sender
             <Text style={styles.username}> {senderName + " " + lastName} </Text>
             has sent you an order for the listing
-            <Text style={styles.username}>{listingName}</Text>
-          </Text> */}
+            <Text style={styles.username}>{listingName}</Text> */}
+            {message}
+          </Text>
           <View style={styles.buttonDateWrapper}>
-            <View style={styles.buttonWrapper}>
-              <Pressable
-                style={[styles.button, styles.buttonAccept]}
-                onPress={viewOfferHandler}
-              >
-                <Text style={[styles.text, styles.textAccept]}>View Offer</Text>
-              </Pressable>
-              <Pressable style={styles.button} onPress={declineHandler}>
-                <Text style={styles.text}>Decline</Text>
-              </Pressable>
-            </View>
+            { btnOption && (
+              <View style={styles.buttonWrapper}>
+                <Pressable
+                  style={[styles.button, styles.buttonAccept]}
+                  onPress={viewOfferHandler}
+                >
+                  <Text style={[styles.text, styles.textAccept]}>
+                    View Offer
+                  </Text>
+                </Pressable>
+                <Pressable style={styles.button} onPress={declineHandler}>
+                  <Text style={styles.text}>Decline</Text>
+                </Pressable>
+              </View>)
+            }
+            {!btnOption && (
+              <View style={styles.buttonWrapper}>
+                <Pressable
+                  style={[styles.button, styles.buttonAccept]}
+                  onPress={declineHandler}
+                >
+                  <Text style={[styles.text, styles.textAccept]}>
+                    Delete
+                  </Text>
+                </Pressable>
+                
+              </View>)
+            }
             <Text style={styles.timeReceived}>{diffText}</Text>
           </View>
         </View>
@@ -130,7 +161,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: "inter-medium",
-    fontSize: 14,
+    fontSize: 17,
   },
 
   timeReceived: {
@@ -148,7 +179,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   button: {
-    padding: 8,
+    padding: 6,
     borderRadius: 6,
     borderColor: Colors.lightGray,
     borderWidth: 1,

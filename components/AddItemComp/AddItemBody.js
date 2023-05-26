@@ -62,6 +62,8 @@ function AddItemBody() {
 
     const parent = navigation.getParent("bottomTab");
 
+    resetInputFields()
+
     parent.navigate("Home", {
       screen: "TravelerorResident",
       params: { screen: "Travelerr", params: { load: true } },
@@ -262,6 +264,33 @@ function AddItemBody() {
     mutate(formData);
   };
 
+  function resetInputFields () {
+    setItemName("");
+    setPrice("");
+    setQuantity(0);
+    setWeight("");
+    setType("");
+    setDetails("");
+    setAddress("");
+    setStreetName("");
+    setBuilding("");
+    setFloor("");
+    setSelectedOption("");
+    setSelectedImage();
+    setItemNameFlag(false);
+    setPriceFlag(false);
+    setQuantityFlag(false);
+    setWeightFlag(false);
+    setAddressFlag(false);
+    setStreetFlag(false);
+    setBuildingFlag(false);
+    setFloorFlag(false);
+    setDescriptionFlag(false);
+    setImageFlag(false);
+    setTypeFlag(false);
+    setPreferredPaymentFlag(false);
+  };
+
   return (
     <View style={{ paddingHorizontal: 20, flex: 1 }}>
       <Text style={styles.textHead}>Product Name</Text>
@@ -353,6 +382,7 @@ function AddItemBody() {
           onChangeText={handleDetails}
           style={descriptionFlag && styles.inputDetailsError}
           placeholder="Enter product details like size and color"
+          value={details}
         />
         {/* <Text style={styles.textHead}>Location</Text> */}
         <Text style={styles.textHead}>City</Text>
@@ -360,12 +390,14 @@ function AddItemBody() {
           onChangeText={handleAddress}
           style={addressFlag && styles.inputDetailsError}
           placeholder="Beirut"
+          value={address}
         />
         <Text style={styles.textHead}>Street Name</Text>
         <InputBorderStyle
           onChangeText={handleStreetName}
           style={streetFlag && styles.inputDetailsError}
           placeholder="Hamra"
+          value={streetName}
         />
         <View
           style={{
@@ -380,6 +412,7 @@ function AddItemBody() {
               onChangeText={handleBuilding}
               style={buildingFlag && styles.inputDetailsError}
               placeholder="Nakouzi"
+              value={building}
             />
           </View>
           <View style={{}}>
@@ -390,6 +423,7 @@ function AddItemBody() {
               onChangeText={handleFloor}
               style={floorFlag && styles.inputDetailsError}
               placeholder="4"
+              value={floor}
             />
           </View>
         </View>

@@ -8,19 +8,12 @@ import { Feather } from "@expo/vector-icons";
 import { Colors } from "../../constants/colors";
 
 const ListingDetails = ({ location, rating, type, price }) => {
+  const locationCountry = location.split(" ")[0];
   return (
     <View style={styles.wrapper}>
-      <View>
-        <MyText style={styles.detail}>
-          <Entypo name="location-pin" size={12} color="red" />
-          {location}
-        </MyText>
-        <MyText style={[styles.detail, styles.opaque]}>
-          <Entypo name="star" size={12} color="black" />
-          {rating}
-        </MyText>
-      </View>
-      <View style={{marginLeft: 30}}>
+      
+      {/* style={{marginLeft: 30}}  the view under this had this margin*/}
+      <View style={{width: 80}}> 
         <MyText style={[styles.detail, styles.opaque]}>
           {/* medicine */}
           {type === "Medicine" && (
@@ -44,7 +37,17 @@ const ListingDetails = ({ location, rating, type, price }) => {
           )}
           {type}
         </MyText>
-        <MyText style={[styles.detail, styles.price]}>$ {price}</MyText>
+        <MyText style={[styles.detail, styles.price]}>${price}</MyText>
+      </View>
+      <View style={{marginLeft: 40}}>
+        <MyText style={styles.detail}>
+          <Entypo name="location-pin" size={12} color="red" />
+          {locationCountry}
+        </MyText>
+        <MyText style={[styles.detail, styles.opaque]}>
+          <Entypo name="star" size={12} color="black" />
+          {rating}
+        </MyText>
       </View>
     </View>
   );
@@ -56,14 +59,15 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         flexDirection: 'row',
-        //justifyContent: 'space-around'
+        //justifyContent: 'space-between',
+        //marginRight: 10
     },  
   detail: {
     marginVertical: 1,
     fontSize: 12,
   },
   price: {
-    fontSize: 12,
+    fontSize: 16,
     color: Colors.darkGreen,
     fontFamily: "inter-bold",
   },

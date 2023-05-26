@@ -10,11 +10,7 @@ import HomeScreen from "../../screens/HomeScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import PublicProfileScreen from "../../screens/PublicProfileScreen";
-import {
-  SimpleLineIcons,
-  FontAwesome,
-  AntDesign,
-} from "@expo/vector-icons";
+import { SimpleLineIcons, FontAwesome, AntDesign } from "@expo/vector-icons";
 import AddItemAndLocationScreen from "../../screens/AddItemAndLocationScreen";
 import { Svg } from "react-native-svg";
 import { SvgXml } from "react-native-svg";
@@ -53,12 +49,17 @@ function BottomBar({ navigation }) {
         options={{
           title: "",
 
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }) => {
             //<MaterialIcons name="home" size={35} color={color} />
             //<SvgXml xml={homeIcon} />
             //<HomeIcon width={21} height={21} fill={color} />
-            <Ionicons name="home-outline" size={24} color={color} />
-          ),
+
+            if (color === "#006A6B") {
+              return <Ionicons name="home" size={24} color={color} />;
+            } else {
+              return <Ionicons name="home-outline" size={24} color={color} />;
+            }
+          },
 
           headerShown: false,
         }}
@@ -76,10 +77,15 @@ function BottomBar({ navigation }) {
           headerTintColor: Colors.darkGreen,
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: Colors.white },
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }) => {
             //<Fontisto name='favorite' size={size} color={color} />
-            <FontAwesome name="bookmark-o" size={24} color={color} />
-          ),
+
+            if (color === "#006A6B") {
+              return <FontAwesome name="bookmark" size={24} color={color} />;
+            } else {
+              return <FontAwesome name="bookmark-o" size={24} color={color} />;
+            }
+          },
         }}
         onPress={setFavScreen}
       />
@@ -127,9 +133,17 @@ function BottomBar({ navigation }) {
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: Colors.white },
           tabBarIcon: ({ color, size }) => {
-            return (
-              <Ionicons name="notifications-outline" size={24} color={color} />
-            );
+            if (color === "#006A6B") {
+              return <Ionicons name="notifications" size={24} color={color} />;
+            } else {
+              return (
+                <Ionicons
+                  name="notifications-outline"
+                  size={24}
+                  color={color}
+                />
+              );
+            }
           },
           headerTitleAlign: "center",
         }}
@@ -148,7 +162,11 @@ function BottomBar({ navigation }) {
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: Colors.darkGreen },
           tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="person-outline" size={24} color={color} />;
+            if (color === "#006A6B") {
+              return <Ionicons name="person" size={24} color={color} />;
+            } else {
+              return <Ionicons name="person-outline" size={24} color={color} />;
+            }
           },
           //headerRight: () => {return (<SimpleLineIcons style={{marginRight: 10}} name="options-vertical" size={24} color={Colors.white} />)},
         }}

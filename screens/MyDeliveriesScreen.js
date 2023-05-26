@@ -19,11 +19,13 @@ import {
       data: Pending,
       isFetching,
       isLoading,
+      refetch
     } = useQuery("Pending", getPendingDeliveryForTraveller);
   
     if (isFetching || isLoading) {
       return <LoadingIcon />;
     }
+
 
   
     const handleButtonPress = (buttonName) => {
@@ -68,13 +70,19 @@ import {
         </View>
         <FlatList
           data={Pending.pendingOrders}
+          refreshing={isFetching}
+        onRefresh={() => refetch()}
           renderItem={({ item }) => {
             return (
               <RenderOrder
                 deliveryDate={formatDate(item.date)}
-                assigned={item.user}
+                assigned={item.listing.user}
                 listingName={item.listing.name}
                 deliveryScreen={true}
+                deliveryFee={item.deliveryFee}
+                message={item.message}
+                price={item.listing.price}
+                orderId={item.id}
               />
             );
           }}

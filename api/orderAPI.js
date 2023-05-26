@@ -116,15 +116,31 @@ async function confirmOrderDelivered(orderId) {
         },
       }
     );
-    console.log(response.data);
     // Handle the response data
-    return response.data;
+    return response.data.data;
   } catch (error) {
     // Handle error
     console.error(error.response.data);
     throw new Error("Failed to confirm delivery");
   }
 }
+
+async function getCompletedOrdersForUsers () {
+  try {
+    const token = await AsyncStorage.getItem('token');
+
+    const response = await axios.get(`${API_URL}/order/me/completed`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to fetch completed orders');
+  }
+};
 
 module.exports = {
   createOrder,
@@ -134,4 +150,5 @@ module.exports = {
   getAcceptedOrdersByUser,
   getPendingDeliveryForTraveller,
   confirmOrderDelivered,
+  getCompletedOrdersForUsers
 };

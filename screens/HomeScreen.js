@@ -305,7 +305,7 @@ function HomeScreen({ route }) {
         options={({ route }) => ({
           headerShown: true,
           headerShadowVisible: false,
-          title: "Render Order",
+          title: "Order Details",
           headerTitleStyle: { fontSize: 24, color: Colors.black },
           headerBackTitle: "",
           headerTintColor: Colors.darkGreen,

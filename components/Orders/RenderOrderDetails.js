@@ -77,6 +77,7 @@ export default RenderOrderDetails;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
+    marginVertical: 20,
   },
   buttonWrapper: {
     marginVertical: 20,

@@ -61,6 +61,7 @@ function NotificationsScreen({ navigation, route }) {
     return <Text>{error.message}</Text>;
   }
 
+
   return (
     <View style={{ flex: 1 }}>
       <FlatList

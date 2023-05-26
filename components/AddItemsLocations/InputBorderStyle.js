@@ -7,6 +7,7 @@ function InputBorderStyle({
 	onChangeText,
 	style,
 	placeholder,
+	value
 }) {
 	return (
 		<TextInput
@@ -15,6 +16,7 @@ function InputBorderStyle({
 			maxLength={maxLength}
 			onChangeText={onChangeText}
 			placeholder={placeholder}
+			value={value}
 			//placeholderTextColor={Colors.gray}
 			//multiline={true}
 			//numberOfLines={3}
