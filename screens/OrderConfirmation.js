@@ -58,7 +58,7 @@ function OrderConfirmation({ route, navigation }) {
 					});
 				}}
 			>
-				Order Details
+				View more offers
 			</Button>
 		</View>
 	);

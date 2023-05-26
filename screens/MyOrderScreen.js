@@ -12,13 +12,30 @@ import { getAcceptedOrdersByUser } from "../api/orderAPI";
 import LoadingIcon from "../components/Loading/LoadingIcon";
 import { formatDate } from "../constants/FormatDate";
 import RenderOrder from '../components/Orders/RenderOrder'
+import { useEffect } from "react";
+import Toast from 'react-native-toast-message';
 
-function MyOrderScreen() {
+function MyOrderScreen({ route }) {
+  useEffect(() => {
+		const loading = route.params?.load;
+		{
+			loading &&
+				Toast.show({
+					type: 'success',
+					text1: 'Success!',
+					text2: 'Order has been delivered Sucessfully',
+				});
+		}
+
+    refetch()
+		
+	}, [route]);
   const [selectedButton, setSelectedButton] = useState("In Transit");
   const {
     data: inTransit,
     isFetching,
     isLoading,
+    refetch
   } = useQuery("inTransit", getAcceptedOrdersByUser);
 
   if (isFetching) {
@@ -30,6 +47,8 @@ function MyOrderScreen() {
   const handleButtonPress = (buttonName) => {
     setSelectedButton(buttonName);
   };
+
+  
 
   return (
     <View style={[styles.container, { backgroundColor: Colors.white }]}>
@@ -69,6 +88,8 @@ function MyOrderScreen() {
       </View>
       <FlatList
         data={inTransit.acceptedOrders}
+        refreshing={isFetching}
+        onRefresh={() => refetch()}
         renderItem={({ item }) => {
           return (
             <RenderOrder

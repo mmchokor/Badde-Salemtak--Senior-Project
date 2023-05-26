@@ -203,6 +203,7 @@ function HomeScreen({ route }) {
           headerTintColor: Colors.darkGreen,
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: Colors.white },
+          headerBackVisible: false
         })}
       />
       <Stack.Screen

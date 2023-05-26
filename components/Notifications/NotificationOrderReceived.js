@@ -90,12 +90,12 @@ const NotificationOrderReceived = ({
             {/* You received an offer on your listing! */}
             {message}
           </Text>
-          <Text style={styles.textMessage}>
+          {/* <Text style={styles.textMessage}>
             The sender
             <Text style={styles.username}> {senderName + " " + lastName} </Text>
             has sent you an order for the listing
             <Text style={styles.username}>{listingName}</Text>
-          </Text>
+          </Text> */}
           <View style={styles.buttonDateWrapper}>
             <View style={styles.buttonWrapper}>
               <Pressable
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: "inter-medium",
-    fontSize: 17,
+    fontSize: 14,
   },
 
   timeReceived: {

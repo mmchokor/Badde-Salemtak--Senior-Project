@@ -1,28 +1,29 @@
 import { useState } from "react";
-import { Text, StyleSheet, View, Dimensions, TextInput } from "react-native";
+import { Text, StyleSheet, View, Dimensions, TextInput, ActivityIndicator } from "react-native";
 import PreferredPaymentOrder from "../components/Orders/PreferredPaymentOrder";
 import Button from "../components/UI/Button";
 import { Colors } from "../constants/colors";
-import { useAtom } from "jotai";
 import { paymentM } from "../store/PaymentOrder/paymentOrder";
 import { ScrollView } from "react-native-gesture-handler";
 import { useMutation } from "react-query";
 import { acceptOrder } from "../api/orderAPI";
-
+import { useAtom } from "jotai";
+import { isLoading } from "../store/OrderConfirmLoading/OrderConfirmLoading";
 const height = Dimensions.get("window").height;
 function ProceedToPayment({ route, navigation }) {
+  const [loading, setLoading] = useAtom(isLoading);
   const { price, title, totalPrice, username, deliveryFee, orderId } =
     route.params;
   const [payment, setPayment] = useAtom(paymentM);
-
-
 
   const { mutate, error } = useMutation(acceptOrder, {
     onSuccess: paymentSuccessHandler,
     onError: () => console.log("Error"),
   });
 
-  const paymentSuccessHandler = () => {
+
+  function paymentSuccessHandler() {
+    setLoading(false);
     navigation.navigate("OrderConfirmation", {
       price: price,
       title: title,
@@ -30,9 +31,10 @@ function ProceedToPayment({ route, navigation }) {
       username: username,
       deliveryFee: deliveryFee,
     });
-  };
+  }
 
   const confirmPaymentHandler = () => {
+    setLoading(true);
     mutate(orderId);
   };
 
@@ -130,14 +132,21 @@ function ProceedToPayment({ route, navigation }) {
       </View>
       <View>{screenPay(payment)}</View>
       <View style={styles.buttonWrapper}>
-        <Button
-          textStyle={{ fontSize: 14 }}
-          styleWrapper={styles.buttonWrapper}
-          style={styles.button}
-          onPress={confirmPaymentHandler}
-        >
-          Confirm Payment
-        </Button>
+        { !loading && (
+          <Button
+            textStyle={{ fontSize: 14 }}
+            styleWrapper={styles.buttonWrapper}
+            style={styles.button}
+            onPress={confirmPaymentHandler}
+          >
+            Confirm Payment
+          </Button>
+        )}
+        {loading && (
+          <Button style={styles.button}>
+            <ActivityIndicator size="small" color={Colors.lightGreen} />
+          </Button>
+        )}
       </View>
     </ScrollView>
   );
