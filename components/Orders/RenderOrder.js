@@ -6,11 +6,11 @@ import { getUserInfoById } from "../../api/userAPI";
 import LoadingIcon from "../Loading/LoadingIcon";
 import { useNavigation } from "@react-navigation/native";
 
-const RenderOrder = ({ listingName, assigned, deliveryDate, deliveryFee, message, price, orderId }) => {
+const RenderOrder = ({ listingName, assigned, deliveryDate, deliveryFee, message, price, orderId, deliveryScreen }) => {
   const navigation = useNavigation()
 
   const itemDetailsHandler = () => {
-    navigation.navigate('renderOrderDetails', {deliveryFee: deliveryFee, date: deliveryDate, message: message, price:price, orderId:orderId})
+    navigation.navigate('renderOrderDetails', {deliveryFee: deliveryFee, date: deliveryDate, message: message, price:price, orderId:orderId, deliveryScreen: deliveryScreen})
   }
 
 

@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Text, StyleSheet, View, Dimensions, TextInput, ActivityIndicator } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Dimensions,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
 import PreferredPaymentOrder from "../components/Orders/PreferredPaymentOrder";
 import Button from "../components/UI/Button";
 import { Colors } from "../constants/colors";
@@ -9,21 +16,31 @@ import { useMutation } from "react-query";
 import { acceptOrder } from "../api/orderAPI";
 import { useAtom } from "jotai";
 import { isLoading } from "../store/OrderConfirmLoading/OrderConfirmLoading";
+import { deleteNotification } from "../api/notificationAPI";
 const height = Dimensions.get("window").height;
 function ProceedToPayment({ route, navigation }) {
   const [loading, setLoading] = useAtom(isLoading);
-  const { price, title, totalPrice, username, deliveryFee, orderId } =
-    route.params;
+  const {
+    price,
+    title,
+    totalPrice,
+    username,
+    deliveryFee,
+    orderId,
+    notificationId,
+  } = route.params;
   const [payment, setPayment] = useAtom(paymentM);
+
+  const handleDelete = useMutation((notiId) => deleteNotification(notiId), {});
 
   const { mutate, error } = useMutation(acceptOrder, {
     onSuccess: paymentSuccessHandler,
     onError: () => console.log("Error"),
   });
 
-
   function paymentSuccessHandler() {
     setLoading(false);
+    handleDelete.mutate(notificationId);
     navigation.navigate("OrderConfirmation", {
       price: price,
       title: title,
@@ -132,7 +149,7 @@ function ProceedToPayment({ route, navigation }) {
       </View>
       <View>{screenPay(payment)}</View>
       <View style={styles.buttonWrapper}>
-        { !loading && (
+        {!loading && (
           <Button
             textStyle={{ fontSize: 14 }}
             styleWrapper={styles.buttonWrapper}

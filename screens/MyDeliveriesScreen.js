@@ -74,6 +74,7 @@ import {
                 deliveryDate={formatDate(item.date)}
                 assigned={item.user}
                 listingName={item.listing.name}
+                deliveryScreen={true}
               />
             );
           }}

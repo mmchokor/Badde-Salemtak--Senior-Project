@@ -136,7 +136,8 @@ const OfferReceived = ({ route, navigation }) => {
                   totalPrice: totalPrice,
                   username: listing.user.firstname,
 				  deliveryFee: order.deliveryFee,
-				  orderId: orderId
+				  orderId: orderId,
+          notificationId: id
                 });
               }}
             >

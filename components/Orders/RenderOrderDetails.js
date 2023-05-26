@@ -16,6 +16,7 @@ const RenderOrderDetails = ({ route }) => {
   const message = route.params.message;
   const price = route.params.price;
   const orderId = route.params.orderId
+  const deliveryScreen = route.params?.deliveryScreen;
   const totalPrice = price + deliveryFee + 10 + 5;
   const [loading, setLoading] = useAtom(isLoading);
 const navigation = useNavigation()
@@ -50,7 +51,7 @@ const navigation = useNavigation()
         totalPrice={totalPrice}
       />
 
-      <View style={styles.buttonWrapper}>
+      {!deliveryScreen && <View style={styles.buttonWrapper}>
         {!loading && (<Button
           textStyle={{ fontSize: 14 }}
           styleWrapper={styles.buttonWrapper}
@@ -64,7 +65,9 @@ const navigation = useNavigation()
           <ActivityIndicator size="small" color={Colors.lightGreen} />
         </Button>
       )}
-      </View>
+      </View>}
+
+      
     </View>
   );
 };
