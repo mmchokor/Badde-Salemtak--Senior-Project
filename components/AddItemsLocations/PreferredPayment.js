@@ -13,11 +13,14 @@ function PreferredPayment(props) {
 		{ uri: require('../../assets/PaymentsLogos/Artboard10.jpg') },
 	];
 	const [selectedOption, setSelectedOption] = useState('');
+
 	
 	function handleOptionSelect(name) {
 		setSelectedOption(name);
 		props.onSelectOption(name);
 	}
+
+	//props.onReset()
 	return (
 		<View style={[styles.container, props.style]}>
 			{types.map((option, name) => (

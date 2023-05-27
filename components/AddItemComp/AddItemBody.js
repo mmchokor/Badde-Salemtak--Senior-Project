@@ -235,6 +235,7 @@ function AddItemBody() {
 
   const addTheItem = async () => {
     setLoading(true);
+    
     // const user = await AsyncStorage.getItem("userID");
     const name = itemName.toString();
     const price = parseInt(itemPrice);
@@ -289,7 +290,12 @@ function AddItemBody() {
     setImageFlag(false);
     setTypeFlag(false);
     setPreferredPaymentFlag(false);
+    resetPreferredPayment()
   };
+
+  function resetPreferredPayment() {
+    setSelectedOption("");
+  }
 
   return (
     <View style={{ paddingHorizontal: 20, flex: 1 }}>
@@ -433,6 +439,8 @@ function AddItemBody() {
       <PreferredPayment
         onSelectOption={handlePaymentMethod}
         style={preferredPaymentFlag && styles.inputDetailsError}
+        onReset={preferredPaymentFlag}
+
       />
 
       {!loading && (

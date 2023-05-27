@@ -33,6 +33,9 @@ function MyOrderScreen({ route }) {
     refetch();
   }, [route]);
   const [selectedButton, setSelectedButton] = useState("In Transit");
+
+  
+
   const {
     data: inTransit,
     isFetching,
@@ -40,12 +43,12 @@ function MyOrderScreen({ route }) {
     refetch,
   } = useQuery("inTransit", getAcceptedOrdersByUser);
 
-  const { data: completed, isFetching: completedIsFetching } = useQuery(
+  const { data: completed, isFetching: completedIsFetching, isLoading: completedIsLoading } = useQuery(
     "completed",
     getCompletedOrdersForUsers
   );
 
-  if (isFetching || completedIsFetching) {
+  if (isFetching || isLoading ||  completedIsFetching || completedIsLoading) {
     return <LoadingIcon />;
   }
 
@@ -57,6 +60,7 @@ function MyOrderScreen({ route }) {
   const deliveredOutputList = (
     <FlatList
       data={completed.completedOrders}
+      showsVerticalScrollIndicator={false}
       refreshing={isFetching}
       onRefresh={() => refetch()}
       renderItem={({ item }) => {
@@ -79,6 +83,7 @@ function MyOrderScreen({ route }) {
   const intransitOutputList = (
     <FlatList
       data={inTransit.acceptedOrders}
+      showsVerticalScrollIndicator={false}
       refreshing={isFetching}
       onRefresh={() => refetch()}
       renderItem={({ item }) => {

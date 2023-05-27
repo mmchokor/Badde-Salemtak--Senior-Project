@@ -6,6 +6,8 @@ import { getUserInfoById } from "../../api/userAPI";
 import LoadingIcon from "../Loading/LoadingIcon";
 import { useNavigation } from "@react-navigation/native";
 
+let delivered;
+
 const RenderOrder = ({
   listingName,
   assigned,
@@ -15,9 +17,10 @@ const RenderOrder = ({
   price,
   orderId,
   deliveryScreen,
-  delivered
+  delivered,
 }) => {
   const navigation = useNavigation();
+  delivered = delivered;
 
   const itemDetailsHandler = () => {
     navigation.navigate("renderOrderDetails", {
@@ -27,9 +30,9 @@ const RenderOrder = ({
       price: price,
       orderId: orderId,
       deliveryScreen: deliveryScreen,
+      delivered: delivered,
     });
   };
-
 
   return (
     <TouchableOpacity onPress={itemDetailsHandler}>
@@ -37,7 +40,9 @@ const RenderOrder = ({
         <View style={styles.listInnerContainer}>
           <View style={styles.head}>
             <Text style={styles.listHead}>{listingName}</Text>
-            <Text style={styles.orderStatus}>{!delivered ? 'In transit' : 'Delivered'}</Text>
+            <Text style={[styles.orderStatus, !delivered ? styles.orderStatusPending : styles.orderStatusDelivered]}>
+              {!delivered ? "In transit" : "Delivered"}
+            </Text>
           </View>
 
           <View style={{ marginTop: 20 }}>
@@ -119,12 +124,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   orderStatus: {
-    //backgroundColor: "#BCD9F8",
-    backgroundColor: "#1ABC9C",
+    //backgroundColor: "#BCD9F8", #1ABC9C "#f0e625"
     padding: 5,
     borderRadius: 5,
     fontFamily: "inter-light",
     fontSize: 10,
+  },
+
+  orderStatusDelivered: {
+    backgroundColor: "#1ABC9C",
     color: "white",
+  },
+
+  orderStatusPending: {
+    backgroundColor: "#f0e625",
+    color: "black",
   },
 });

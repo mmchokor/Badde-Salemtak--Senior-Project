@@ -17,6 +17,7 @@ const RenderOrderDetails = ({ route }) => {
   const price = route.params.price;
   const orderId = route.params.orderId
   const deliveryScreen = route.params?.deliveryScreen;
+  const delivered = route.params?.delivered;
   const totalPrice = price + deliveryFee + 10 + 5;
   const [loading, setLoading] = useAtom(isLoading);
 const navigation = useNavigation()
@@ -51,7 +52,7 @@ const navigation = useNavigation()
         totalPrice={totalPrice}
       />
 
-      {!deliveryScreen && <View style={styles.buttonWrapper}>
+      {(!deliveryScreen && !delivered) && <View style={styles.buttonWrapper}>
         {!loading && (<Button
           textStyle={{ fontSize: 14 }}
           styleWrapper={styles.buttonWrapper}
