@@ -65,7 +65,7 @@ function LocationDetailsScreen({ route }) {
 											marginLeft: 60,
 										}}
 									>
-										<CFlag country={route.params.fromLocation} s={28} />
+										<CFlag country={route.params.fromLocation} s={18} />
 										<MyText style={[styles.textTitle, { marginLeft: 10 }]}>
 											{route.params.fromLocation}
 										</MyText>
@@ -97,7 +97,7 @@ function LocationDetailsScreen({ route }) {
 											marginLeft: 60,
 										}}
 									>
-										<CFlag country={route.params.toLocation} s={28} />
+										<CFlag country={route.params.toLocation} s={18} />
 										<MyText style={[styles.textTitle, { marginLeft: 10 }]}>
 											{route.params.toLocation}
 										</MyText>
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
 	textTitle: {
 		fontFamily: "inter-bold",
 		color: Colors.black,
-		fontSize: 35,
-		width: 190,
+		fontSize: 18,
+		//width: 190,
 		//backgroundColor: "black",
 	},
 	priceText: {
