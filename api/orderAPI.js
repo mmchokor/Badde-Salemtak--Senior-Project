@@ -125,17 +125,33 @@ async function confirmOrderDelivered(orderId) {
   }
 }
 
-async function getCompletedOrdersForUsers () {
+async function getCompletedOrders () {
   try {
     const token = await AsyncStorage.getItem('token');
 
-    const response = await axios.get(`${API_URL}/order/me/completed`, {
+    const response = await axios.get(`${API_URL}/order/me/completed/resident`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    //console.log(response.data.data.completedOrders.reverse())
+    return response.data.data.completedOrders.reverse();
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to fetch completed orders');
+  }
+};
+async function getCompletedDeliveries  () {
+  try {
+    const token = await AsyncStorage.getItem('token');
 
-    return response.data.data;
+    const response = await axios.get(`${API_URL}/order/me/completed/traveller`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    //console.log(response.data.data.completedOrders.reverse())
+    return response.data.data.completedOrders.reverse();
   } catch (error) {
     console.error(error);
     throw new Error('Failed to fetch completed orders');
@@ -150,5 +166,6 @@ module.exports = {
   getAcceptedOrdersByUser,
   getPendingDeliveryForTraveller,
   confirmOrderDelivered,
-  getCompletedOrdersForUsers
+  getCompletedOrders,
+  getCompletedDeliveries
 };

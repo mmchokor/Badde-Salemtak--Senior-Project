@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import {
   getAcceptedOrdersByUser,
-  getCompletedOrdersForUsers,
+  getCompletedOrders,
 } from "../api/orderAPI";
 import LoadingIcon from "../components/Loading/LoadingIcon";
 import { formatDate } from "../constants/FormatDate";
@@ -34,8 +34,6 @@ function MyOrderScreen({ route }) {
   }, [route]);
   const [selectedButton, setSelectedButton] = useState("In Transit");
 
-  
-
   const {
     data: inTransit,
     isFetching,
@@ -45,22 +43,21 @@ function MyOrderScreen({ route }) {
 
   const { data: completed, isFetching: completedIsFetching, isLoading: completedIsLoading } = useQuery(
     ["completed", route],
-    getCompletedOrdersForUsers, {cacheTime: 0, refetchInterval: 0, staleTime: 0}
+    getCompletedOrders, {cacheTime: 0, refetchInterval: 0, staleTime: 0}
   );
 
   if (isFetching || isLoading ||  completedIsFetching || completedIsLoading) {
     return <LoadingIcon />;
   }
 
-
-
   const handleButtonPress = (buttonName) => {
     setSelectedButton(buttonName);
   };
 
+
   const deliveredOutputList = (
     <FlatList
-      data={completed.completedOrders}
+      data={completed}
       showsVerticalScrollIndicator={false}
       refreshing={completedIsFetching}
       onRefresh={() => refetch()}

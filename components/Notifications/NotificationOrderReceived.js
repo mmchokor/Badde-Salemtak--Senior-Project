@@ -86,7 +86,7 @@ const NotificationOrderReceived = ({
 
   if (message.includes("money")) {
     messageHeader = "Order has been delivered!";
-  } else if (message.includes("payed")) {
+  } else if (message.includes("paid")) {
     messageHeader = "Time to deliver!";
   } else if (message.includes("listing")) {
     messageHeader = "You have received an offer!";

@@ -21,7 +21,7 @@ function Weight({value}) {
 							marginRight: 3,
 						}}
 					>
-						{value} Kg
+						{value} g
 					</Text>
 					<FontAwesome5 name='weight-hanging' size={15} />
 				</View>

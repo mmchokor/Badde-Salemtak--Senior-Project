@@ -10,13 +10,13 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import {
   getPendingDeliveryForTraveller,
-  getCompletedOrdersForUsers,
+  getCompletedDeliveries,
 } from "../api/orderAPI";
 import LoadingIcon from "../components/Loading/LoadingIcon";
 import { formatDate } from "../constants/FormatDate";
 import RenderOrder from "../components/Orders/RenderOrder";
 
-function MyDeliveriesScreen() {
+function MyDeliveriesScreen({route}) {
   const [selectedButton, setSelectedButton] = useState("Pending");
   const {
     data: Pending,
@@ -25,11 +25,10 @@ function MyDeliveriesScreen() {
     refetch,
   } = useQuery("Pending", getPendingDeliveryForTraveller);
 
-  const {
-    data: completed,
-    isFetching: completedIsFetching,
-    isLoading: completedIsLoading,
-  } = useQuery("completed", getCompletedOrdersForUsers);
+  const { data: completed, isFetching: completedIsFetching, isLoading: completedIsLoading } = useQuery(
+    ["completed", selectedButton],
+    getCompletedDeliveries, {cacheTime: 0, refetchInterval: 0, staleTime: 0}
+  );
 
   if (isFetching || isLoading || completedIsFetching || completedIsLoading) {
     return <LoadingIcon />;
@@ -41,7 +40,7 @@ function MyDeliveriesScreen() {
 
   const deliveredOutputList = (
     <FlatList
-      data={completed.completedOrders.reverse()}
+      data={completed}
       showsVerticalScrollIndicator={false}
       refreshing={completedIsFetching}
       onRefresh={() => refetch()}

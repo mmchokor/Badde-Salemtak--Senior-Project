@@ -25,6 +25,7 @@ import { useAtom } from "jotai";
 import { notifications } from "../../store/Notifications/notification";
 import { createOrder } from '../../api/orderAPI'
 import { isLoading } from "../../store/AddOfferLoading/AddOfferLoading"
+import Toast from "react-native-toast-message";
 const height = Dimensions.get("window").height;
 
 const MakeOffer = ({ route, navigation }) => {
@@ -59,9 +60,9 @@ const MakeOffer = ({ route, navigation }) => {
     });
 
   }
-  function onErrorHandler() {
+  function onErrorHandler(error) {
     setLoading(false);
-
+    console.log(error)
     Toast.show({
       type: "error",
       text1: "Unfortunately, We were unable to make an offer.",
