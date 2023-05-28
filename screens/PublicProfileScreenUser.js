@@ -44,7 +44,7 @@ const PublicProfileScreenUser = ({ navigation, route }) => {
     });
   }, []);
 
-  const { data: userInfo, isFetching } = useQuery("userInfo", () => getUserInfoById(userId));
+  const { data: userInfo, isFetching } = useQuery(["userInfo", userId], () => getUserInfoById(userId));
 
   if (isFetching) {
     return <LoadingIcon />;

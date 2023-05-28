@@ -41,9 +41,9 @@ function MyDeliveriesScreen() {
 
   const deliveredOutputList = (
     <FlatList
-      data={completed.completedOrders}
+      data={completed.completedOrders.reverse()}
       showsVerticalScrollIndicator={false}
-      refreshing={isFetching}
+      refreshing={completedIsFetching}
       onRefresh={() => refetch()}
       renderItem={({ item }) => {
         return (
@@ -66,7 +66,7 @@ function MyDeliveriesScreen() {
   );
   const pendingOutputList = (
     <FlatList
-      data={Pending.pendingOrders}
+      data={Pending.pendingOrders.reverse()}
       showsVerticalScrollIndicator={false}
       refreshing={isFetching}
       onRefresh={() => refetch()}

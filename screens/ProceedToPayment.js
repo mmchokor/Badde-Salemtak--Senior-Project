@@ -70,8 +70,8 @@ function ProceedToPayment({ route, navigation }) {
       return (
         <View>
           <Text style={styles.title}>Whish Money</Text>
-          <Text style={styles.subtitle}>Send to:{username}</Text>
-          <Text style={styles.subtitle}>Phone number:{username}</Text>
+          <Text style={styles.subtitle}>Send to: Rami</Text>
+          <Text style={styles.subtitle}>Phone number: +961 81798314</Text>
         </View>
       );
     } else if (payment === 2) {
@@ -121,8 +121,8 @@ function ProceedToPayment({ route, navigation }) {
       return (
         <ScrollView>
           <Text style={styles.title}>Western Union</Text>
-          <Text style={styles.subtitle}>Send to:{username}</Text>
-          <Text style={styles.subtitle}>Phone number:{username}</Text>
+          <Text style={styles.subtitle}>Send to: Rami</Text>
+          <Text style={styles.subtitle}>Phone number: +961 81798314</Text>
           {/* <Text style={[styles.subhead, { marginTop: 20 }]}>
 						Note: The money will be held in escrow with us until you confirm
 						that you have received the item
