@@ -91,7 +91,7 @@ const NotificationOrderReceived = ({
   } else if (message.includes("listing")) {
     messageHeader = "You have received an offer!";
     //setBtnOption(true);
-    btnOption = true
+    btnOption = true;
   }
 
   return (
@@ -110,37 +110,32 @@ const NotificationOrderReceived = ({
             <Text style={styles.username}>{listingName}</Text> */}
             {message}
           </Text>
-          <View style={styles.buttonDateWrapper}>
-            { btnOption && (
-              <View style={styles.buttonWrapper}>
-                <Pressable
-                  style={[styles.button, styles.buttonAccept]}
-                  onPress={viewOfferHandler}
-                >
-                  <Text style={[styles.text, styles.textAccept]}>
-                    View Offer
-                  </Text>
-                </Pressable>
-                <Pressable style={styles.button} onPress={declineHandler}>
-                  <Text style={styles.text}>Decline</Text>
-                </Pressable>
-              </View>)
-            }
-            {!btnOption && (
-              <View style={styles.buttonWrapper}>
-                <Pressable
-                  style={[styles.button, styles.buttonAccept]}
-                  onPress={declineHandler}
-                >
-                  <Text style={[styles.text, styles.textAccept]}>
-                    Delete
-                  </Text>
-                </Pressable>
-                
-              </View>)
-            }
-            <Text style={styles.timeReceived}>{diffText}</Text>
-          </View>
+        </View>
+        <View style={styles.buttonDateWrapper}>
+          {btnOption && (
+            <View style={styles.buttonWrapper}>
+              <Pressable
+                style={[styles.button, styles.buttonAccept]}
+                onPress={viewOfferHandler}
+              >
+                <Text style={[styles.text, styles.textAccept]}>View Offer</Text>
+              </Pressable>
+              <Pressable style={styles.button} onPress={declineHandler}>
+                <Text style={styles.text}>Decline</Text>
+              </Pressable>
+            </View>
+          )}
+          {!btnOption && (
+            <View style={styles.buttonWrapper}>
+              <Pressable
+                style={[styles.button, styles.buttonAccept]}
+                onPress={declineHandler}
+              >
+                <Text style={[styles.text, styles.textAccept]}>Delete</Text>
+              </Pressable>
+            </View>
+          )}
+          <Text style={styles.timeReceived}>{diffText}</Text>
         </View>
       </View>
     </View>
@@ -151,8 +146,8 @@ export default NotificationOrderReceived;
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
+    //flexDirection: "row",
+    //alignItems: "center",
     marginHorizontal: 10,
     marginTop: 10,
     padding: 10,
@@ -195,15 +190,17 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   textMessage: {
-    //width: '40%',
+    //width: '100%',
     fontFamily: "inter-regular",
     fontSize: 13,
     marginVertical: 5,
     color: Colors.gray,
+    //flexWrap: 'wrap'
   },
   buttonDateWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    
   },
 });
