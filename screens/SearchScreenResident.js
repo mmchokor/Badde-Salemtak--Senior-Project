@@ -62,7 +62,7 @@ function SearchScreenResident() {
 		//for now it is search by country until the backend add the type
 	const filteredListingsType = debouncedSearchTerm
 		? travelerListings.filter((listing) =>
-				listing.country
+				listing.productType
 					.toLowerCase()
 					.includes(debouncedSearchTerm.toLowerCase()),
 		  )

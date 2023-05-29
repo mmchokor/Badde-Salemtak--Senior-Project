@@ -18,7 +18,7 @@ function InputBorderStyle({
 			placeholder={placeholder}
 			value={value}
 			//placeholderTextColor={Colors.gray}
-			//multiline={true}
+			multiline={true}
 			//numberOfLines={3}
 		/>
 	);

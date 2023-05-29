@@ -21,6 +21,12 @@ const BottomTabs = createBottomTabNavigator();
 function BottomBar({ navigation }) {
   const [search, setSearch] = useState("");
 
+
+  
+
+ 
+
+ 
   function searchHandler(text) {
     console.log(search);
     setSearch(text);

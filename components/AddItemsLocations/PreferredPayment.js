@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Colors } from '../../constants/colors';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function PreferredPayment(props) {
 	const types = [
@@ -12,13 +12,25 @@ function PreferredPayment(props) {
 		},
 		{ uri: require('../../assets/PaymentsLogos/Artboard10.jpg') },
 	];
-	const [selectedOption, setSelectedOption] = useState('');
+	const [selectedOption, setSelectedOption] = useState(props.selectedOption);
+
+	console.log(props.selectedOption)
 
 	
 	function handleOptionSelect(name) {
 		setSelectedOption(name);
 		props.onSelectOption(name);
 	}
+
+	// useEffect(() => {
+	// 	console.log("here")
+	// 	if (!props.onReset) {
+	// 		setSelectedOption('')
+	// 	}
+	// }, [props.onReset])
+
+	
+
 
 	//props.onReset()
 	return (

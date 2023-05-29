@@ -134,7 +134,6 @@ async function getCompletedOrders () {
         Authorization: `Bearer ${token}`,
       },
     });
-    //console.log(response.data.data.completedOrders.reverse())
     return response.data.data.completedOrders.reverse();
   } catch (error) {
     console.error(error);

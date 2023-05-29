@@ -45,7 +45,8 @@ const HeaderHome = () => {
           
           
         />
-        <Text style={{color: '#818183', fontFamily: 'inter-regular', fontSize: 16}}>Search for an Item</Text>
+        <Text style={{color: '#818183', fontFamily: 'inter-regular', fontSize: 16}}>What are you looking for?</Text>
+        
       </Pressable>
       <View style={{paddingRight: 25, paddingLeft: 10}} > 
       {/* style={{marginLeft: 20, marginRight: 10}} */}

@@ -349,7 +349,7 @@ function AddItemBody() {
         />
       </View>
       <View>
-        <Text style={styles.textHead}>Weight</Text>
+        <Text style={styles.textHead}>Weight (in grams)</Text>
         <TextInput
           style={
             weightFlag == false
@@ -440,7 +440,7 @@ function AddItemBody() {
         onSelectOption={handlePaymentMethod}
         style={preferredPaymentFlag && styles.inputDetailsError}
         onReset={preferredPaymentFlag}
-
+        value={selectedOption}
       />
 
       {!loading && (

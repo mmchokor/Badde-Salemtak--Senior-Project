@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
 		elevation: 1,
 		backgroundColor: Colors.white,
 		borderWidth: 1,
-
+		
 	},
 });

@@ -9,13 +9,11 @@ function DetailsBody({ details, location, username, payment, userId }) {
   const navigation = useNavigation();
 
   const userInfoHandler = () => {
-    navigation.navigate('ProfileUser', {
+    navigation.navigate("ProfileUser", {
       username,
-      userId
-    })
-    
-
-  }
+      userId,
+    });
+  };
 
   return (
     <View>
@@ -37,21 +35,25 @@ function DetailsBody({ details, location, username, payment, userId }) {
               padding: 4,
             }}
           >
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Image
                 source={require("../../assets/LocationImages/location.png")}
                 style={styles.locImage}
               />
-              <Text style={styles.textBody}>{location}</Text>
+              <View style={{flex: 1}}>
+                <Text style={styles.textBody}>
+                  {location}
+                </Text>
+              </View>
             </View>
-            <FontAwesome
+            {/* <FontAwesome
               name="location-arrow"
-              size={28}
+              size={20}
               color={Colors.darkGreen}
               onPress={() => {
                 alert("karam was here");
               }}
-            />
+            /> */}
           </View>
         </BorderStyle>
         <Text style={styles.textHead}>User Info</Text>
@@ -88,11 +90,14 @@ const styles = StyleSheet.create({
   textBody: {
     fontFamily: "inter-regular",
     padding: 4,
+    flexWrap: "wrap",
+    maxWidth: "100%",
   },
   locImage: {
     width: 60,
     height: 60,
     borderRadius: 10,
+    marginRight: 10,
   },
   paymentContainer: {
     marginTop: 5,
