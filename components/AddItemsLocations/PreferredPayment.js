@@ -14,7 +14,6 @@ function PreferredPayment(props) {
 	];
 	const [selectedOption, setSelectedOption] = useState(props.selectedOption);
 
-	console.log(props.selectedOption)
 
 	
 	function handleOptionSelect(name) {
@@ -22,12 +21,7 @@ function PreferredPayment(props) {
 		props.onSelectOption(name);
 	}
 
-	// useEffect(() => {
-	// 	console.log("here")
-	// 	if (!props.onReset) {
-	// 		setSelectedOption('')
-	// 	}
-	// }, [props.onReset])
+	
 
 	
 
